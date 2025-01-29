@@ -6,10 +6,11 @@ import {Label} from "@/components/ui/label.jsx";
 import {Card} from "@/components/ui/card.jsx";
 import { signInWithEmailAndPassword, signInWithPopup  } from "firebase/auth";
 import { useState } from "react";
-import { auth, googleProvider } from "../../configs/firebase";
-import { useNavigate } from "react-router-dom"; 
+import { auth, googleProvider } from "@/configs/firebase.js";
+import {Link, useNavigate} from "react-router-dom";
+import logo from "@/components/images/logo.png";
 
-const Login = () => {
+export default function Login(){
 
     const navigate = useNavigate()  
     const [email, setEmail] = useState("");
@@ -39,18 +40,19 @@ const Login = () => {
         <Card className="w-[400px] mx-auto mt-4">
             <div className="container">
                 <div className="flex flex-col gap-4">
-                    <div className="mx-auto w-full max-w-sm rounded-md p-6 shadow">
+                    <div className="mx-auto w-full max-w-sm rounded-md p-6">
                         <div className="mb-6 flex flex-col items-center">
-                            <FaDev className='size-12'/>
+                            <img src={logo} alt="ok" className={'h-8 dark:invert'}/>
                             <p className="mb-2 text-2xl font-bold">devgram.com</p>
                         </div>
                         <div>
-                            <div className="grid gap-4">
-                                <Label>Email</Label>
-                                <Input type="email" placeholder="Enter your email" required
+                        <div className="grid gap-4">
+                                <Label htmlFor='email'>Email</Label>
+                                <Input id="email" type="email" placeholder="Enter your email" required
                                  onChange={(e) => setEmail(e.target.value)} />
-                                <Label>Password</Label>
+                                <Label htmlFor="password">Password</Label>
                                 <Input
+                                    id="password"
                                     type="password"
                                     placeholder="Enter your password"
                                     onChange={(e) => setPassword(e.target.value)}
@@ -66,14 +68,14 @@ const Login = () => {
                                 </Button>
                                 <Button variant="outline" className="w-full" onClick={handleGoogleLogin}>
                                     <FcGoogle className="mr-2 size-5" />
-                                    Sign up with Google
+                                    Sign In with Google
                                 </Button>
                             </div>
                             <div className="mx-auto mt-8 flex justify-center gap-1 text-sm text-muted-foreground">
                                 <p>Don&apos;t have an account?</p>
-                                <a href="#" className="text-primary hover:underline">
+                                <Link to="/signup" className="text-primary hover:underline">
                                     Sign up
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -83,4 +85,3 @@ const Login = () => {
     );
 };
 
-export default Login;

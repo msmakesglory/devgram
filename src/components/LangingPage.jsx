@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
+import Navbar from "@/components/navbar/NavBar.jsx";
 
 const LandingPage = () => {
     return(
-        <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/signup">Signup</Link></li>
-        </ul>
+        <>
+            This is Landing Page
+        </>
     )
 }
 
