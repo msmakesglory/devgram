@@ -15,6 +15,7 @@ const Login = () => {
     const handleLogin  = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
+            alert("login successfully")
         } catch (error) {
             alert("error on login")
             console.error(error)
