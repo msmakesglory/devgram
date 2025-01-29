@@ -7,15 +7,20 @@ import {Card} from "@/components/ui/card.jsx";
 import { signInWithEmailAndPassword, signInWithPopup  } from "firebase/auth";
 import { useState } from "react";
 import { auth, googleProvider } from "../../configs/firebase";
+import { useNavigate } from "react-router-dom"; 
 
 const Login = () => {
 
+    const navigate = useNavigate()  
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleLogin  = async () => {
         try {
-            await signInWithEmailAndPassword(auth, email, password)
-            alert("login successfully")
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            alert("login successfully");
+            localStorage.setItem("user", JSON.stringify(user));
+            navigate("/profile")
         } catch (error) {
             alert("error on login")
             console.error(error)

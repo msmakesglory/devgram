@@ -5,16 +5,21 @@ import { FaDev } from "react-icons/fa";
 import {Card} from "@/components/ui/card.jsx";
 import { Label } from "@/components/ui/label";
 import { auth,  googleProvider } from "../../configs/firebase";
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+        const navigate = useNavigate();
         const [email, setEmail] = useState("");
         const [password, setPassword] = useState("");
 
         const handlesignup = async () => {
             try{
                 await createUserWithEmailAndPassword(auth, email, password);
+                alert("Account Created successfully redirects to login");
+                navigate("/login")
+
             } catch(err) {
                 console.error(err);
             }
@@ -22,12 +27,12 @@ const SignUp = () => {
         const handleGoogleLogin = async () => {
             try {
                 await signInWithPopup(auth, googleProvider);
+                navigate("/profile")
             } catch (err) {
                 console.error(err);
             }
         }
 
-        console.log(getAuth());
 
     return (
         <Card className="w-[400px] mx-auto mt-4">
