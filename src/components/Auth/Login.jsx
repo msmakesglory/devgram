@@ -4,8 +4,31 @@ import { Input } from "@/components/ui/input";
 import {FaDev} from "react-icons/fa";
 import {Label} from "@/components/ui/label.jsx";
 import {Card} from "@/components/ui/card.jsx";
+import { signInWithEmailAndPassword, signInWithPopup  } from "firebase/auth";
+import { useState } from "react";
+import { auth, googleProvider } from "../../configs/firebase";
 
-const SignUp = () => {
+const Login = () => {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const handleLogin  = async () => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password)
+        } catch (error) {
+            alert("error on login")
+            console.error(error)
+        }
+    }
+    
+    const handleGoogleLogin = async () => {
+        try {
+            await signInWithPopup(auth, googleProvider)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <Card className="w-[400px] mx-auto mt-4">
             <div className="container">
@@ -18,11 +41,13 @@ const SignUp = () => {
                         <div>
                             <div className="grid gap-4">
                                 <Label>Email</Label>
-                                <Input type="email" placeholder="Enter your email" required />
+                                <Input type="email" placeholder="Enter your email" required
+                                 onChange={(e) => setEmail(e.target.value)} />
                                 <Label>Password</Label>
                                 <Input
                                     type="password"
                                     placeholder="Enter your password"
+                                    onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
                                 <div className="flex justify-between">
@@ -30,10 +55,10 @@ const SignUp = () => {
                                         Forgot password
                                     </a>
                                 </div>
-                                <Button type="submit" className="mt-2 w-full">
-                                    Create an account
+                                <Button type="submit" className="mt-2 w-full" onClick={handleLogin}>
+                                    Login
                                 </Button>
-                                <Button variant="outline" className="w-full">
+                                <Button variant="outline" className="w-full" onClick={handleGoogleLogin}>
                                     <FcGoogle className="mr-2 size-5" />
                                     Sign up with Google
                                 </Button>
@@ -52,4 +77,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Login;
