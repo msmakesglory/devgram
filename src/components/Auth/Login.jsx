@@ -1,20 +1,11 @@
 import { FcGoogle } from "react-icons/fc";
-
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { FaDev } from "react-icons/fa";
+import {FaDev} from "react-icons/fa";
+import {Label} from "@/components/ui/label.jsx";
 import {Card} from "@/components/ui/card.jsx";
 
-const Login = () => {
-
-    const handleLogin = () => {
-
-    }
-    const handleGoogleLogin = () => {
-
-    }
-
+const SignUp = () => {
     return (
         <Card className="w-[400px] mx-auto mt-4">
             <div className="container">
@@ -23,32 +14,26 @@ const Login = () => {
                         <div className="mb-6 flex flex-col items-center">
                             <FaDev className='size-12'/>
                             <p className="mb-2 text-2xl font-bold">devgram.com</p>
-                            <p className="text-muted-foreground">
-                                Please enter your details.
-                            </p>
                         </div>
                         <div>
                             <div className="grid gap-4">
+                                <Label>Email</Label>
                                 <Input type="email" placeholder="Enter your email" required />
-                                <div>
-                                    <Input
-                                        type="password"
-                                        placeholder="Enter your password"
-                                        required
-                                    />
+                                <Label>Password</Label>
+                                <Input
+                                    type="password"
+                                    placeholder="Enter your password"
+                                    required
+                                />
+                                <div className="flex justify-between">
+                                    <a href="#" className="text-sm text-primary hover:underline">
+                                        Forgot password
+                                    </a>
                                 </div>
-                                <Button
-                                    type="submit"
-                                    className="mt-2 w-full"
-                                    onClick={handleLogin}
-                                >
+                                <Button type="submit" className="mt-2 w-full">
                                     Create an account
                                 </Button>
-                                <Button
-                                    variant="outline"
-                                    className="w-full"
-                                    onClick={handleGoogleLogin}
-                                >
+                                <Button variant="outline" className="w-full">
                                     <FcGoogle className="mr-2 size-5" />
                                     Sign up with Google
                                 </Button>
@@ -67,21 +52,4 @@ const Login = () => {
     );
 };
 
-export default Login;
-{/*<div className="flex justify-between">*/}
-{/*    <div className="flex items-center space-x-2">*/}
-{/*        <Checkbox*/}
-{/*            id="remember"*/}
-{/*            className="border-muted-foreground"*/}
-{/*        />*/}
-{/*        <label*/}
-{/*            htmlFor="remember"*/}
-{/*            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"*/}
-{/*        >*/}
-{/*            Remember me*/}
-{/*        </label>*/}
-{/*    </div>*/}
-{/*    <a href="#" className="text-sm text-primary hover:underline">*/}
-{/*        Forgot password*/}
-{/*    </a>*/}
-// </div>
+export default SignUp;

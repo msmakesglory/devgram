@@ -1,13 +1,34 @@
 import { FcGoogle } from "react-icons/fc";
-
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import {FaDev} from "react-icons/fa";
-import {Label} from "@/components/ui/label.jsx";
+import { FaDev } from "react-icons/fa";
 import {Card} from "@/components/ui/card.jsx";
+import { Label } from "@/components/ui/label";
+import { auth, googleProvider } from "../../configs/firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { useState } from "react";
 
 const SignUp = () => {
+        const [email, setEmail] = useState("");
+        const [password, setPassword] = useState("");
+
+        const handlesignup = async () => {
+            try{
+                await createUserWithEmailAndPassword(auth, email, password);
+                console.log(auth.currentUser.email);
+            } catch(err) {
+                console.error(err);
+            }
+        }
+        const handleGoogleLogin = async () => {
+            try {
+                await signInWithPopup(auth, googleProvider);
+                console.log(auth.currentUser.email)
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
     return (
         <Card className="w-[400px] mx-auto mt-4">
             <div className="container">
@@ -16,31 +37,36 @@ const SignUp = () => {
                         <div className="mb-6 flex flex-col items-center">
                             <FaDev className='size-12'/>
                             <p className="mb-2 text-2xl font-bold">devgram.com</p>
-                            <p className="text-muted-foreground">
-                                Please enter your details.
-                            </p>
                         </div>
                         <div>
                             <div className="grid gap-4">
-                                <Label>Full Name</Label>
-                                <Input type='text' placeholder="Enter your Full Name" required />
                                 <Label>Email</Label>
-                                <Input type="email" placeholder="Enter your email" required />
-                                <Label>Password</Label>
                                 <Input
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    required
-                                />
-                                <div className="flex justify-between">
-                                    <a href="#" className="text-sm text-primary hover:underline">
-                                        Forgot password
-                                    </a>
+                                       type="email" 
+                                       placeholder="Enter your email"  
+                                       onChange = {(e) =>  setEmail(e.target.value)} 
+                                       required/>
+                                <div>
+                                <Label>Password</Label>
+                                    <Input
+                                        type="password"
+                                        placeholder="Enter your password"
+                                        onChange = {(e) => setPassword(e.target.value)}
+                                        required
+                                    />
                                 </div>
-                                <Button type="submit" className="mt-2 w-full">
+                                <Button
+                                    type="submit"
+                                    className="mt-2 w-full"
+                                    onClick={handlesignup}
+                                >
                                     Create an account
                                 </Button>
-                                <Button variant="outline" className="w-full">
+                                <Button
+                                    variant="outline"
+                                    className="w-full"
+                                    onClick={handleGoogleLogin}
+                                >
                                     <FcGoogle className="mr-2 size-5" />
                                     Sign up with Google
                                 </Button>
@@ -60,3 +86,20 @@ const SignUp = () => {
 };
 
 export default SignUp;
+{/*<div className="flex justify-between">*/}
+{/*    <div className="flex items-center space-x-2">*/}
+{/*        <Checkbox*/}
+{/*            id="remember"*/}
+{/*            className="border-muted-foreground"*/}
+{/*        />*/}
+{/*        <label*/}
+{/*            htmlFor="remember"*/}
+{/*            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"*/}
+{/*        >*/}
+{/*            Remember me*/}
+{/*        </label>*/}
+{/*    </div>*/}
+{/*    <a href="#" className="text-sm text-primary hover:underline">*/}
+{/*        Forgot password*/}
+{/*    </a>*/}
+// </div>
