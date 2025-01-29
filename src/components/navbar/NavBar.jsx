@@ -13,6 +13,7 @@ import {Link} from "react-router-dom";
 import {ThemeProvider, useTheme} from "@/context/ThemeContext.js";
 import ThemeChanger from "@/components/navbar/Theme.jsx";
 import React, {useEffect} from "react";
+import {Separator} from "@/components/ui/separator.jsx";
 const Navbar = () => {
     const [theme,setTheme] = React.useState("dark");
 
@@ -31,7 +32,7 @@ const Navbar = () => {
     return (
         <ThemeProvider value={{theme,toggleTheme}}>
             
-        <section className="py-4 px-4 lg:px-16">
+        <section className="py-4 px-4 lg:px-16 fixed top-0 left-0 right-0">
             <div className="container">
                 <nav className="hidden justify-between lg:flex">
                     <div className="flex items-center gap-6">
@@ -97,6 +98,7 @@ const Navbar = () => {
                 </div>
             </div>
         </section>
+            <Separator />
         </ThemeProvider>
     );
 };
