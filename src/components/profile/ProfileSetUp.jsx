@@ -4,25 +4,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useProfileContext } from "../../context/ProfileContext";
-import { FaUser as User
-    ,FaBriefcase as Briefcase
-    , FaMapPin as MapPin
-    , FaCalendar as Calendar
-    ,FaGlobe as Globe
-    ,FaGithub as Github
-    ,FaLinkedin as Linkedin
-    ,FaBook as Book
-    ,FaCode as Code
-} from "react-icons/fa";
-import { set } from "date-fns";
-import { Data } from "@icon-park/react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs.jsx";
+import { Label } from "@/components/ui/label.jsx";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.jsx";
+import { Textarea } from "@/components/ui/textarea.jsx";
+
 const schema = z.object({
     name: z.string().min(1, "Name is required"),
     location: z.string().min(1, "Location is required"),
-    birthday: z.string().min(1, "Birthday is required"),
+    birthday: z.string().min(1, "Birthday is required")
+                        .refine((date) => new Date(date) <= new Date(), "Birthday cannot be in the future"),
     summary: z.string().optional(),
     website: z.string().url("Invalid URL").optional(),
     github: z.string().url("Invalid URL").optional(),
@@ -34,131 +28,111 @@ const schema = z.object({
 
 export default function ProfileSetup() {
     const navigate = useNavigate();
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState("basic");
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm({ resolver: zodResolver(schema) });
-    const {setUserDetails} = useProfileContext();
-
-    const nextStep = () => setStep(step + 1);
-    const prevStep = () => setStep(step - 1);
+    const { setUserDetails } = useProfileContext();
 
     const onSubmit = (data) => {
-        setUserDetails(data)
+        setUserDetails(data);
         navigate("/profile");
     };
 
+    const handleValidation = () => {
+        if (errors.name || errors.location || errors.birthday) setStep("basic");
+        else if (errors.website || errors.github || errors.linkedin) setStep("pro");
+        else if (errors.work || errors.education || errors.skills) setStep("exp");
+    };
+
     return (
-        <div className="flex justify-center items-center h-screen">
-            <Card className="w-full max-w-md p-6 shadow-lg">
-                <CardContent>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        {step === 1 && (
-                            <div>
-                                <h2 className="text-xl font-semibold mb-4">Basic Details</h2>
-                                <div className="space-y-3">
-                                    <label className="block">Name</label>
-                                    <div className="flex items-center gap-2">
-                                        <User className="text-gray-500" />
-                                        <Input {...register("name")} placeholder="Full Name" />
-                                    </div>
-                                    {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+        <Card className="lg:w-[400px] lg:mx-auto mx-2 p-2">
+            <Tabs value={step}>
+                <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="basic" onClick={() => setStep("basic")}>Basic</TabsTrigger>
+                    <TabsTrigger value="pro" onClick={() => setStep("pro")}>Professional</TabsTrigger>
+                    <TabsTrigger value="exp" onClick={() => setStep("exp")}>Experience</TabsTrigger>
+                </TabsList>
 
-                                    <label className="block">Location</label>
-                                    <div className="flex items-center gap-2">
-                                        <MapPin className="text-gray-500" />
-                                        <Input {...register("location")} placeholder="Location" />
-                                    </div>
-                                    {errors.location && <p className="text-red-500 text-sm">{errors.location.message}</p>}
+                <form onSubmit={handleSubmit(onSubmit, handleValidation)}>
+                    <TabsContent value="basic">
+                        <CardHeader>
+                            <CardTitle>Basic Details</CardTitle>
+                            <CardDescription>Enter your basic details</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <Label>Name</Label>
+                            <Input {...register("name")} placeholder="Full Name" />
+                            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
-                                    <label className="block">Birthday</label>
-                                    <div className="flex items-center gap-2">
-                                        <Calendar className="text-gray-500" />
-                                        <Input {...register("birthday")} type="date" />
-                                    </div>
-                                    {errors.birthday && <p className="text-red-500 text-sm">{errors.birthday.message}</p>}
+                            <Label>Location</Label>
+                            <Input {...register("location")} placeholder="Location" />
+                            {errors.location && <p className="text-red-500">{errors.location.message}</p>}
 
-                                    <Button type="button" onClick={nextStep} className="w-full">Next</Button>
-                                </div>
+                            <Label>Birthday</Label>
+                            <Input {...register("birthday")} type="date" defaultValue={new Date().toISOString().split("T")[0]} />
+                            {errors.birthday && <p className="text-red-500">{errors.birthday.message}</p>}
+
+                            <div className={"flex justify-end"}>
+                                <Button type="button" onClick={() => setStep("pro")}>Next</Button>
                             </div>
-                        )}
+                        </CardContent>
+                    </TabsContent>
 
-                        {step === 2 && (
-                            <div>
-                                <h2 className="text-xl font-semibold mb-4">Professional Details</h2>
-                                <div className="space-y-3">
-                                    <label className="block">Summary</label>
-                                    <div className="flex items-center gap-2">
-                                        <Briefcase className="text-gray-500" />
-                                        <Input {...register("summary")} placeholder="Professional Summary" />
-                                    </div>
+                    <TabsContent value="pro">
+                        <CardHeader>
+                            <CardTitle>Professional Info</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <Label>Summary</Label>
+                            <Textarea {...register("summary")} placeholder="Summary" />
 
-                                    <label className="block">Personal Website</label>
-                                    <div className="flex items-center gap-2">
-                                        <Globe className="text-gray-500" />
-                                        <Input {...register("website")} placeholder="Personal Website" />
-                                    </div>
-                                    {errors.website && <p className="text-red-500 text-sm">{errors.website.message}</p>}
+                            <Label>Personal Website</Label>
+                            <Input {...register("website")} placeholder="Website" />
+                            {errors.website && <p className="text-red-500">{errors.website.message}</p>}
 
-                                    <label className="block">GitHub</label>
-                                    <div className="flex items-center gap-2">
-                                        <Github className="text-gray-500" />
-                                        <Input {...register("github")} placeholder="GitHub URL" />
-                                    </div>
-                                    {errors.github && <p className="text-red-500 text-sm">{errors.github.message}</p>}
+                            <Label>LinkedIn</Label>
+                            <Input {...register("linkedin")} placeholder="LinkedIn" />
+                            {errors.linkedin && <p className="text-red-500">{errors.linkedin.message}</p>}
 
-                                    <label className="block">LinkedIn</label>
-                                    <div className="flex items-center gap-2">
-                                        <Linkedin className="text-gray-500" />
-                                        <Input {...register("linkedin")} placeholder="LinkedIn URL" />
-                                    </div>
-                                    {errors.linkedin && <p className="text-red-500 text-sm">{errors.linkedin.message}</p>}
+                            <Label>GitHub</Label>
+                            <Input {...register("github")} placeholder="GitHub" />
+                            {errors.github && <p className="text-red-500">{errors.github.message}</p>}
 
-                                    <div className="flex justify-between">
-                                        <Button type="button" onClick={prevStep}>Back</Button>
-                                        <Button type="button" onClick={nextStep}>Next</Button>
-                                    </div>
-                                </div>
+                            <div className="flex justify-between">
+                                <Button type="button" onClick={() => setStep("basic")}>Back</Button>
+                                <Button type="button" onClick={() => setStep("exp")}>Next</Button>
                             </div>
-                        )}
+                        </CardContent>
+                    </TabsContent>
 
-                        {step === 3 && (
-                            <div>
-                                <h2 className="text-xl font-semibold mb-4">Experience</h2>
-                                <div className="space-y-3">
-                                    <label className="block">Work Experience</label>
-                                    <div className="flex items-center gap-2">
-                                        <Briefcase className="text-gray-500" />
-                                        <Input {...register("work")} placeholder="Work Experience" />
-                                    </div>
-                                    {errors.work && <p className="text-red-500 text-sm">{errors.work.message}</p>}
+                    <TabsContent value="exp">
+                        <CardHeader>
+                            <CardTitle>Experience</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <Label>Work</Label>
+                            <Input {...register("work")} placeholder="Work" />
+                            {errors.work && <p className="text-red-500">{errors.work.message}</p>}
 
-                                    <label className="block">Education</label>
-                                    <div className="flex items-center gap-2">
-                                        <Book className="text-gray-500" />
-                                        <Input {...register("education")} placeholder="Education" />
-                                    </div>
-                                    {errors.education && <p className="text-red-500 text-sm">{errors.education.message}</p>}
+                            <Label>Education</Label>
+                            <Input {...register("education")} placeholder="Education" />
+                            {errors.education && <p className="text-red-500">{errors.education.message}</p>}
 
-                                    <label className="block">Tech Skills</label>
-                                    <div className="flex items-center gap-2">
-                                        <Code className="text-gray-500" />
-                                        <Input {...register("skills")} placeholder="Tech Skills" />
-                                    </div>
-                                    {errors.skills && <p className="text-red-500 text-sm">{errors.skills.message}</p>}
+                            <Label>Skills</Label>
+                            <Input {...register("skills")} placeholder="Skills" />
+                            {errors.skills && <p className="text-red-500">{errors.skills.message}</p>}
 
-                                    <div className="flex justify-between">
-                                        <Button type="button" onClick={prevStep}>Back</Button>
-                                        <Button type="submit" className="bg-green-500">Complete Profile</Button>
-                                    </div>
-                                </div>
+                            <div className="flex justify-between">
+                                <Button type="button" onClick={() => setStep("pro")}>Back</Button>
+                                <Button type="submit">Complete Profile</Button>
                             </div>
-                        )}
-                    </form>
-                </CardContent>
-            </Card>
-        </div>
+                        </CardContent>
+                    </TabsContent>
+                </form>
+            </Tabs>
+        </Card>
     );
 }

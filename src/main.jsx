@@ -9,6 +9,7 @@ import Login from "@/components/auth/Login.jsx";
 import Profile from "@/components/profile/profile.jsx"
 import ProfileSetup from "@/components/profile/ProfileSetUp.jsx";
 import { ProfileProvider } from './context/profileContext.jsx';
+import ProfileUpdate from "@/components/profile/ProfileUpdate.jsx";
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -19,8 +20,9 @@ createRoot(document.getElementById('root')).render(
                         <Route path="" element={<LandingPage />} />
                         <Route path="login" element={<Login />} />
                         <Route path="signup" element={<SignUp />} />
-                        <Route path="profile" element={<Profile />} />
-                        <Route path="profileSetup" element={<ProfileSetup />}/>
+                        <Route path="/p" element={<Profile />} />
+                        <Route path="/p/setup" element={<ProfileSetup />}/>
+                        <Route path="/p/update" element={<ProfileUpdate />}/>
                     </Route>
                 </Routes>
             </ProfileProvider>

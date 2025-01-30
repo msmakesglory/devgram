@@ -9,30 +9,15 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet.jsx";
-import {Link} from "react-router-dom";
-import {ThemeProvider, useTheme} from "@/context/ThemeContext.js";
+import { Link } from "react-router-dom";
+import { ThemeProvider, useTheme } from "@/context/ThemeContext.js";
 import ThemeChanger from "@/components/navbar/Theme.jsx";
-import React, {useEffect} from "react";
-import {Separator} from "@/components/ui/separator.jsx";
+import React, { useEffect } from "react";
+import { Separator } from "@/components/ui/separator.jsx";
+
 const Navbar = () => {
-    const [theme,setTheme] = React.useState("light");
-
-    const toggleTheme = ()=>{
-        if(theme === "light"){
-            setTheme("dark");
-        }else {
-            setTheme("light");
-        }
-    }
-    useEffect(() => {
-        document.querySelector("html").classList.remove("light","dark");
-        document.querySelector("html").classList.add(theme);
-    },[theme, toggleTheme])
-
     return (
-        <ThemeProvider value={{theme,toggleTheme}}>
-            
-        <section className="py-4 px-4 lg:px-16 fixed top-0 left-0 right-0">
+        <section className="py-4 px-4 lg:px-16 fixed top-0 left-0 right-0 backdrop-blur-sm bg-white/20 dark:bg-black/20 border-b border-white/10 dark:border-black/10 shadow-md">
             <div className="container">
                 <nav className="hidden justify-between lg:flex">
                     <div className="flex items-center gap-6">
@@ -98,8 +83,6 @@ const Navbar = () => {
                 </div>
             </div>
         </section>
-            <Separator />
-        </ThemeProvider>
     );
 };
 

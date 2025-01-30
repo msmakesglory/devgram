@@ -12,11 +12,37 @@ import { useNavigate } from "react-router-dom";
 import logo from "./../images/logo.png";
 
 // Define Zod schema
-const signUpSchema = z.object({
-    email: z.string().email({ message: "Invalid email address" }),
-    password: z.string()
-        .min(6, { message: "Password must be at least 6 characters long" })
-        .max(20, { message: "Password must be at most 20 characters long" }),
+const signUpSchema = z
+    .object({
+        username: z.string().min(3, { message: "Username must be at least 3 characters" }),
+        email: z.string().email({ message: "Invalid email address" }),
+        password: z
+            .string()
+            .min(6, { message: "Password must be at least 6 characters long" })
+            .max(20, { message: "Password must be at most 20 characters long" }),
+        confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords must match",
+        path: ["confirmPassword"],
+    });
+
+export const validateUsername = async (username) => {
+    // check from db username is taken or not
+    // return true | false
+};
+
+// validity function uses validateUsername to validate username
+
+const asyncUsernameSchema = signUpSchema.superRefine(async (data, ctx) => {
+    const isAvailable = await validateUsername(data.username);
+    if (!isAvailable) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Username is already taken",
+            path: ["username"],
+        });
+    }
 });
 
 export default function SignUp() {
@@ -60,6 +86,12 @@ export default function SignUp() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                {/* Username */}
+                <div>
+                    <Label>Username</Label>
+                    <Input type="text" placeholder="Enter your username" {...register("username")} />
+                    {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
+                </div>
                 {/* Email Field */}
                 <div>
                     <Label>Email</Label>
@@ -72,6 +104,13 @@ export default function SignUp() {
                     <Label>Password</Label>
                     <Input type="password" placeholder="Enter your password" {...register("password")} />
                     {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+                </div>
+
+                {/* Confirm Password */}
+                <div>
+                    <Label>Confirm Password</Label>
+                    <Input type="password" placeholder="Confirm your password" {...register("confirmPassword")} />
+                    {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>}
                 </div>
 
                 {/* Submit Button */}
