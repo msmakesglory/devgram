@@ -15,7 +15,7 @@ import ThemeChanger from "@/components/navbar/Theme.jsx";
 import React, {useEffect} from "react";
 import {Separator} from "@/components/ui/separator.jsx";
 const Navbar = () => {
-    const [theme,setTheme] = React.useState("dark");
+    const [theme,setTheme] = React.useState("light");
 
     const toggleTheme = ()=>{
         if(theme === "light"){
