@@ -5,6 +5,7 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 import { FaUser as User
     ,FaBriefcase as Briefcase
     , FaMapPin as MapPin
@@ -29,6 +30,7 @@ const schema = z.object({
 });
 
 export default function ProfileSetup() {
+    const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const {
         register,
@@ -40,7 +42,7 @@ export default function ProfileSetup() {
     const prevStep = () => setStep(step - 1);
 
     const onSubmit = (data) => {
-        console.log(data);
+        navigate("/profile")
     };
 
     return (

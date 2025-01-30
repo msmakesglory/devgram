@@ -35,7 +35,7 @@ export default function Login() {
             const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
             localStorage.setItem("user", JSON.stringify(userCredential.user));
             alert("Login successful! Redirecting...");
-            navigate("/profile");
+            navigate("/profileSetup");
         } catch (error) {
             console.error(error);
             alert("Login failed. Please check your credentials.");
@@ -46,7 +46,7 @@ export default function Login() {
     const handleGoogleLogin = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate("/profile");
+            navigate("profileSetup");
         } catch (error) {
             console.error(error);
         }
