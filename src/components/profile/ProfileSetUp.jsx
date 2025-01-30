@@ -42,7 +42,7 @@ export default function ProfileSetup() {
     const prevStep = () => setStep(step - 1);
 
     const onSubmit = (data) => {
-        navigate("/profile")
+        navigate("/profile");
     };
 
     return (
