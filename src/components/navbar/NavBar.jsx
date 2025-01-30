@@ -47,7 +47,7 @@ const Navbar = () => {
                     </div>
                     <div className="flex gap-2">
                         <Button variant="outline">
-                            <Link to='/login'>Login</Link>
+                            <Link to='/login'>Sign in</Link>
                         </Button>
                         <Button>
                             <Link to='/signup'>Sign Up</Link>
@@ -86,7 +86,7 @@ const Navbar = () => {
                                 </SheetHeader>
                                 <div className="flex flex-col gap-3">
                                     <Button variant="outline" >
-                                        <Link to='/login'>Login</Link>
+                                        <Link to='/login'>Sign in</Link>
                                     </Button>
                                     <Button>
                                         <Link to='/signup'>Sign Up</Link>

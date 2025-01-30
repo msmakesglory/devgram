@@ -35,7 +35,7 @@ export default function Login() {
             const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
             localStorage.setItem("user", JSON.stringify(userCredential.user));
             alert("Login successful! Redirecting...");
-            navigate("/profileSetup");
+            navigate("/profile");
         } catch (error) {
             console.error(error);
             alert("Login failed. Please check your credentials.");
@@ -46,9 +46,9 @@ export default function Login() {
     const handleGoogleLogin = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate("profileSetup");
+            navigate("/profile");
         } catch (error) {
-            console.error(error);
+            console.error(error);   
         }
     };
 
@@ -83,7 +83,7 @@ export default function Login() {
                     </a>
                 </div>
                 <Button type="submit" className="w-full">
-                    Login
+                    Sign in
                 </Button>
 
                 {/* Google Sign-In */}
@@ -95,7 +95,7 @@ export default function Login() {
 
             {/* Signup Link */}
             <div className="mt-6 text-center text-sm">
-                Don't have an account?
+                Don&apos;t have an account?
                 <Link to="/signup" className="text-primary hover:underline ml-1">
                     Sign up
                 </Link>
