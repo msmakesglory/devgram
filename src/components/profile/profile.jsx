@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 
+
 const Profile = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();

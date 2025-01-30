@@ -8,19 +8,23 @@ import SignUp from "@/components/auth/SignUp.jsx";
 import Login from "@/components/auth/Login.jsx";
 import Profile from "@/components/profile/profile.jsx"
 import ProfileSetup from "@/components/profile/ProfileSetUp.jsx";
+// import { MyNameProvider } from './context/helloContext.jsx';
+import { ProfileProvider } from './context/profileContext.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<App />}>
-                    <Route path="" element={<LandingPage />} />
-                    <Route path="login" element={<Login />} />
-                    <Route path="signup" element={<SignUp />} />
-                    <Route path="profile" element={<Profile />} />
-                    <Route path="setup" element={<ProfileSetup />}/>
-                </Route>
-            </Routes>
+            <ProfileProvider>
+                <Routes>
+                    <Route path="/" element={<App />}>
+                        <Route path="" element={<LandingPage />} />
+                        <Route path="login" element={<Login />} />
+                        <Route path="signup" element={<SignUp />} />
+                        <Route path="profile" element={<Profile />} />
+                        <Route path="setup" element={<ProfileSetup />}/>
+                    </Route>
+                </Routes>
+            </ProfileProvider>
         </BrowserRouter>
     </StrictMode>,
 )
