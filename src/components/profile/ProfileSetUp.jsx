@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { useProfileContext } from "../../context/ProfileContext";
 import { FaUser as User
     ,FaBriefcase as Briefcase
     , FaMapPin as MapPin
@@ -16,6 +17,8 @@ import { FaUser as User
     ,FaBook as Book
     ,FaCode as Code
 } from "react-icons/fa";
+import { set } from "date-fns";
+import { Data } from "@icon-park/react";
 const schema = z.object({
     name: z.string().min(1, "Name is required"),
     location: z.string().min(1, "Location is required"),
@@ -37,11 +40,13 @@ export default function ProfileSetup() {
         handleSubmit,
         formState: { errors },
     } = useForm({ resolver: zodResolver(schema) });
+    const {setUserDetails} = useProfileContext();
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
 
     const onSubmit = (data) => {
+        setUserDetails(data)
         navigate("/profile");
     };
 
