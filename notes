@@ -3,6 +3,7 @@ first sign up
 
 personal info
     *name
+    *email (generated auto after sign up)
     *gender
     *location
     *birthday
