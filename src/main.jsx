@@ -10,14 +10,17 @@ import Profile from "@/components/profile/profile.jsx"
 import ProfileSetup from "@/components/profile/ProfileSetUp.jsx";
 import { ProfileProvider } from './context/profileContext.jsx';
 import ProfileUpdate from "@/components/profile/ProfileUpdate.jsx";
+// import { DemoProvider } from './context/demoContext.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <BrowserRouter>
             <ProfileProvider>
+            {/* <DemoProvider > */}
                 <Routes>
                     <Route path="/" element={<App />}>
                         <Route path="" element={<LandingPage />} />
+                        
                         <Route path="login" element={<Login />} />
                         <Route path="signup" element={<SignUp />} />
                         <Route path="/p" element={<Profile />} />
@@ -25,6 +28,7 @@ createRoot(document.getElementById('root')).render(
                         <Route path="/p/update" element={<ProfileUpdate />}/>
                     </Route>
                 </Routes>
+            {/* </DemoProvider> */}
             </ProfileProvider>
         </BrowserRouter>
     </StrictMode>,

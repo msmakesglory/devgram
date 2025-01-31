@@ -46,7 +46,7 @@ export default function Login() {
     const handleGoogleLogin = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate("/profile");
+            navigate("/p");
         } catch (error) {
             console.error(error);   
         }

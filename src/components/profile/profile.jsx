@@ -1,5 +1,5 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../configs/firebase"
+import { auth } from "../../configs/firebase";
 import { useState, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { Button } from "@/components/ui/button";
