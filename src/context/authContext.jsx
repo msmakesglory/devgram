@@ -37,16 +37,19 @@ export const AuthProvider = ({ children }) => {
     }
 
     const handleCreateUser = async (data) => {
-        console.log("hey, i am working");
-        try{
+        console.log("Creating user..."); // Debug log
+        try {
             const newUser = await createUserWithEmailAndPassword(auth, data.email, data.password);
             const user = newUser.user;
             setUserDetails({...userDetails, uid: user.uid});
             navigate("/p");
-        } catch(err) {
-            console.error(err);
+            return null; // Return null if no errors
+        } catch (err) {
+            console.error("Signup error:", err.message);
+            return err.message; // Return error message
         }
-    }
+    };
+
 
     const handleSignout = async () => {
 

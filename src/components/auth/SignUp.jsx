@@ -12,7 +12,6 @@ import { useAuthContext } from "../../context/authContext";
 // Define Zod schema
 const signUpSchema = z
     .object({
-        username: z.string().min(3, { message: "Username must be at least 3 characters" }),
         email: z.string().email({ message: "Invalid email address" }),
         password: z
             .string()
@@ -24,19 +23,6 @@ const signUpSchema = z
         message: "Passwords must match",
         path: ["confirmPassword"],
     });
-
-
-
-const asyncUsernameSchema = signUpSchema.superRefine(async (data, ctx) => {
-    const isAvailable = await validateUsername(data.username);
-    if (!isAvailable) {
-        ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: "Username is already taken",
-            path: ["username"],
-        });
-    }
-});
 
 export default function SignUp() {
     const { handleGoogleLogin, handleCreateUser } = useAuthContext(); 
@@ -51,8 +37,17 @@ export default function SignUp() {
 
     // Handle sign-up
     const handleOnSubmit = async (data) => {
-        handleCreateUser(data);
+        console.log("Submitting form data:", data); // Debug log
+        const errorMessage = await handleCreateUser(data);
+
+        if (errorMessage) {
+            alert(errorMessage); // Display Firebase error
+        } else {
+            console.log("User created successfully!");
+        }
     };
+
+
 
 
 
