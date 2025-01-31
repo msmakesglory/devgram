@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
             const user = loggedUser.user;
             if(user){
                 setUserDetails({...userDetails, uid: user.uid});
-                navigate("/p");
+                navigate(`/p/${user.uid}`);
             }
         } catch(err) {
             console.error(err);
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         const user = loggedUser.user;
             if(user){
                 setUserDetails({...userDetails, uid: user.uid});
-                navigate("/p");
+                navigate(`/p/${user.uid}`);
             }
         } catch (err) {
             console.error(err);
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
             const newUser = await createUserWithEmailAndPassword(auth, data.email, data.password);
             const user = newUser.user;
             setUserDetails({...userDetails, uid: user.uid});
-            navigate("/p");
+            navigate(`/p/${user.uid}`);
             return null; // Return null if no errors
         } catch (err) {
             console.error("Signup error:", err.message);

@@ -1,24 +1,22 @@
-import { auth } from "../../configs/firebase";
 import { Button } from "@/components/ui/button";
 import { useProfileContext } from "../../context/ProfileContext";
 import { useAuthContext } from "../../context/authContext";
+import { Link } from "react-router-dom";
+
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
-  const { handleSignout } = useAuthContext();
+  const { handleSignout } = useAuthContext()
+  if (!userDetails.uid) {
+    return <p>user not signed in</p>
+  }
 
   return (
     <div>
       <h1>Profile Page</h1>
-      {userDetails?.uid ? (
-        <div>
-          <h1><b>{userDetails.uid}</b></h1>
-          <p><strong>Email:</strong> {auth.currentUser?.email || "No email available"}</p>
-        </div>
-      ) : (
-        <p>No user logged in</p>
-      )}
-      <Button onClick={() => handleSignout()}>Logout</Button>
+      <h2>{userDetails.uid}</h2>
+      <Button><Link to={"/p/update"}>Update Profile</Link></Button>
+      <Button onClick={handleSignout}>Signout</Button>
     </div>
   );
 };
