@@ -6,10 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card.jsx";
 import { Label } from "@/components/ui/label";
-import { auth, googleProvider } from "../../configs/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import logo from "./../images/logo.png";
+import { useAuthContext } from "../../context/authContext";
 
 // Define Zod schema
 const signUpSchema = z
@@ -27,12 +25,7 @@ const signUpSchema = z
         path: ["confirmPassword"],
     });
 
-export const validateUsername = async (username) => {
-    // check from db username is taken or not
-    // return true | false
-};
 
-// validity function uses validateUsername to validate username
 
 const asyncUsernameSchema = signUpSchema.superRefine(async (data, ctx) => {
     const isAvailable = await validateUsername(data.username);
@@ -46,8 +39,7 @@ const asyncUsernameSchema = signUpSchema.superRefine(async (data, ctx) => {
 });
 
 export default function SignUp() {
-    const navigate = useNavigate();
-
+    const { handleGoogleLogin, handleCreateUser } = useAuthContext(); 
     // useForm with Zod validation
     const {
         register,
@@ -58,25 +50,11 @@ export default function SignUp() {
     });
 
     // Handle sign-up
-    const onSubmit = async (data) => {
-        try {
-            await createUserWithEmailAndPassword(auth, data.email, data.password);
-            alert("Account Created Successfully! Redirecting to login...");
-            navigate("/p");
-        } catch (err) {
-            console.error(err);
-        }
+    const handleOnSubmit = async (data) => {
+        handleCreateUser(data);
     };
 
-    // Handle Google Login
-    const handleGoogleLogin = async () => {
-        try {
-            await signInWithPopup(auth, googleProvider);
-            navigate("/p");
-        } catch (err) {
-            console.error(err);
-        }
-    };
+
 
     return (
         <Card className="w-[400px] mx-auto mt-4 p-6">
@@ -85,13 +63,7 @@ export default function SignUp() {
                 <p className="mb-4 text-2xl font-bold">devgram.com</p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                {/* Username */}
-                <div>
-                    <Label>Username</Label>
-                    <Input type="text" placeholder="Enter your username" {...register("username")} />
-                    {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
-                </div>
+            <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-4">
                 {/* Email Field */}
                 <div>
                     <Label>Email</Label>

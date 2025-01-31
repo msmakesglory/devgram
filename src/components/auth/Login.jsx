@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/configs/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "@/components/images/logo.png";
 import { useAuthContext } from "../../context/authContext";
@@ -20,35 +18,20 @@ const loginSchema = z.object({
 
 export default function Login() {
     const navigate = useNavigate();
-    const { handleGoogleLogin } = useAuthContext(); 
+    const { handleGoogleLogin, handleEmailPassWordLogin } = useAuthContext(); 
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors }, 
     } = useForm({
         resolver: zodResolver(loginSchema),
     });
 
     const onSubmit = async (data) => {
-        try {
-            const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
-            navigate("/profile");
-        } catch (error) {
-            console.error(error);
-            alert("Login failed. Please check your credentials.");
-        }
+        handleEmailPassWordLogin(data);
     };
 
-    // const handleGoogleLogin = async () => {
-    //     try {
-    //         await signInWithPopup(auth, googleProvider);
-    //         console.log(auth.currentUser.uid)
-    //         navigate("/p"); 
-    //     } catch (error) {
-    //         console.error(error);   
-    //     }
-    // };
 
     return (
         <Card className="w-[400px] mx-auto mt-4 p-6">

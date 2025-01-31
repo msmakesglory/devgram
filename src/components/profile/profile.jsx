@@ -10,9 +10,9 @@ const Profile = () => {
   return (
     <div>
       <h1>Profile Page</h1>
-      {userDetails?.name ? (
+      {userDetails?.uid ? (
         <div>
-          <h1><b>{userDetails.name}</b></h1>
+          <h1><b>{userDetails.uid}</b></h1>
           <p><strong>Email:</strong> {auth.currentUser?.email || "No email available"}</p>
         </div>
       ) : (
