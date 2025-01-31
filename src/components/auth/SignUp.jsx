@@ -62,7 +62,7 @@ export default function SignUp() {
         try {
             await createUserWithEmailAndPassword(auth, data.email, data.password);
             alert("Account Created Successfully! Redirecting to login...");
-            navigate("/profileSetup");
+            navigate("/p");
         } catch (err) {
             console.error(err);
         }
@@ -72,7 +72,7 @@ export default function SignUp() {
     const handleGoogleLogin = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate("/profile");
+            navigate("/p");
         } catch (err) {
             console.error(err);
         }
