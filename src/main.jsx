@@ -24,7 +24,7 @@ createRoot(document.getElementById('root')).render(
                             <Route path="login" element={<Login />} />
                             <Route path="signup" element={<SignUp />} />
                             <Route path="/p" element={<Profile />} />
-                            <Route path="/p/setup" element={<ProfileSetup />}/>
+                            {/* <Route path="/p/setup" element={<ProfileSetup />}/> */}
                             <Route path="/p/update" element={<ProfileUpdate />}/>
                         </Route>
                     </Routes>

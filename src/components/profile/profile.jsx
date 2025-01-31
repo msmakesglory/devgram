@@ -5,7 +5,7 @@ import { useAuthContext } from "../../context/authContext";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
-  const { signout } = useAuthContext();
+  const { handleSignout } = useAuthContext();
 
   return (
     <div>
@@ -18,7 +18,7 @@ const Profile = () => {
       ) : (
         <p>No user logged in</p>
       )}
-      <Button onClick={() => signout()}>Logout</Button>
+      <Button onClick={() => handleSignout()}>Logout</Button>
     </div>
   );
 };
