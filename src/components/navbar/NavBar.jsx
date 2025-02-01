@@ -85,16 +85,20 @@ const Navbar = () => {
                                     </SheetTitle>
                                 </SheetHeader>
                                 <div className="flex flex-col gap-3">
-                                    <Link to='/login'>
-                                        <Button variant="outline">
-                                            Sign in
-                                        </Button>
-                                    </Link>
-                                    <Link to='/signup'>
-                                        <Button>
-                                            Sign Up
-                                        </Button>
-                                    </Link>
+                                {!userlogged ? (
+                                    <>
+                                    <Button variant="outline">
+                                        <Link to='/login'>Sign in</Link>
+                                    </Button>
+                                    <Button>
+                                        <Link to='/signup'>Sign Up</Link>
+                                    </Button>
+                                    </>
+                                    ) : (
+                                    <Button onClick={handleSignout}>
+                                        Sign Out
+                                    </Button>
+                                    )}
                                 </div>
                             </SheetContent>
                         </Sheet>

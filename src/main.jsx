@@ -7,7 +7,6 @@ import LandingPage from "@/components/LangingPage.jsx";
 import SignUp from "@/components/auth/SignUp.jsx";
 import Login from "@/components/auth/Login.jsx";
 import Profile from "@/components/profile/Profile.jsx"
-import ProfileSetup from "@/components/profile/ProfileSetUp.jsx";
 import { ProfileProvider } from './context/profileContext.jsx';
 import ProfileUpdate from "@/components/profile/ProfileUpdate.jsx";
 import { AuthProvider } from './context/authContext.jsx';

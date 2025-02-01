@@ -3,7 +3,7 @@ import { useProfileContext } from "../../context/ProfileContext";
 import { useAuthContext } from "../../context/authContext";
 import { Link } from "react-router-dom";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
-import image from "./img.png"
+import image from "../../assets/img.png"
 import {Linkedin, Github, Edit} from "lucide-react";
 import { FaSchool as School } from "react-icons/fa";
 import {Calendar} from "@icon-park/react/es";
