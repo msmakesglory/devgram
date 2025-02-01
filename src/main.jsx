@@ -7,9 +7,10 @@ import LandingPage from "@/components/LangingPage.jsx";
 import SignUp from "@/components/auth/SignUp.jsx";
 import Login from "@/components/auth/Login.jsx";
 import Profile from "@/components/profile/Profile.jsx"
-import { ProfileProvider } from './context/profileContext.jsx';
+import { ProfileProvider } from './context/profileContext';
 import ProfileUpdate from "@/components/profile/ProfileUpdate.jsx";
 import { AuthProvider } from './context/authContext.jsx';
+import NotFound from './components/404.jsx';
 // import { DemoProvider } from './context/demoContext.jsx';
 
 createRoot(document.getElementById('root')).render(
@@ -25,6 +26,8 @@ createRoot(document.getElementById('root')).render(
                             <Route path="/p/:uid" element={<Profile />} />
                             {/* <Route path="/p/setup" element={<ProfileSetup />}/> */}
                             <Route path="/p/update" element={<ProfileUpdate />}/>
+                            <Route path="/404" element={<NotFound />} />
+                            <Route path="*" element={<NotFound />} />
                         </Route>
                     </Routes>
                 </AuthProvider>

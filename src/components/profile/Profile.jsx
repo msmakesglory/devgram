@@ -2,21 +2,26 @@ import { Button } from "@/components/ui/button";
 import { useProfileContext } from "../../context/ProfileContext";
 import { useAuthContext } from "../../context/authContext";
 import { Link } from "react-router-dom";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
+// import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import image from "../../assets/img.png"
 import {Linkedin, Github, Edit} from "lucide-react";
 import { FaSchool as School } from "react-icons/fa";
 import {Calendar} from "@icon-park/react/es";
-import {Badge} from "@/components/ui/badge.jsx";
+// import {Badge} from "@/components/ui/badge.jsx";
 import {ScrollArea} from "@/components/ui/scroll-area.jsx";
 import Idea from "@/components/profile/Idea.jsx";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Profile = () => {
-  // const { userDetails } = useProfileContext();
-  // const { handleSignout } = useAuthContext()
-  // if (!userDetails.uid) {
-  //   return <p>user not signed in</p>
-  // }
+  const { userDetails } = useProfileContext();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if(!userDetails.uid) {
+        navigate("/404");
+    }
+  }, [userDetails.uid, navigate])
 
   return (
 
@@ -25,7 +30,7 @@ const Profile = () => {
               <div className="p-4 flex">
                   <img src={image} className={"rounded-full size-16"}/>
                   <div className="ml-2 mt-2">
-                      <b>Manoj Rayi</b>
+                      <h1><b>Manoj Rayi</b></h1>
                       <p>@rayimanoj8</p>
                   </div>
                   <div className="mt-4 ml-2">
@@ -58,7 +63,8 @@ const Profile = () => {
           </div>
           <div className={"border flex-grow rounded-lg"}>
               <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
-              <Idea/>
+                    <Idea/>
+                    <Idea/>
                     <Idea/>
                     <Idea/>
               </ScrollArea>
