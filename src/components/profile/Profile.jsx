@@ -53,9 +53,9 @@ const Profile = () => {
                         <CardTitle>Basic Details</CardTitle>
                         <CardDescription>Description</CardDescription>
                         <div className="space-x-2">
-                            <Badge>Java</Badge>
-                            <Badge>Python</Badge>
-                            <Badge>html</Badge>
+                            <Badge variant="secondary">Java</Badge>
+                            <Badge variant="secondary">Python</Badge>
+                            <Badge variant="secondary">html</Badge>
                         </div>
                     </CardHeader>
                     <CardContent>
@@ -67,9 +67,9 @@ const Profile = () => {
                       <CardTitle>Basic Details</CardTitle>
                       <CardDescription>Description</CardDescription>
                       <div className="space-x-2">
-                          <Badge>RRR</Badge>
-                          <Badge>Bahubali</Badge>
-                          <Badge>Debba Debba</Badge>
+                          <Badge variant="secondary">RRR</Badge>
+                          <Badge variant="secondary">Bahubali</Badge>
+                          <Badge variant="secondary">Debba Debba</Badge>
                       </div>
                   </CardHeader>
                   <CardContent className={"line-clamp-3"}>
@@ -81,9 +81,9 @@ const Profile = () => {
                       <CardTitle>Basic Details</CardTitle>
                       <CardDescription>Description</CardDescription>
                       <div className="space-x-2">
-                          <Badge>Spring</Badge>
-                          <Badge>Redux</Badge>
-                          <Badge>React</Badge>
+                          <Badge variant="secondary">Spring</Badge>
+                          <Badge variant="secondary">Redux</Badge>
+                          <Badge variant="secondary">React</Badge>
                       </div>
                   </CardHeader>
                   <CardContent>
