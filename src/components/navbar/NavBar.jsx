@@ -10,16 +10,18 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet.jsx";
 import { Link } from "react-router-dom";
-// import { ThemeProvider, useTheme } from "@/context/ThemeContext.js";
+import { ThemeProvider, useTheme } from "@/context/ThemeContext.js";
 import ThemeChanger from "@/components/navbar/Theme.jsx";
 // import React, { useEffect } from "react";
 // import { Separator } from "@/components/ui/separator.jsx";
 import { useProfileContext } from "../../context/ProfileContext";
 import { useAuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const { userDetails } = useProfileContext();
     const userlogged = userDetails.uid;
+    const navigate = useNavigate();
     const { handleSignout } = useAuthContext();
     return (
         <section
@@ -48,9 +50,14 @@ const Navbar = () => {
                         </Button>
                         </>
                         ) : (
-                        <Button onClick={handleSignout}>
-                            Sign Out
-                        </Button>
+                            <>
+                            <Button onClick={() => navigate(`/p/${userlogged}`)}>
+                                Profile
+                            </Button>
+                            <Button onClick={handleSignout}>
+                                Sign Out
+                            </Button>
+                            </>
                         )}
                         <ThemeChanger/>
                     </div>
@@ -95,9 +102,14 @@ const Navbar = () => {
                                     </Button>
                                     </>
                                     ) : (
+                                    <>
+                                    <Button onClick={() => navigate(`/p/${userlogged}`)}>
+                                        Profile
+                                    </Button>
                                     <Button onClick={handleSignout}>
                                         Sign Out
                                     </Button>
+                                    </>
                                     )}
                                 </div>
                             </SheetContent>

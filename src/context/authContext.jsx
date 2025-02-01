@@ -1,5 +1,5 @@
-import { createContext, useContext} from "react";
-import { createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createContext, useContext, useEffect, useState} from "react";
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, googleProvider } from "../configs/firebase";
 import { useProfileContext  } from "./profileContext";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,19 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const { userDetails ,setUserDetails} = useProfileContext();
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setUserDetails((prev) => ({
+                ...prev,
+                uid: user ? user.uid : null,
+                mail: user ? user.email : null,
+            }));
+        });
+    
+        return () => unsubscribe(); // Cleanup function
+    }, []);
+    
+    
 
     const handleGoogleLogin = async () => {
         try{
@@ -55,8 +68,9 @@ export const AuthProvider = ({ children }) => {
 
         await signOut(auth);
         setUserDetails({});
-        navigate("/login")
+        navigate("/login");
     }
+
 
     return (
         <AuthContext.Provider value={{handleSignout, handleGoogleLogin, handleEmailPassWordLogin, handleCreateUser }}>

@@ -5,14 +5,17 @@ import { Separator } from "@/components/ui/separator.jsx";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button.jsx";
 import { Label } from "@/components/ui/label.jsx";
-import { useState } from "react";
-import { useProfileContext } from "../../context/ProfileContext"
+import { useState, useEffect } from "react";
+import { useProfileContext } from "../../context/ProfileContext";
+import { useNavigate } from "react-router-dom";
+import { db } from "../../configs/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function ProfileUpdate() {
     const [formData, setFormData] = useState({
         fullName: null,
         age: null,
-        gender: null,
+        gender: null,   
         location: null,
         summary: null,
         website: null,
@@ -23,6 +26,7 @@ export default function ProfileUpdate() {
         skills: null,
     })
     const {userDetails, setUserDetails} = useProfileContext();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,11 +37,25 @@ export default function ProfileUpdate() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setUserDetails((prev) => ({ ...prev, ...formData }));  // Properly merging the state
-        console.log("Updated User Details:", userDetails); // Might still show old data due to async state updates
+        
+        const updatedDetails = {...userDetails, ...formData};
+
+        setUserDetails(updatedDetails);
+        
+        try{
+            await setDoc(doc(db, "users", userDetails.uid), updatedDetails);
+            console.log("user details saved successfully");
+            setTimeout(() => {
+                navigate(`/p/${userDetails.uid}`);
+            }, 500);
+        } catch(err) {
+            console.error(err);
+        }
+        
     };
+    
     
 
 

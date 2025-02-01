@@ -11,7 +11,7 @@ import { ProfileProvider } from './context/profileContext';
 import ProfileUpdate from "@/components/profile/ProfileUpdate.jsx";
 import { AuthProvider } from './context/authContext.jsx';
 import NotFound from './components/404.jsx';
-// import { DemoProvider } from './context/demoContext.jsx';
+
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -24,7 +24,6 @@ createRoot(document.getElementById('root')).render(
                             <Route path="login" element={<Login />} />
                             <Route path="signup" element={<SignUp />} />
                             <Route path="/p/:uid" element={<Profile />} />
-                            {/* <Route path="/p/setup" element={<ProfileSetup />}/> */}
                             <Route path="/p/update" element={<ProfileUpdate />}/>
                             <Route path="/404" element={<NotFound />} />
                             <Route path="*" element={<NotFound />} />
