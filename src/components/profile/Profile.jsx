@@ -20,7 +20,7 @@ const Profile = () => {
 
   return (
 
-      <div className="flex gap-3 w-4/5 mx-auto flex-col lg:flex-row">
+      <div className="flex gap-3 mx-2 lg:w-4/5 lg:mx-auto flex-col lg:flex-row">
           <div className="container border rounded-lg lg:w-[300px] h-fit pb-5">
               <div className="p-4 flex">
                   <img src={image} className={"rounded-full size-16"}/>
