@@ -8,6 +8,8 @@ import {Linkedin,Github} from "lucide-react";
 import { FaSchool as School } from "react-icons/fa";
 import {Calendar} from "@icon-park/react/es";
 import {Badge} from "@/components/ui/badge.jsx";
+import {ScrollArea} from "@/components/ui/scroll-area.jsx";
+import Idea from "@/components/profile/Idea.jsx";
 
 const Profile = () => {
   // const { userDetails } = useProfileContext();
@@ -17,6 +19,7 @@ const Profile = () => {
   // }
 
   return (
+
       <div className="flex gap-3 w-4/5 mx-auto flex-col lg:flex-row">
           <div className="container border rounded-lg lg:w-[300px] h-fit pb-5">
               <div className="p-4 flex">
@@ -47,48 +50,11 @@ const Profile = () => {
               </ul>
           </div>
           <div className={"border flex-grow rounded-lg"}>
-                <Card className={"h-[200px] lg:mx-5 mx-2 my-2"}>
-                    <CardHeader>
-                        <CardTitle>Basic Details</CardTitle>
-                        <CardDescription>Description</CardDescription>
-                        <div className="space-x-2">
-                            <Badge variant="secondary">Java</Badge>
-                            <Badge variant="secondary">Python</Badge>
-                            <Badge variant="secondary">html</Badge>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
-                    </CardContent>
-                </Card>
-              <Card className={"h-[200px] lg:mx-5 mx-2 my-2"}>
-                  <CardHeader>
-                      <CardTitle>Basic Details</CardTitle>
-                      <CardDescription>Description</CardDescription>
-                      <div className="space-x-2">
-                          <Badge variant="secondary">RRR</Badge>
-                          <Badge variant="secondary">Bahubali</Badge>
-                          <Badge variant="secondary">Debba Debba</Badge>
-                      </div>
-                  </CardHeader>
-                  <CardContent className={"line-clamp-3"}>
-                      et ea rebum. Stet clita kasd gubergren, no sea takimata
-                  </CardContent>
-              </Card>
-              <Card className={"h-[200px] lg:mx-5 mx-2 my-2"}>
-                  <CardHeader>
-                      <CardTitle>Basic Details</CardTitle>
-                      <CardDescription>Description</CardDescription>
-                      <div className="space-x-2">
-                          <Badge variant="secondary">Spring</Badge>
-                          <Badge variant="secondary">Redux</Badge>
-                          <Badge variant="secondary">React</Badge>
-                      </div>
-                  </CardHeader>
-                  <CardContent>
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
-                  </CardContent>
-              </Card>
+              <ScrollArea className="h-[500px] lg:h-[600px]">
+                    <Idea/>
+                    <Idea/>
+                    <Idea/>
+              </ScrollArea>
           </div>
       </div>
   );
