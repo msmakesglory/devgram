@@ -17,7 +17,9 @@ import { Separator } from "@/components/ui/separator.jsx";
 
 const Navbar = () => {
     return (
-        <section className="py-4 px-4 lg:px-16 fixed top-0 left-0 right-0 backdrop-blur-sm bg-white/20 dark:bg-black/20 border-b border-white/10 dark:border-black/10 shadow-md">
+        <section
+            className="py-4 px-4 lg:px-16 fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-white/20 dark:bg-black/20 border-b border-white/10 dark:border-black/10 shadow-md">
+
             <div className="container">
                 <nav className="hidden justify-between lg:flex">
                     <div className="flex items-center gap-6">
@@ -52,7 +54,7 @@ const Navbar = () => {
                                 <ThemeChanger/>
                                 <SheetTrigger asChild>
                                     <Button variant="outline" size="icon">
-                                        <Menu className="size-4" />
+                                        <Menu className="size-4"/>
                                     </Button>
                                 </SheetTrigger>
                             </div>
@@ -70,12 +72,16 @@ const Navbar = () => {
                                     </SheetTitle>
                                 </SheetHeader>
                                 <div className="flex flex-col gap-3">
-                                    <Button variant="outline" >
-                                        <Link to='/login'>Sign in</Link>
-                                    </Button>
-                                    <Button>
-                                        <Link to='/signup'>Sign Up</Link>
-                                    </Button>
+                                    <Link to='/login'>
+                                        <Button variant="outline">
+                                            Sign in
+                                        </Button>
+                                    </Link>
+                                    <Link to='/signup'>
+                                        <Button>
+                                            Sign Up
+                                        </Button>
+                                    </Link>
                                 </div>
                             </SheetContent>
                         </Sheet>

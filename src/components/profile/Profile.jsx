@@ -4,7 +4,7 @@ import { useAuthContext } from "../../context/authContext";
 import { Link } from "react-router-dom";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import image from "./img.png"
-import {Linkedin,Github} from "lucide-react";
+import {Linkedin, Github, Edit} from "lucide-react";
 import { FaSchool as School } from "react-icons/fa";
 import {Calendar} from "@icon-park/react/es";
 import {Badge} from "@/components/ui/badge.jsx";
@@ -28,6 +28,13 @@ const Profile = () => {
                       <b>Manoj Rayi</b>
                       <p>@rayimanoj8</p>
                   </div>
+                  <div className="mt-4 ml-2">
+                      <Link to="/p/update">
+                          <Button variant="ghost">
+                              <Edit/>
+                          </Button>
+                      </Link>
+                  </div>
               </div>
 
               <ul className="mx-4 space-y-3">
@@ -50,8 +57,8 @@ const Profile = () => {
               </ul>
           </div>
           <div className={"border flex-grow rounded-lg"}>
-              <ScrollArea className="h-[500px] lg:h-[600px]">
-                    <Idea/>
+              <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
+              <Idea/>
                     <Idea/>
                     <Idea/>
               </ScrollArea>
