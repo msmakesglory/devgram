@@ -4,6 +4,7 @@ const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
     const [userDetails, setUserDetails] = useState({});
+    
 
     return (
         <ProfileContext.Provider value={{userDetails, setUserDetails}}>
