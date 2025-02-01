@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
             const loggedUser = await signInWithPopup(auth, googleProvider);
             const user = loggedUser.user;
             if(user){
-                setUserDetails({...userDetails, uid: user.uid});
+                setUserDetails({...userDetails, uid: user.uid, mail: auth.currentUser.email});
                 navigate(`/p/${user.uid}`);
             }
         } catch(err) {
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         const loggedUser = await signInWithEmailAndPassword(auth, formData.email, formData.password);
         const user = loggedUser.user;
             if(user){
-                setUserDetails({...userDetails, uid: user.uid});
+                setUserDetails({...userDetails, uid: user.uid, mail: auth.currentUser.email});
                 navigate(`/p/${user.uid}`);
             }
         } catch (err) {
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const newUser = await createUserWithEmailAndPassword(auth, data.email, data.password);
             const user = newUser.user;
-            setUserDetails({...userDetails, uid: user.uid});
+            setUserDetails({...userDetails, uid: user.uid, mail: auth.currentUser.email});
             navigate(`/p/${user.uid}`);
             return null; // Return null if no errors
         } catch (err) {

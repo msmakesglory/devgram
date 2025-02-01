@@ -1,126 +1,134 @@
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card.jsx";
-import {Input} from "@/components/ui/input.jsx";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.jsx";
-import {Calendar} from "@/components/ui/calendar.jsx";
-import {Separator} from "@/components/ui/separator.jsx";
-import { Textarea } from "@/components/ui/textarea"
-import {Button} from "@/components/ui/button.jsx";
-import {Label} from "@/components/ui/label.jsx";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card.jsx";
+import { Input } from "@/components/ui/input.jsx";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.jsx";
+import { Separator } from "@/components/ui/separator.jsx";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button.jsx";
+import { Label } from "@/components/ui/label.jsx";
+import { useState } from "react";
+import { useProfileContext } from "../../context/ProfileContext"
 
-export default function ProfileUpdate(){
-    return <Card className="lg:w-[500px] lg:mx-auto mx-2">
-        <CardHeader>
-            <CardTitle>Basic Details</CardTitle>
-            <CardDescription>
-                Make Your Changes and
-                Update
-            </CardDescription>
-        </CardHeader>
-        <CardContent>
-            <div className="space-y-4">
-                {/* Full Name */}
-                <div>
-                    <Label>Full Name</Label>
-                    <Input placeholder="Full Name" />
-                </div>
+export default function ProfileUpdate() {
+    const [formData, setFormData] = useState({
+        fullName: null,
+        age: null,
+        gender: null,
+        location: null,
+        summary: null,
+        website: null,
+        linkedIn: null,
+        github: null,
+        work: null,
+        education: null,
+        skills: null,
+    })
+    const {userDetails, setUserDetails} = useProfileContext();
 
-                {/* Email */}
-                <div>
-                    <Label>Email</Label>
-                    <Input placeholder="Email" />
-                </div>
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({...formData, [name]: value});
+    }
 
-                {/* Gender */}
-                <div>
-                    <Label>Gender</Label>
-                    <Select>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select Gender" defaultValue="Male" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="female">Female</SelectItem>
-                            <SelectItem value="male">Male</SelectItem>
-                            <SelectItem value="other">Rather Not Say</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
+    const handleSelectChange = (name, value) => {
+        setFormData({ ...formData, [name]: value });
+    };
 
-                {/* Location */}
-                <div>
-                    <Label >Location</Label>
-                    <Input placeholder="Location" />
-                </div>
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setUserDetails((prev) => ({ ...prev, ...formData }));  // Properly merging the state
+        console.log("Updated User Details:", userDetails); // Might still show old data due to async state updates
+    };
+    
 
-                {/* Birthday */}
-                <div>
-                    <Label>Birthday</Label>
-                    <Input
-                        placeholder="Birthday"
-                        type="date"
-                        defaultValue={new Date().toISOString().split("T")[0]}
-                    />
-                </div>
-            </div>
-        </CardContent>
-        <Separator/>
-        <CardHeader>
-            <CardTitle>Professional Info</CardTitle>
-        </CardHeader>
-        <CardContent>
-            <div className="space-y-4">
-                {/* Full Name */}
-                <div>
-                    <Label >Summary</Label>
-                    <Textarea placeholder="Summary" />
-                </div>
 
-                {/* personal website */}
-                <div>
-                    <Label >Personal Website</Label>
-                    <Input placeholder="Eg. Portfolio" />
-                </div>
+    return (
+        <Card className="lg:w-[600px] lg:mx-auto mx-2 p-4">
+            <form onSubmit={handleSubmit}>
+                <CardHeader>
+                    <CardTitle>Update Your Profile</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="space-y-6">
+                        <div>
+                            <Label>Full Name</Label>
+                            <Input name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Enter your full name" />
+                        </div>
+                        <div>
+                            <Label>Age</Label>
+                            <Input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="Enter your age" />
+                        </div>
+                        <div>
+                            <Label>Gender</Label>
+                            <Select value={formData.gender} onValueChange={(value) => handleSelectChange("gender", value)}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select Gender" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="male">Male</SelectItem>
+                                    <SelectItem value="female">Female</SelectItem>
+                                    <SelectItem value="other">Other</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div>
+                            <Label>Location</Label>
+                            <Input name="location" value={formData.location} onChange={handleChange} placeholder="Enter your location" />
+                        </div>
+                    </div>
+                </CardContent>
+                
+                <Separator />
 
-                {/* LinkedIn */}
-                <div>
-                    <Label >LinkedIn</Label>
-                    <Input placeholder="LinkedIn" />
-                </div>
-                {/* GitHub */}
-                <div>
-                    <Label >GitHub</Label>
-                    <Input placeholder="GitHub" />
-                </div>
+                <CardHeader>
+                    <CardTitle>Professional Details</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="space-y-6">
+                        <div>
+                            <Label>Summary</Label>
+                            <Textarea name="summary" value={formData.summary} onChange={handleChange} placeholder="Write a short summary about yourself" />
+                        </div>
+                        <div>
+                            <Label>Personal Website</Label>
+                            <Input name="website" value={formData.website} onChange={handleChange} placeholder="Enter website URL" />
+                        </div>
+                        <div>
+                            <Label>LinkedIn</Label>
+                            <Input name="linkedIn" value={formData.linkedIn} onChange={handleChange} placeholder="Enter LinkedIn profile URL" />
+                        </div>
+                        <div>
+                            <Label>GitHub</Label>
+                            <Input name="github" value={formData.github} onChange={handleChange} placeholder="Enter GitHub profile URL" />
+                        </div>
+                    </div>
+                </CardContent>
 
-            </div>
-        </CardContent>
-        <Separator/>
-        <CardHeader>
-            <CardTitle>Experience</CardTitle>
-        </CardHeader>
-        <CardContent>
-            <div className="space-y-4">
+                <Separator />
 
-                {/* personal website */}
-                <div>
-                    <Label >Work</Label>
-                    <Input placeholder="Eg. SDE at Amazon" />
-                </div>
+                <CardHeader>
+                    <CardTitle>Experience</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="space-y-6">
+                        <div>
+                            <Label>Work</Label>
+                            <Input name="work" value={formData.work} onChange={handleChange} placeholder="Eg. Software Engineer at Google" />
+                        </div>
+                        <div>
+                            <Label>Education</Label>
+                            <Input name="education" value={formData.education} onChange={handleChange} placeholder="Eg. B.Tech in CSE" />
+                        </div>
+                        <div>
+                            <Label>Skills</Label>
+                            <Input name="skills" value={formData.skills} onChange={handleChange} placeholder="Eg. JavaScript, React, Node.js" />
+                        </div>
+                    </div>
+                </CardContent>
 
-                {/* Education */}
-                <div>
-                    <Label >Education</Label>
-                    <Input placeholder="Education" />
-                </div>
-                {/* Skills */}
-                <div>
-                    <Label>Skills</Label>
-                    <Input placeholder="Skills" />
-                </div>
-
-            </div>
-        </CardContent>
-        <CardFooter>
-            <Button>Update</Button>
-        </CardFooter>
-    </Card>
+                <CardFooter>
+                    <Button type="submit" className="w-full">Update Profile</Button>
+                </CardFooter>
+            </form>
+        </Card>
+    );
 }
