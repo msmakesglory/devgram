@@ -1,5 +1,5 @@
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
-import { CiLight } from "react-icons/ci";
+import {  Menu} from "lucide-react";
+// import { CiLight } from "react-icons/ci";
 import logo from "@/components/images/logo.png"
 import { Button } from "@/components/ui/button.jsx";
 import {
@@ -10,12 +10,17 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet.jsx";
 import { Link } from "react-router-dom";
-import { ThemeProvider, useTheme } from "@/context/ThemeContext.js";
+// import { ThemeProvider, useTheme } from "@/context/ThemeContext.js";
 import ThemeChanger from "@/components/navbar/Theme.jsx";
-import React, { useEffect } from "react";
-import { Separator } from "@/components/ui/separator.jsx";
+// import React, { useEffect } from "react";
+// import { Separator } from "@/components/ui/separator.jsx";
+import { useProfileContext } from "../../context/ProfileContext";
+import { useAuthContext } from "../../context/authContext";
 
 const Navbar = () => {
+    const { userDetails } = useProfileContext();
+    const userlogged = userDetails.uid;
+    const { handleSignout } = useAuthContext();
     return (
         <section
             className="py-4 px-4 lg:px-16 fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-white/20 dark:bg-black/20 border-b border-white/10 dark:border-black/10 shadow-md">
@@ -33,12 +38,20 @@ const Navbar = () => {
                         </div>
                     </div>
                     <div className="flex gap-2">
+                        {!userlogged ? (
+                        <>
                         <Button variant="outline">
                             <Link to='/login'>Sign in</Link>
                         </Button>
                         <Button>
                             <Link to='/signup'>Sign Up</Link>
                         </Button>
+                        </>
+                        ) : (
+                        <Button onClick={handleSignout}>
+                            Sign Out
+                        </Button>
+                        )}
                         <ThemeChanger/>
                     </div>
                 </nav>
