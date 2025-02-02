@@ -92,7 +92,7 @@ const Navbar = () => {
                                     </SheetTitle>
                                 </SheetHeader>
                                 <div className="flex flex-col gap-3">
-                                {!userlogged ? (
+                                {(userlogged === undefined || userlogged === null) ? (
                                     <>
                                     <Button variant="outline">
                                         <Link to='/login'>Sign in</Link>

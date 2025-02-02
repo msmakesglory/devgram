@@ -49,7 +49,7 @@ const Profile = () => {
                         <p>{}</p>
                   </div>
                   <div className="mt-4 ml-2">
-                      <Link to="/p/update">
+                      <Link to={`/p/${userDetails.uid}/update`}>
                           <Button variant="ghost">
                               <Edit/>
                           </Button>
