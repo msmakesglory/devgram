@@ -1,6 +1,6 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card.jsx";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.jsx";
 import { Input } from "@/components/ui/input.jsx";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.jsx";
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.jsx";
 import { Separator } from "@/components/ui/separator.jsx";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button.jsx";
@@ -10,7 +10,7 @@ import { useProfileContext } from "../../context/ProfileContext";
 import { useNavigate } from "react-router-dom";
 import { db } from "@/configs/firebase.js";
 import { doc, setDoc } from "firebase/firestore";
-import {Edit, Save} from "lucide-react";
+import {Edit} from "lucide-react";
 
 export default function ProfileUpdate() {
     const [formData, setFormData] = useState({
@@ -34,34 +34,32 @@ export default function ProfileUpdate() {
         setFormData({...formData, [name]: value});
     }
 
-    const handleSelectChange = (name, value) => {
-        setFormData({ ...formData, [name]: value });
-    };
+    // const handleSelectChange = (name, value) => {
+    //     setFormData({ ...formData, [name]: value });
+    // };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
         
-        const updatedDetails = {...userDetails, ...formData};
+    //     const updatedDetails = {...userDetails, ...formData};
 
-        setUserDetails(updatedDetails);
+    //     setUserDetails(updatedDetails);
         
-        try{
-            await setDoc(doc(db, "users", userDetails.uid), updatedDetails);
-            console.log("user details saved successfully");
-            setTimeout(() => {
-                navigate(`/p/${userDetails.uid}`);
-            }, 500);
-        } catch(err) {
-            console.error(err);
-        }
+    //     try{
+    //         await setDoc(doc(db, "users", userDetails.uid), updatedDetails);
+    //         console.log("user details saved successfully");
+    //         setTimeout(() => {
+    //             navigate(`/p/${userDetails.uid}`);
+    //         }, 500);
+    //     } catch(err) {
+    //         console.error(err);
+    //     }
         
-    };
+    // };
     
-    const [nameChange, setNameChange] = useState(false);
     const [editField, setEditField] = useState(false);
     return (
         <Card className="lg:w-[600px] lg:mx-auto mx-2 p-4">
-            <form onSubmit={handleSubmit}>
                 <CardHeader>
                     <CardTitle>Update Your Profile</CardTitle>
                 </CardHeader>
@@ -70,8 +68,8 @@ export default function ProfileUpdate() {
                     <div className="space-y-6">
                         {/* Dynamic Fields with Edit, Save, and Cancel Buttons */}
                         {["fullName","age", "location"].map((field) => (
-                        <div>
-                            <div key={field} className="flex gap-2 items-center">
+                        <div key={field}>
+                            <div className="flex gap-2 items-center">
                                 <Label className="w-2/12 capitalize">{field}</Label>
                                 {editField === field ? (
                                     <div className="w-9/12">
@@ -122,8 +120,8 @@ export default function ProfileUpdate() {
                         )}
                         <Separator/>
                         {["website", "linkedIn", "github"].map((field) => (
-                            <div>
-                                <div key={field} className="flex gap-2 items-center">
+                            <div key={field}>
+                                <div className="flex gap-2 items-center">
                                     <Label className="w-2/12 capitalize">{field}</Label>
                                     {editField === field ? (
                                         <div className="w-9/12">
@@ -151,11 +149,10 @@ export default function ProfileUpdate() {
                 <CardHeader>
                     <CardTitle>Experience</CardTitle>
                 </CardHeader>
-                <CardContent>
                     <div className="space-y-6">
                         {["work", "education", "skills"].map((field) => (
-                            <div>
-                                <div key={field} className="flex gap-2 items-center">
+                            <div key={field}>
+                                <div className="flex gap-2 items-center">
                                     <Label className="w-2/12 capitalize">{field}</Label>
                                     {editField === field ? (
                                         <div className="w-9/12">
@@ -176,8 +173,7 @@ export default function ProfileUpdate() {
                             </div>
                         ))}
                     </div>
-                </CardContent>
-            </form>
+                <CardContent />
         </Card>
     );
 }
