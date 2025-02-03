@@ -32,8 +32,7 @@ const Profile = () => {
                 console.log("No user data found in Firestore.");
             }
         };
-
-        fetchUserDetails();
+        fetchUserDetails()
     }, []);
 
 

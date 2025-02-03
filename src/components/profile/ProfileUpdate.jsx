@@ -10,6 +10,7 @@ import { useProfileContext } from "../../context/ProfileContext";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../configs/firebase";
 import { doc, setDoc } from "firebase/firestore";
+import {Edit, Save} from "lucide-react";
 
 export default function ProfileUpdate() {
     const [formData, setFormData] = useState({
@@ -56,7 +57,7 @@ export default function ProfileUpdate() {
         
     };
     
-    
+    const [nameChange, setNameChange] = useState(false);
 
 
     return (
@@ -68,18 +69,54 @@ export default function ProfileUpdate() {
                 <CardContent>
                     <div className="space-y-6">
                         <div>
-                            <Label>Full Name</Label>
-                            <Input name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Enter your full name" />
+                            <div className="flex gap-2 items-center">
+                                <Label className="relative top-0 left-0 w-2/12">Full Name</Label>
+                                {nameChange ? (
+                                    <>
+                                        <p className="w-9/12">{formData.fullName || "No Name Provided"}</p>
+                                        <Button
+                                            className="w-1/12"
+                                            onClick={() => setNameChange((prev) => !prev)}
+                                            variant="ghost"
+                                        >
+                                            <Edit className="size-4"/>
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <div>
+                                        <Input
+                                            className=""
+                                            name="fullName"
+                                            value={formData.fullName || ""}
+                                            onChange={handleChange}
+                                            placeholder="Enter your full name"
+                                        />
+                                        <div className="mt-1">
+                                            <Button variant={"secondary"}>
+                                                <Save className={"size-4"}/>
+                                                Save
+                                            </Button>
+                                            <Button variant={"ghost"} onClick={() => setNameChange((prev) => !prev)}>
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <Separator className={"mt-2"}/>
                         </div>
                         <div>
                             <Label>Age</Label>
-                            <Input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="Enter your age" />
+                            <Input type="number" name="age" value={formData.age} onChange={handleChange}
+                                   placeholder="Enter your age"/>
                         </div>
                         <div>
                             <Label>Gender</Label>
-                            <Select value={formData.gender} onValueChange={(value) => handleSelectChange("gender", value)}>
+                            <Select value={formData.gender}
+                                    onValueChange={(value) => handleSelectChange("gender", value)}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select Gender" />
+                                    <SelectValue placeholder="Select Gender"/>
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="male">Male</SelectItem>
