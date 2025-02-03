@@ -67,12 +67,12 @@ export default function Login() {
                     Sign in
                 </Button>
 
+            </form>
                 {/* Google Sign-In */}
-                <Button variant="outline" className="w-full" onClick={handleGoogleLogin}>
+                <Button variant="outline" className="w-full mt-2" onClick={handleGoogleLogin}>
                     <FcGoogle className="mr-2 size-5" />
                     Sign in with Google
                 </Button>
-            </form>
 
             {/* Signup Link */}
             <div className="mt-6 text-center text-sm">
