@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useProfileContext } from "../../context/ProfileContext";
 import { useAuthContext } from "../../context/authContext";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 // import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import image from "../../assets/img.png"
 import {Linkedin, Github, Edit} from "lucide-react";
@@ -17,7 +17,7 @@ import { db } from "../../configs/firebase";
 
 const Profile = () => {
   const { userDetails, setUserDetails } = useProfileContext();
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
   
     useEffect( () => {
         const fetchUserDetails = async() => {
@@ -35,7 +35,9 @@ const Profile = () => {
         fetchUserDetails()
     }, []);
 
-
+    if(!userDetails.uid){
+        navigate("/404");
+    }
 
   return (
 
