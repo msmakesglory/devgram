@@ -9,11 +9,13 @@ import { useProfileContext } from "../../context/ProfileContext";
 import { Edit } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/configs/firebase.js";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileUpdate() {
     const { userDetails, setUserDetails } = useProfileContext();
     const [editField, setEditField] = useState(null);
     const [tempValue, setTempValue] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setTempValue(e.target.value);
@@ -30,6 +32,9 @@ export default function ProfileUpdate() {
         } catch (error) {
             console.log("Error updating the field:", error);
         }
+    }
+    if(!userDetails.uid){
+        navigate("/404");
     }
 
     return (
