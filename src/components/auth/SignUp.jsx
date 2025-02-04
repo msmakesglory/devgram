@@ -87,15 +87,15 @@ export default function SignUp() {
                 </Button>
 
                 {/* Google Sign-in */}
-                <Button variant="outline" className="w-full" onClick={handleGoogleLogin}>
-                    <FcGoogle className="mr-2 size-5" />
-                    Sign in with Google
-                </Button>
             </form>
+            <Button variant="outline" className="w-full" onClick={handleGoogleLogin}>
+                <FcGoogle className="mr-2 size-5" />
+                Sign in with Google
+            </Button>
 
             <div className="mt-6 text-center text-sm">
                 Already have an account?
-                <Link to="/login" className="text-primary hover:underline ml-1">Log In</Link>
+                <Link to="/login" className="text-primary underline ml-1">Log In</Link>
             </div>
         </Card>
     );

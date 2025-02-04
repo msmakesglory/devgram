@@ -69,6 +69,7 @@ export const AuthProvider = ({ children }) => {
             const user = loggedUser.user;
             if (user) {
                 await handleUserAuthentication(user);
+                
                 navigate(`/p/${user.uid}`);
             }
         } catch (err) {

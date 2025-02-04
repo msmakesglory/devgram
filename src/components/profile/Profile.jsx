@@ -1,21 +1,18 @@
-import { Button } from "@/components/ui/button";
+
 import { useProfileContext } from "../../context/ProfileContext";
-import { useAuthContext } from "../../context/authContext";
-import { Link, Navigate } from "react-router-dom";
-// import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
-import image from "../../assets/img.png"
-import {Linkedin, Github, Edit, MapPin,Mail} from "lucide-react";
-import { FaSchool as School } from "react-icons/fa";
-import {Calendar} from "@icon-park/react/es";
-// import {Badge} from "@/components/ui/badge.jsx";
-import {ScrollArea} from "@/components/ui/scroll-area.jsx";
-import Idea from "@/components/profile/Idea.jsx";
+import {Linkedin, Github, MapPin,Mail} from "lucide-react";
+import "@/components/profile/Idea.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../configs/firebase";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
+import EditProfile from "@/components/profile/EditProfile.jsx";
+import EditPersonalInfo from "@/components/profile/EditPersonalInfo.jsx";
+import EditPro from "@/components/profile/EditPro.jsx";
+import {ScrollArea} from "@/components/ui/scroll-area.jsx";
+import Idea from "@/components/profile/Idea.jsx";
 
 const Profile = () => {
   const { userDetails, setUserDetails } = useProfileContext();
@@ -42,18 +39,16 @@ const Profile = () => {
     }
 
   return (
-      <div className="grid grid-cols-9">
-        <div className="flex flex-col col-start-2 col-span-2 gap-2">
+      <div className="profile-div mx-2">
+        <div className="profile-div-inner">
             <Card className="relative">
                 <CardHeader>
                     <Avatar className="size-16">
                         <AvatarImage src="https://github.com/shadcn.png" />
                         <AvatarFallback>MR</AvatarFallback>
                     </Avatar>
-                    <Button variant="ghost" className="absolute right-4 top-4">
-                        <Edit className="size-10"/>
-                    </Button>
-                    <CardTitle>{userDetails.fullName}</CardTitle>
+                    <EditProfile/>
+                    <CardTitle className="tracking-wide">{userDetails.fullName}</CardTitle>
                     <CardDescription>@{userDetails.uid}</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -63,9 +58,7 @@ const Profile = () => {
 
             <Card className="relative">
                 <CardHeader>
-                    <Button variant="ghost" className="absolute right-4 top-4">
-                        <Edit className="size-10"/>
-                    </Button>
+                    <EditPersonalInfo/>
                     <CardTitle>Personal Information</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -88,9 +81,7 @@ const Profile = () => {
 
             <Card className={"relative"}>
                 <CardHeader>
-                    <Button variant="ghost" className="absolute right-4 top-4">
-                        <Edit className="size-10"/>
-                    </Button>
+                    <EditPro/>
                     <CardTitle>Professional Details</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -111,16 +102,17 @@ const Profile = () => {
                 </CardContent>
             </Card>
         </div>
+        <div className={"col-span-5"}>
+            <h1 className={"ml-4 text-3xl font-bold"}>Your Ideas</h1>
+            <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
+                  <Idea/>
+                  <Idea/>
+                  <Idea/>
+                  <Idea/>
+            </ScrollArea>
+        </div>
       </div>
   );
 };
 
 export default Profile;
-{/*<div className={"border flex-grow rounded-lg"}>*/}
-{/*    <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">*/}
-{/*          <Idea/>*/}
-{/*          <Idea/>*/}
-{/*          <Idea/>*/}
-{/*          <Idea/>*/}
-{/*    </ScrollArea>*/}
-{/*</div>*/}

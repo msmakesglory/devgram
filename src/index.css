@@ -1,6 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.profile-div{
+  @apply lg:grid lg:grid-cols-9
+}
+.profile-div-inner{
+  @apply flex flex-col col-start-2 col-span-2 gap-2 tracking-wide
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
