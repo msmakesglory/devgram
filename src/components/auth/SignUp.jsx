@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card.jsx";
 import { Label } from "@/components/ui/label";
 import logo from "./../images/logo.png";
 import { useAuthContext } from "../../context/authContext";
+import {Link} from "react-router-dom";
 
 // Define Zod schema
 const signUpSchema = z
@@ -94,7 +95,7 @@ export default function SignUp() {
 
             <div className="mt-6 text-center text-sm">
                 Already have an account?
-                <a href="/login" className="text-primary hover:underline ml-1">Log In</a>
+                <Link to="/login" className="text-primary hover:underline ml-1">Log In</Link>
             </div>
         </Card>
     );

@@ -4,7 +4,7 @@ import { useAuthContext } from "../../context/authContext";
 import { Link, Navigate } from "react-router-dom";
 // import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import image from "../../assets/img.png"
-import {Linkedin, Github, Edit} from "lucide-react";
+import {Linkedin, Github, Edit, MapPin,Mail} from "lucide-react";
 import { FaSchool as School } from "react-icons/fa";
 import {Calendar} from "@icon-park/react/es";
 // import {Badge} from "@/components/ui/badge.jsx";
@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../configs/firebase";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
 
 const Profile = () => {
   const { userDetails, setUserDetails } = useProfileContext();
@@ -40,53 +42,85 @@ const Profile = () => {
     }
 
   return (
+      <div className="grid grid-cols-9">
+        <div className="flex flex-col col-start-2 col-span-2 gap-2">
+            <Card className="relative">
+                <CardHeader>
+                    <Avatar className="size-16">
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>MR</AvatarFallback>
+                    </Avatar>
+                    <Button variant="ghost" className="absolute right-4 top-4">
+                        <Edit className="size-10"/>
+                    </Button>
+                    <CardTitle>{userDetails.fullName}</CardTitle>
+                    <CardDescription>@{userDetails.uid}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    {userDetails.summary || `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore`}
+                </CardContent>
+            </Card>
 
-      <div className="flex gap-3 mx-2 lg:w-4/5 lg:mx-auto flex-col lg:flex-row">
-          <div className="container border rounded-lg lg:w-[300px] h-fit pb-5">
-              <div className="p-4 flex">
-                  <img src={image} className={"rounded-full size-16"}/>
-                  <div className="ml-2 mt-2">
-                        <b>{userDetails.fullName || "User"}</b>
-                        <p>{}</p>
-                  </div>
-                  <div className="mt-4 ml-2">
-                      <Link to={`/p/${userDetails.uid}/update`}>
-                          <Button variant="ghost">
-                              <Edit/>
-                          </Button>
-                      </Link>
-                  </div>
-              </div>
+            <Card className="relative">
+                <CardHeader>
+                    <Button variant="ghost" className="absolute right-4 top-4">
+                        <Edit className="size-10"/>
+                    </Button>
+                    <CardTitle>Personal Information</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <ul className="space-y-3">
+                        <li>
+                            <Mail className="inline-block h-5"/> rayimanoj8@gmail.com
+                        </li>
+                        <li>
+                            <MapPin className="inline-block h-5"/> Hyderabad
+                        </li>
+                        <li>
+                            <Linkedin className="inline-block h-5"/> {userDetails.linkedin || "Not Available"}
+                        </li>
+                        <li>
+                            <Github className="inline-block h-5"/> {userDetails.github}
+                        </li>
+                    </ul>
+                </CardContent>
+            </Card>
 
-              <ul className="mx-4 space-y-3">
-                  <li className={"flex gap-2"}>
-                      <Linkedin/>
-                      <p><a href={userDetails.linkedIn} target="_blank">{userDetails.linkedIn}</a></p>
-                  </li>
-                  <li className={"flex gap-2"}>
-                      <Github/>
-                      <p><a href={userDetails.github} target="_blank">{userDetails.github}</a></p>
-                  </li>
-                  <li className={" flex gap-2"}>
-                      <School className={"size-[24px]"}/>
-                      {userDetails.education}
-                  </li>
-                  <li className={"flex gap-2"}>
-                      <Calendar className={"size-[24px]"}/>
-                      {userDetails.age}
-                  </li>
-              </ul>
-          </div>
-          <div className={"border flex-grow rounded-lg"}>
-              <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
-                    <Idea/>
-                    <Idea/>
-                    <Idea/>
-                    <Idea/>
-              </ScrollArea>
-          </div>
+            <Card className={"relative"}>
+                <CardHeader>
+                    <Button variant="ghost" className="absolute right-4 top-4">
+                        <Edit className="size-10"/>
+                    </Button>
+                    <CardTitle>Professional Details</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <ul className={"space-y-1"}>
+                        <li>
+                            <p>Work</p>
+                            <CardDescription>{userDetails.work || "Not Provided"}</CardDescription>
+                        </li>
+                        <li>
+                            <p>Education</p>
+                            <CardDescription>{userDetails.education || "Not Provided"}</CardDescription>
+                        </li>
+                        <li>
+                            <p>Skills</p>
+                            <CardDescription>{userDetails.skills || "Not Provided"}</CardDescription>
+                        </li>
+                    </ul>
+                </CardContent>
+            </Card>
+        </div>
       </div>
   );
 };
 
 export default Profile;
+{/*<div className={"border flex-grow rounded-lg"}>*/}
+{/*    <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">*/}
+{/*          <Idea/>*/}
+{/*          <Idea/>*/}
+{/*          <Idea/>*/}
+{/*          <Idea/>*/}
+{/*    </ScrollArea>*/}
+{/*</div>*/}
