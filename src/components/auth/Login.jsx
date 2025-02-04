@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "@/components/images/logo.png";
 import { useAuthContext } from "../../context/authContext";
 
@@ -17,7 +17,7 @@ const loginSchema = z.object({
 });
 
 export default function Login() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { handleGoogleLogin, handleEmailPassWordLogin } = useAuthContext(); 
 
     const {
@@ -59,9 +59,9 @@ export default function Login() {
 
                 {/* Forgot Password & Login Button */}
                 <div className="flex justify-between">
-                    <a href="#" className="text-sm text-primary hover:underline">
-                        Forgot password?
-                    </a>
+                <a href="/forgotpassword" className="text-blue-400 hover:underline text-sm">
+                    Forgot Password?
+                </a>
                 </div>
                 <Button type="submit" className="w-full">
                     Sign in

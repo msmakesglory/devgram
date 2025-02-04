@@ -11,7 +11,7 @@ import { ProfileProvider } from './context/profileContext';
 import ProfileUpdate from "@/components/profile/ProfileUpdate.jsx";
 import { AuthProvider } from './context/authContext.jsx';
 import NotFound from './components/404.jsx';
-
+import ForgotPassword from './components/auth/ForgotPassword.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -21,16 +21,17 @@ createRoot(document.getElementById('root')).render(
                     <Routes>
                         <Route path="/" element={<App />}>
                             <Route path="" element={<LandingPage />} />
-                            <Route path="login" element={<Login />} />
-                            <Route path="signup" element={<SignUp />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/signup" element={<SignUp />} />
+                            <Route path="/forgotpassword" element={<ForgotPassword />} />
                             <Route path="/p/:uid" element={<Profile />} />
                             <Route path="/p/:uid/update" element={<ProfileUpdate />}/>
                             <Route path="/404" element={<NotFound />} />
-                            <Route path="*" element={<NotFound />} />
+                            {/* <Route path="*" element={<NotFound />} /> */}
                         </Route>
                     </Routes>
                 </AuthProvider>
             </ProfileProvider>
         </BrowserRouter>
-    </StrictMode>,
+    </StrictMode>
 )

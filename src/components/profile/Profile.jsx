@@ -36,7 +36,7 @@ const Profile = () => {
     }, []);
 
     if(!userDetails.uid){
-        navigate("/404");
+        navigate("/login");
     }
 
   return (
