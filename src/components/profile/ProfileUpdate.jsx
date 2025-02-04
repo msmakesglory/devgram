@@ -34,7 +34,7 @@ export default function ProfileUpdate() {
         }
     }
     if(!userDetails.uid){
-        navigate("/404");
+        navigate("/login");
     }
 
     return (

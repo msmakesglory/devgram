@@ -27,7 +27,7 @@ createRoot(document.getElementById('root')).render(
                             <Route path="/p/:uid" element={<Profile />} />
                             <Route path="/p/:uid/update" element={<ProfileUpdate />}/>
                             <Route path="/404" element={<NotFound />} />
-                            {/* <Route path="*" element={<NotFound />} /> */}
+                            <Route path="*" element={<NotFound />} />
                         </Route>
                     </Routes>
                 </AuthProvider>
