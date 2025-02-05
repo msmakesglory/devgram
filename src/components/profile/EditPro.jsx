@@ -1,30 +1,52 @@
-import {useProfileContext} from "@/context/ProfileContext.jsx";
+import { useProfileContext } from "@/context/ProfileContext.jsx";
 import {
     Dialog,
     DialogContent,
-    DialogDescription, DialogFooter,
+    DialogDescription, 
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog.jsx";
-import {Button} from "@/components/ui/button.jsx";
-import {Edit} from "lucide-react";
-import {Label} from "@/components/ui/label.jsx";
-import {Input} from "@/components/ui/input.jsx";
-import {Textarea} from "@/components/ui/textarea.jsx";
+import { Button } from "@/components/ui/button.jsx";
+import { Edit } from "lucide-react";
+import { Label } from "@/components/ui/label.jsx";
+import { Input } from "@/components/ui/input.jsx";
+import { useState } from "react";
 
 export default function EditPro() {
-    const { userDetails, setUserDetails } = useProfileContext();
-    return <>
-        <Dialog>
+    const { userDetails, updateSingleField } = useProfileContext();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const [editedDetails, setEditedDetails] = useState({
+        work: userDetails?.work || "",
+        education: userDetails?.education || "",
+        skills: userDetails?.skills || ""
+    });
+
+    const handleChange = (e) => {
+        setEditedDetails({ ...editedDetails, [e.target.id]: e.target.value });
+    };
+
+    const handleSave = async () => {
+        for (const field in editedDetails) {
+            if (editedDetails[field].trim() !== "" && editedDetails[field].trim() !== userDetails[field]) {
+                await updateSingleField(field, editedDetails[field].trim());
+            }
+        }
+        setIsOpen(false);
+    };
+
+    return (
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" className="absolute right-6 top-6">
-                    <Edit className="size-10"/>
+                <Button variant="ghost" className="absolute right-6 top-6" onClick={() => setIsOpen(true)}>
+                    <Edit className="size-10" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Edit profile</DialogTitle>
+                    <DialogTitle>Edit Profile</DialogTitle>
                     <DialogDescription>
                         Make changes to your profile here. Click save when you&apos;re done.
                     </DialogDescription>
@@ -36,9 +58,10 @@ export default function EditPro() {
                         </Label>
                         <Input
                             id="work"
-                            value={userDetails.work?userDetails.work:""}
-                            placeholder={userDetails.work?"":"Not Provided"}
+                            defaultValue={userDetails.work || ""}
+                            onChange={handleChange}
                             className="col-span-3"
+                            placeholder="Enter your work"
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -47,9 +70,10 @@ export default function EditPro() {
                         </Label>
                         <Input
                             id="education"
-                            value={userDetails.education?userDetails.education:""}
-                            placeholder={userDetails.education?"":"Not Provided"}
+                            defaultValue={userDetails.education || ""}
+                            onChange={handleChange}
                             className="col-span-3"
+                            placeholder="Enter your education"
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -58,16 +82,19 @@ export default function EditPro() {
                         </Label>
                         <Input
                             id="skills"
-                            value={userDetails.skills?userDetails.skills:""}
-                            placeholder={userDetails.skills?"":"Not Provided"}
+                            defaultValue={userDetails.skills || ""}
+                            onChange={handleChange}
                             className="col-span-3"
+                            placeholder="Enter your skills"
                         />
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button type="submit">Save changes</Button>
+                    <Button type="submit" onClick={handleSave}>
+                        Save changes
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-    </>
+    );
 }

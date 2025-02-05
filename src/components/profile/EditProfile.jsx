@@ -30,7 +30,7 @@ export default function EditProfile() {
 
     const handleSave = async () => {
         for (const field in editedDetails) {
-            if (editedDetails[field].trim() !== "" && editedDetails[field] !== userDetails[field]) {
+            if (editedDetails[field].trim() !== "" && editedDetails[field].trim() !== userDetails[field]) {
                 await updateSingleField(field, editedDetails[field].trim());
             }
         }   
@@ -58,8 +58,8 @@ export default function EditProfile() {
                         </Label>
                         <Input
                             id="fullName"
-                            value={editedDetails.fullName}
-                            placeholder={userDetails?.fullName?userDetails.fullName:'Enter your FullName'}
+                            defaultValue={userDetails.fullName || ""}
+                            placeholder={'Enter your FullName'}
                             onChange={handleChange}
                             className="col-span-3"
                         />
@@ -70,8 +70,8 @@ export default function EditProfile() {
                         </Label>
                         <Textarea
                             id="summary"
-                            placeholder={userDetails?.summary?userDetails.summary:'Enter your summary'}
-                            value={editedDetails.summary}
+                            defaultValue={userDetails.summary || ""}
+                            placeholder={'Enter your summary'}
                             onChange={handleChange}
                             className="col-span-3"
                         />

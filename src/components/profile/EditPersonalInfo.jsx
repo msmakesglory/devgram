@@ -30,11 +30,11 @@ export default function EditPersonalInfo() {
 
     const handleSave = async () => {
         for (const field in editedDetails) {
-            if (editedDetails[field].trim() !== "" && editedDetails[field] !== userDetails[field]) {
+            if (editedDetails[field].trim() !== "" && editedDetails[field].trim() !== userDetails[field]) {
                 await updateSingleField(field, editedDetails[field].trim());
             }
         }
-        setIsOpen(false); // Close modal after saving
+        setIsOpen(false);
     };
 
     return (
@@ -58,10 +58,10 @@ export default function EditPersonalInfo() {
                         </Label>
                         <Input
                             id="location"
-                            value={editedDetails.location}
+                            defaultValue={userDetails.location || ""}
                             onChange={handleChange}
                             className="col-span-3"
-                            placeholder={userDetails?.location?userDetails.location:'Enter your location'}
+                            placeholder={'Enter your location'}
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -70,10 +70,10 @@ export default function EditPersonalInfo() {
                         </Label>
                         <Input
                             id="linkedin"
-                            value={editedDetails.linkedin}
+                            defaultValue={userDetails.linkedin || ""}
                             onChange={handleChange}
                             className="col-span-3"
-                            placeholder={userDetails?.linkedin?userDetails.linkedin:'Enter your linkedin link'}
+                            placeholder={'Enter your linkedin link'}
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -82,10 +82,10 @@ export default function EditPersonalInfo() {
                         </Label>
                         <Input
                             id="github"
-                            value={editedDetails.github}
+                            defaultValue={userDetails.github || ""}
                             onChange={handleChange}
                             className="col-span-3"
-                            placeholder={userDetails?.github?userDetails.github:'Enter your github link'}
+                            placeholder={'Enter your github link'}
                         />
                     </div>
                 </div>
