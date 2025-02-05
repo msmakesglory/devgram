@@ -17,27 +17,24 @@ import { Textarea } from "@/components/ui/textarea.jsx";
 
 export default function EditProfile() {
     const { userDetails, updateSingleField } = useProfileContext();
-    const [isOpen, setIsOpen] = useState(false); // State to manage dialog visibility
+    const [isOpen, setIsOpen] = useState(false); 
 
-    // Local state to handle changes before saving
     const [editedDetails, setEditedDetails] = useState({
         fullName: userDetails.fullName || "",
         summary: userDetails.summary || "",
     });
 
-    // Handle input changes
     const handleChange = (e) => {
         setEditedDetails({ ...editedDetails, [e.target.id]: e.target.value });
     };
 
-    // Save changes to Firestore
     const handleSave = async () => {
         for (const field in editedDetails) {
             if (editedDetails[field].trim() !== "" && editedDetails[field] !== userDetails[field]) {
-                await updateSingleField(field, editedDetails[field]);
+                await updateSingleField(field, editedDetails[field].trim());
             }
-        }
-        setIsOpen(false); // Close the dialog after saving
+        }   
+        setIsOpen(false); 
     };
 
     return (
@@ -51,7 +48,7 @@ export default function EditProfile() {
                 <DialogHeader>
                     <DialogTitle>Edit Profile</DialogTitle>
                     <DialogDescription>
-                        Make changes to your profile here. Click save when you're done.
+                        Make changes to your profile here. Click save when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
@@ -62,6 +59,7 @@ export default function EditProfile() {
                         <Input
                             id="fullName"
                             value={editedDetails.fullName}
+                            placeholder={userDetails?.fullName?userDetails.fullName:'Enter your FullName'}
                             onChange={handleChange}
                             className="col-span-3"
                         />
@@ -72,6 +70,7 @@ export default function EditProfile() {
                         </Label>
                         <Textarea
                             id="summary"
+                            placeholder={userDetails?.summary?userDetails.summary:'Enter your summary'}
                             value={editedDetails.summary}
                             onChange={handleChange}
                             className="col-span-3"

@@ -49,7 +49,7 @@ const Profile = () => {
                 <CardContent>
                     <ul className="space-y-3">
                         <li>
-                            <Mail className="inline-block h-5"/> rayimanoj8@gmail.com
+                            <Mail className="inline-block h-5"/> {userDetails?.mail?userDetails.mail:"abc@mail.com"}
                         </li>
                         <li>
                             <MapPin className="inline-block h-5"/> Hyderabad
