@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/navbar/NavBar.jsx";
 import {Change, Mail} from "@icon-park/react";
 import {Button} from "@/components/ui/button.jsx";
+import Spin from "@/components/Spin.jsx";
 //import { useMyNameContext } from "../context/helloContext";
 
 const LandingPage = () => {
     //const {name, setName } = useMyNameContext();
     return(
+        <>
         <div className="flex w-1/2">
             <div className="mx-20 flex flex-col gap-4">
                 <h1 className="text-5xl font-bold mt-20">Hey Developers</h1>
@@ -19,6 +21,8 @@ const LandingPage = () => {
                 </Button>
             </div>
         </div>
+        <Spin/>
+        </>
     )
 }
 
