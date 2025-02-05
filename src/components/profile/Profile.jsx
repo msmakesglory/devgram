@@ -15,24 +15,9 @@ import {ScrollArea} from "@/components/ui/scroll-area.jsx";
 import Idea from "@/components/profile/Idea.jsx";
 
 const Profile = () => {
-  const { userDetails, setUserDetails } = useProfileContext();
+  const { userDetails } = useProfileContext();
   const navigate = useNavigate();
-  
-    useEffect( () => {
-        const fetchUserDetails = async() => {
-            if(!userDetails.uid) return;
 
-            const docRef = doc(db, "users", userDetails.uid);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-                setUserDetails(docSnap.data());
-            } else {
-                console.log("No user data found in Firestore.");
-            }
-        };
-        fetchUserDetails()
-    }, []);
 
     if(!userDetails.uid){
         navigate("/login");

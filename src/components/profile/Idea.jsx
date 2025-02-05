@@ -9,7 +9,7 @@ export default function Idea(){
             <div className="space-x-2">
                 <Badge variant="secondary">Java</Badge>
                 <Badge variant="secondary">Python</Badge>
-                <Badge variant="secondary">html</Badge>
+                <Badge variant="secondary">react</Badge>
             </div>
         </CardHeader>
         <CardContent>
