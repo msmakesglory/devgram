@@ -3,9 +3,9 @@ import { useProfileContext } from "../../context/ProfileContext";
 import {Linkedin, Github, MapPin,Mail} from "lucide-react";
 import "@/components/profile/Idea.jsx";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../configs/firebase";
+// import { useEffect } from "react";
+// import { doc, getDoc } from "firebase/firestore";
+// import { db } from "../../configs/firebase";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
 import EditProfile from "@/components/profile/EditProfile.jsx";
@@ -30,7 +30,7 @@ const Profile = () => {
                 <CardHeader>
                     <Avatar className="size-16">
                         <AvatarImage src="https://github.com/shadcn.png" />
-                        <AvatarFallback>MR</AvatarFallback>
+                        <AvatarFallback>👨‍💻</AvatarFallback>
                     </Avatar>
                     <EditProfile/>
                     <CardTitle className="tracking-wide">{userDetails.fullName}</CardTitle>
