@@ -3,9 +3,6 @@ import { useProfileContext } from "../../context/ProfileContext";
 import {Linkedin, Github, MapPin,Mail} from "lucide-react";
 import "@/components/profile/Idea.jsx";
 import { useNavigate } from "react-router-dom";
-// import { useEffect } from "react";
-// import { doc, getDoc } from "firebase/firestore";
-// import { db } from "../../configs/firebase";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.jsx";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
 import EditProfile from "@/components/profile/EditProfile.jsx";
@@ -17,8 +14,6 @@ import Idea from "@/components/profile/Idea.jsx";
 const Profile = () => {
   const { userDetails } = useProfileContext();
   const navigate = useNavigate();
-
-
     if(!userDetails.uid){
         navigate("/login");
     }
