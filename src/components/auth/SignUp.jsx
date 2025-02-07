@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import logo from "./../images/logo.png";
 import { useAuthContext } from "../../context/authContext";
 import {Link} from "react-router-dom";
+import { useState } from "react";
 
 // Define Zod schema
 const signUpSchema = z
@@ -27,7 +29,9 @@ const signUpSchema = z
 
 export default function SignUp() {
     const { handleGoogleLogin, handleCreateUser } = useAuthContext(); 
-    // useForm with Zod validation
+    const [ showPassword, setShowPassword ] = useState(false);
+
+    // useForm with Zod validation 
     const {
         register,
         handleSubmit,
@@ -38,11 +42,11 @@ export default function SignUp() {
 
     // Handle sign-up
     const handleOnSubmit = async (data) => {
-        console.log("Submitting form data:", data); // Debug log
+        console.log("Submitting form data:", data);
         const errorMessage = await handleCreateUser(data);
 
         if (errorMessage) {
-            alert(errorMessage); // Display Firebase error
+            alert(errorMessage);
         } else {
             console.log("User created successfully!");
         }
@@ -68,17 +72,41 @@ export default function SignUp() {
                 </div>
 
                 {/* Password Field */}
-                <div>
+                <div className="relative">
                     <Label>Password</Label>
-                    <Input type="password" placeholder="Enter your password" {...register("password")} />
-                    {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+                    <Input 
+                        id="password" 
+                        type={showPassword ? "text" : "password"} 
+                        placeholder="Enter your password" 
+                        className="w-full pr-10 mt-1"
+                        {...register("password")} 
+                    />
+                    <button 
+                        type="button" 
+                        className="absolute right-3 top-[70%] -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
                 </div>
+                
+                
 
                 {/* Confirm Password */}
-                <div>
+                <div className="relative">
                     <Label>Confirm Password</Label>
-                    <Input type="password" placeholder="Confirm your password" {...register("confirmPassword")} />
+                    <Input 
+                        type={showPassword?"text":"password"}
+                        placeholder="Confirm your password"
+                        {...register("confirmPassword")} />
                     {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>}
+                    <button 
+                        type="button" 
+                        className="absolute right-3 top-[70%] -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
                 </div>
 
                 {/* Submit Button */}

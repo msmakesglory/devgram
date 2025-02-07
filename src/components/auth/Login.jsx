@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import logo from "@/components/images/logo.png";
 import { useAuthContext } from "../../context/authContext";
+import { useState } from "react";
 
 // Zod Schema for Validation
 const loginSchema = z.object({
@@ -18,7 +20,8 @@ const loginSchema = z.object({
 
 export default function Login() {
     // const navigate = useNavigate();
-    const { handleGoogleLogin, handleEmailPassWordLogin } = useAuthContext(); 
+    const { handleGoogleLogin, handleEmailPassWordLogin } = useAuthContext();
+    const [showPassword, setShowPassword] = useState(false); 
 
     const {
         register,
@@ -51,10 +54,25 @@ export default function Login() {
                 </div>
 
                 {/* Password Field */}
-                <div>
-                    <Label htmlFor="password">Password</Label>
-                    <Input id="password" type="password" placeholder="Enter your password" {...register("password")} />
-                    {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+                
+                <div className="relative">
+                    <Label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                        Password
+                    </Label>
+                    <Input 
+                        id="password" 
+                        type={showPassword ? "text" : "password"} 
+                        placeholder="Enter your password" 
+                        className="w-full pr-10 mt-1"
+                        {...register("password")} 
+                    />
+                    <button 
+                        type="button" 
+                        className="absolute right-3 top-[70%] -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
                 </div>
 
                 {/* Forgot Password & Login Button */}
