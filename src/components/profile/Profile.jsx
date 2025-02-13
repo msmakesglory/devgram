@@ -10,6 +10,7 @@ import EditPersonalInfo from "@/components/profile/EditPersonalInfo.jsx";
 import EditPro from "@/components/profile/EditPro.jsx";
 import {ScrollArea} from "@/components/ui/scroll-area.jsx";
 import Idea from "@/components/profile/Idea.jsx";
+import extractUsername from "@/components/utils/util.js";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
@@ -50,10 +51,12 @@ const Profile = () => {
                             <MapPin className="inline-block h-5"/> Hyderabad
                         </li>
                         <li>
-                            <Linkedin className="inline-block h-5"/> {userDetails.linkedin || "Not Available"}
+                            <Linkedin className="inline-block h-5"/>
+                            <a href={userDetails.linkedin}> {extractUsername(userDetails.linkedin) || "Not Available"}</a>
                         </li>
                         <li>
-                            <Github className="inline-block h-5"/> {userDetails.github}
+                            <Github className="inline-block h-5"/>
+                            <a href={userDetails.github}> {extractUsername(userDetails.github) || "Not Available"}</a>
                         </li>
                     </ul>
                 </CardContent>
@@ -85,10 +88,7 @@ const Profile = () => {
         <div className={"col-span-5"}>
             <h1 className={"ml-4 text-3xl font-bold"}>Your Ideas</h1>
             <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
-                  <Idea/>
-                  <Idea/>
-                  <Idea/>
-                  <Idea/>
+                  
             </ScrollArea>
         </div>
       </div>

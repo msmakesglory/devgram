@@ -11,6 +11,8 @@ import { ProfileProvider } from './context/profileContext';
 import { AuthProvider } from './context/authContext.jsx';
 import NotFound from './components/404.jsx';
 import ForgotPassword from './components/auth/ForgotPassword.jsx';
+import IdeaForm from "@/components/ideas/IdeaForm.jsx";
+import IdeaCard from "@/components/ideas/IdeaCard.jsx";
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -24,6 +26,7 @@ createRoot(document.getElementById('root')).render(
                             <Route path="/signup" element={<SignUp />} />
                             <Route path="/forgotpassword" element={<ForgotPassword />} />
                             <Route path="/p/:uid" element={<Profile />} />
+                            <Route path="/idea/new" element={<IdeaForm />} />
                             <Route path="/404" element={<NotFound />} />
                             <Route path="*" element={<NotFound />} />
                         </Route>
