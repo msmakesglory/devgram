@@ -12,21 +12,22 @@ export const IdeaProvider = ({ children }) => {
     const [ ideas, setIdeas ] = useState([]);
     const { userDetails } = useProfileContext();
 
-    useEffect( () => {
-        if(!userDetails?.uid) return ;
+    useEffect(() => {
+        if (!userDetails?.uid) return;
+    
         const fetchIdeas = async () => {
-            const ideasRef = collection(db, "ideas");
-            const q = query(ideasRef, where("uid", "==", userDetails?.uid));
-            const querySnapShot = await getDocs(q);
+            const ideasRef = collection(db, "ideas", userDetails.uid, "userIdeas");
+            const querySnapShot = await getDocs(ideasRef);
             const fetchedIdeas = querySnapShot.docs.map(doc => ({
                 id: doc.id,
-                ...doc.data()
+                ...doc.data(),
             }));
-
             setIdeas(fetchedIdeas);
         };
+    
         fetchIdeas();
-    }, [userDetails?.uid]);
+    }, [userDetails]); // Updated dependency to trigger on `userDetails` update
+    
 
     const generateUniqueIdeaId = async () => {
         let ideaId, docSnap;

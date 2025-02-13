@@ -1,20 +1,25 @@
 const extractUsername = (url) => {
     try {
+        if (!url || typeof url !== "string" || !url.startsWith("http")) {
+            return "Not Available"; // Return a default value
+        }
+
         const parsedUrl = new URL(url);
         const pathSegments = parsedUrl.pathname.split('/').filter(Boolean);
 
         if (parsedUrl.hostname.includes("linkedin.com") && pathSegments[0] === "in") {
-            return pathSegments[1] || null; // LinkedIn username
+            return pathSegments[1] || "Not Available"; // LinkedIn username
         }
 
         if (parsedUrl.hostname.includes("github.com")) {
-            return pathSegments[0] || null; // GitHub username
+            return pathSegments[0] || "Not Available"; // GitHub username
         }
 
-        return null; // Not a valid LinkedIn or GitHub profile URL
+        return "Not Available"; // Not a valid LinkedIn or GitHub profile URL
     } catch (error) {
-        console.error(error)
-        return null; // Invalid URL format
+        console.error("Invalid URL:", error);
+        return "Not Available"; // Invalid URL format
     }
 };
+
 export default extractUsername;

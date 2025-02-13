@@ -12,13 +12,13 @@ import { AuthProvider } from './context/authContext.jsx';
 import NotFound from './components/404.jsx';
 import ForgotPassword from './components/auth/ForgotPassword.jsx';
 import IdeaForm from "@/components/ideas/IdeaForm.jsx";
-import IdeaCard from "@/components/ideas/IdeaCard.jsx";
+// import IdeaCard from "@/components/ideas/IdeaCard.jsx";
 import { IdeaProvider } from './context/IdeaContext.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <BrowserRouter>
-            <ProfileProvider>  
+            <ProfileProvider> 
                 <AuthProvider>
                     <IdeaProvider>  
                         <Routes>

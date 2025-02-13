@@ -6,13 +6,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus } from "lucide-react"; // Import Plus icon
+import { Plus } from "lucide-react";
 import { useIdeaContext } from '../../context/IdeaContext';
+import { useNavigate } from 'react-router-dom';
+import { useProfileContext } from '../../context/ProfileContext';
 
 const IdeaForm = () => {
+    const {userDetails} = useProfileContext();
+    const navigate = useNavigate();
+
+    if (!userDetails?.uid) {
+        navigate('/login');
+    }
     const { addIdea } = useIdeaContext();
     const [formData, setFormData] = useState({
-        creator: '',
         title: '',
         description: '',
         tags: [],
@@ -46,13 +53,13 @@ const IdeaForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.creator || !formData.title || !formData.description || !formData.status) {
+        if (!formData.title || !formData.description || !formData.status) {
             alert("All fields are required!");
             return;
         }
 
         await addIdea(formData);
-        setFormData({ creator: '', title: '', description: '', tags: [], requiredPeople: '', status: '' });
+        setFormData({title: '', description: '', tags: [], requiredPeople: '', status: '' });
     };
 
     return (
@@ -62,12 +69,7 @@ const IdeaForm = () => {
                     <CardTitle className="text-2xl font-bold">Idea Form</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                    {/* Creator */}
-                    <div className="space-y-2">
-                        <Label htmlFor="creator">Creator</Label>
-                        <Input id="creator" value={formData.creator} onChange={(e) => setFormData({ ...formData, creator: e.target.value })} required />
-                    </div>
-
+                
                     {/* Title */}
                     <div className="space-y-2">
                         <Label htmlFor="title">Title</Label>
