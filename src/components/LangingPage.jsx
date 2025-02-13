@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/navbar/NavBar.jsx";
 import {Change, Mail} from "@icon-park/react";
 import {Button} from "@/components/ui/button.jsx";
-import Spin from "@/components/Spin.jsx";
+// import Spin from "@/components/Spin.jsx";
 //import { useMyNameContext } from "../context/helloContext";
 
 const LandingPage = () => {
@@ -21,7 +21,7 @@ const LandingPage = () => {
                 </Button>
             </div>
         </div>
-        <Spin/>
+        {/* <Spin/> */}
         </>
     )
 }

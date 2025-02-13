@@ -15,7 +15,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
-    const { userDetails, setUserDetails } = useProfileContext();
+    const { setUserDetails } = useProfileContext();
 
     const handleUserAuthentication = async (user) => {
         if (!user) {

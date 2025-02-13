@@ -86,9 +86,12 @@ const Profile = () => {
             </Card>
         </div>
         <div className={"col-span-5"}>
-            <h1 className={"ml-4 text-3xl font-bold"}>Your Ideas</h1>
+            <h1 className={"ml-4 text-3    xl font-bold"}>Your Ideas</h1>
             <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
-                  
+                  <Idea />
+                  <Idea />
+                  <Idea />
+                  <Idea />
             </ScrollArea>
         </div>
       </div>
