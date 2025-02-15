@@ -11,6 +11,8 @@ import Idea from "@/components/profile/Idea.jsx";
 import extractUsername from "@/components/utils/util.js";
 import { useIdeaContext } from "../../context/IdeaContext";
 import { Button } from "../ui/button";
+import {Skeleton} from "@/components/ui/skeleton.jsx";
+import IdeaCardSkeleton from "@/components/ideas/IdeaSkeleton.jsx";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
@@ -31,12 +33,20 @@ const Profile = () => {
               <AvatarFallback>👨‍💻</AvatarFallback>
             </Avatar>
             <EditProfile />
-            <CardTitle className="tracking-wide">{userDetails.fullName}</CardTitle>
-            <CardDescription>@{userDetails.uid}</CardDescription>
+            <CardTitle className="tracking-wide">
+              {userDetails.fullName?userDetails.fullName:
+                <Skeleton className="w-40 h-5" />
+              }
+            </CardTitle>
+            <CardDescription>{userDetails.uid
+              ? "@"+userDetails.uid
+                : <Skeleton className="w-60 h-5" />
+            }</CardDescription>
           </CardHeader>
           <CardContent>
             {userDetails.summary ||
-              `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore`}
+              <Skeleton className="w-60 h-10" />
+            }
           </CardContent>
         </Card>
 
@@ -48,18 +58,43 @@ const Profile = () => {
           <CardContent>
             <ul className="space-y-3">
               <li>
-                <Mail className="inline-block h-5" /> {userDetails?.mail ? userDetails.mail : "abc@mail.com"}
+                {userDetails.mail ?
+                    <>
+                      <Mail className="inline-block h-5"/>{ userDetails.mail}
+                    </>
+                    :
+                    <Skeleton className="w-60 h-5"/>
+
+                }
               </li>
               <li>
-                <MapPin className="inline-block h-5" /> Hyderabad
+                {userDetails.location ?
+                    <>
+                      <MapPin className="inline-block h-5"/> { userDetails.location}
+                    </>
+                    :
+                    <Skeleton className="w-60 h-5"/>
+                }
               </li>
               <li>
-                <Linkedin className="inline-block h-5" />
-                <a href={userDetails.linkedin}>{extractUsername(userDetails.linkedin) || "Not Available"}</a>
+                {userDetails.linkedin ?
+                    <>
+                      <Linkedin className="inline-block h-5"/>
+                      <a href={userDetails.linkedin}>{ extractUsername(userDetails.linkedin) || "Not Available"}</a>
+                    </>
+                    :
+                    <Skeleton className="w-60 h-5"/>
+                }
               </li>
               <li>
-                <Github className="inline-block h-5" />
-                <a href={userDetails.github}>{extractUsername(userDetails.github) || "Not Available"}</a>
+                {userDetails.github ?
+                    <>
+                      <Github className="inline-block h-5"/>
+                      <a href={userDetails.github}>{ extractUsername(userDetails.github) || "Not Available"}</a>
+                    </>
+                    :
+                    <Skeleton className="w-60 h-5"/>
+                }
               </li>
             </ul>
           </CardContent>
@@ -67,22 +102,22 @@ const Profile = () => {
 
         <Card className="relative">
           <CardHeader>
-            <EditPro />
+            <EditPro/>
             <CardTitle>Professional Details</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-1">
               <li>
-                <p>Work</p>
-                <CardDescription>{userDetails.work || "Not Provided"}</CardDescription>
+                <p className="mb-1">Work</p>
+                <CardDescription>{userDetails.work || <Skeleton className="w-40 h-5"/>}</CardDescription>
               </li>
               <li>
-                <p>Education</p>
-                <CardDescription>{userDetails.education || "Not Provided"}</CardDescription>
+                <p className="mb-1">Education</p>
+                <CardDescription>{userDetails.education || <Skeleton className="w-40 h-5"/>}</CardDescription>
               </li>
               <li>
-                <p>Skills</p>
-                <CardDescription>{userDetails.skills || "Not Provided"}</CardDescription>
+                <p className="mb-1">Skills</p>
+                <CardDescription>{userDetails.skills || <Skeleton className="w-40 h-5"/>}</CardDescription>
               </li>
             </ul>
           </CardContent>
@@ -91,23 +126,24 @@ const Profile = () => {
 
       {/* Ideas Section */}
       <div className="col-span-5">
-        <div className="flex  justify-between items-center px-4"> 
+        <div className="flex  justify-between items-center px-4 mb-2">
           <h1 className="text-2xl font-bold">Your Ideas</h1>
           <Button className="text-sm px-2 py-1" onClick={() => navigate('/idea/new')}>Add Idea</Button>
         </div>
         <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
           {ideas?.length > 0 ? (
             ideas.map((idea, index) => (
-                <Idea 
-                key={index}
-                data={{
-                    title: idea.title,
-                    description: idea.description,
-                    tags: idea.tags,
-                    createdBy: idea.creator,
-                    createdAt: idea.createdAt
-                }}
-            />
+                // <Idea
+                //   key={index}
+                //   data={{
+                //       title: idea.title,
+                //       description: idea.description,
+                //       tags: idea.tags,
+                //       createdBy: idea.creator,
+                //       createdAt: idea.createdAt
+                //   }}
+                // />
+                <IdeaCardSkeleton key={index}/>
             ))
           ) : (
             <p className="ml-4 text-gray-500">No ideas available.</p>
