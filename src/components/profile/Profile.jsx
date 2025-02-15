@@ -13,15 +13,26 @@ import { useIdeaContext } from "../../context/IdeaContext";
 import { Button } from "../ui/button";
 import {Skeleton} from "@/components/ui/skeleton.jsx";
 import IdeaCardSkeleton from "@/components/ideas/IdeaSkeleton.jsx";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
   const navigate = useNavigate();
   const { ideas } = useIdeaContext();
+  const [ideasLoading, setIdeasLoading] = useState(true);
+  const [profileLoading, setProfileLoading] = useState(true);
 
   if (!userDetails.uid) {
     navigate("/login");
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setProfileLoading(false);
+      setIdeasLoading(false);
+    }, 3000);
+  }, []);
+
 
   return (
     <div className="profile-div mx-2">
@@ -123,31 +134,39 @@ const Profile = () => {
           </CardContent>
         </Card>
       </div>
+      
 
       {/* Ideas Section */}
       <div className="col-span-5">
-        <div className="flex  justify-between items-center px-4 mb-2">
+        <div className="flex justify-between items-center px-4 mb-2">
           <h1 className="text-2xl font-bold">Your Ideas</h1>
           <Button className="text-sm px-2 py-1" onClick={() => navigate('/idea/new')}>Add Idea</Button>
         </div>
         <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
-          {ideas?.length > 0 ? (
-            ideas.map((idea, index) => (
-                // <Idea
-                //   key={index}
-                //   data={{
-                //       title: idea.title,
-                //       description: idea.description,
-                //       tags: idea.tags,
-                //       createdBy: idea.creator,
-                //       createdAt: idea.createdAt
-                //   }}
-                // />
-                <IdeaCardSkeleton key={index}/>
-            ))
-          ) : (
-            <p className="ml-4 text-gray-500">No ideas available.</p>
-          )}
+            {ideasLoading ? (
+              <>
+                <IdeaCardSkeleton />
+                <IdeaCardSkeleton />
+                <IdeaCardSkeleton />
+              </>
+            ) : (ideas.length > 0 ? (
+              ideas.map((idea, index) => (
+                  <Idea
+                    key={index}
+                    data={{
+                        title: idea.title,
+                        description: idea.description,
+                        tags: idea.tags,
+                        createdBy: idea.creator,
+                        createdAt: idea.createdAt
+                    }}
+                  />
+              ))
+          ):(
+            <div>
+              <p className="text-gray-500 text-center">Nothing here</p>
+            </div>
+          ))}
         </ScrollArea>
       </div>
     </div>

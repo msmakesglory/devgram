@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { useProfileContext } from "./ProfileContext";
-import { collection, query, where, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection,  doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../configs/firebase";
 import {v4 as uuidv4} from "uuid";
 
@@ -26,7 +26,7 @@ export const IdeaProvider = ({ children }) => {
         };
     
         fetchIdeas();
-    }, [userDetails]); // Updated dependency to trigger on `userDetails` update
+    }, [userDetails]); 
     
 
     const generateUniqueIdeaId = async () => {
