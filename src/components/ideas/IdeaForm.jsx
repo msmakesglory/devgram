@@ -37,12 +37,6 @@ const IdeaForm = () => {
         }
     };
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault(); // Prevent form submission
-            addTag();
-        }
-    };
 
     const removeTag = (tagToRemove) => {
         setFormData((prev) => ({
@@ -60,6 +54,7 @@ const IdeaForm = () => {
 
         await addIdea(formData);
         setFormData({title: '', description: '', tags: [], requiredPeople: '', status: '' });
+        navigate(`/p/${userDetails.uid}`);
     };
 
     return (

@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area.jsx";
 import Idea from "@/components/profile/Idea.jsx";
 import extractUsername from "@/components/utils/util.js";
 import { useIdeaContext } from "../../context/IdeaContext";
+import { Button } from "../ui/button";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
@@ -90,7 +91,10 @@ const Profile = () => {
 
       {/* Ideas Section */}
       <div className="col-span-5">
-        <h1 className="ml-4 text-3xl font-bold">Your Ideas</h1>
+        <div className="flex  justify-between items-center px-4"> 
+          <h1 className="text-2xl font-bold">Your Ideas</h1>
+          <Button onClick={() => navigate('/idea/new')}>Add Idea</Button>
+        </div>
         <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
           {ideas?.length > 0 ? (
             ideas.map((idea, index) => (

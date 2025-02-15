@@ -18,7 +18,7 @@ export default function Idea({ data }) {
       </CardHeader>
       <CardContent>
         {data.createdBy && <p className="text-sm text-gray-500">Created By: {data.createdBy}</p>}
-        {data.createdAt && <p className="text-sm text-gray-500">Created At: {data.createdAt}</p>}
+        {data.createdAt && <p className="text-sm text-gray-500">Created At: {data.createdAt.substring(0, 10)}</p>}
       </CardContent>
     </Card>
   );
@@ -31,5 +31,6 @@ Idea.propTypes = {
     description: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     createdAt: PropTypes.string, // Optional
+    createdBy: PropTypes.string
   }).isRequired,
 };
