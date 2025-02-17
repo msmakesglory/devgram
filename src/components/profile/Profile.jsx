@@ -48,7 +48,7 @@ const Profile = () => {
             </Avatar>
             <EditProfile />
             <CardTitle className="tracking-wide">
-              {
+              {      
                 profileLoading
                   ? (userDetails.fullName || "Not Available")
                   : <Skeleton className="w-40 h-5" />
