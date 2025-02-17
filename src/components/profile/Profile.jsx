@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
+  console.log(userDetails)
   const navigate = useNavigate();
   const { ideas } = useIdeaContext();
   const [ideasLoading, setIdeasLoading] = useState(true);
@@ -45,18 +46,22 @@ const Profile = () => {
             </Avatar>
             <EditProfile />
             <CardTitle className="tracking-wide">
-              {userDetails.fullName?userDetails.fullName:
-                <Skeleton className="w-40 h-5" />
+              {
+                userDetails
+                  ? (userDetails.fullName || "Not Available")
+                  : <Skeleton className="w-40 h-5" />
               }
             </CardTitle>
-            <CardDescription>{userDetails.uid
-              ? "@"+userDetails.uid
-                : <Skeleton className="w-60 h-5" />
-            }</CardDescription>
+            <CardDescription>
+              {userDetails ? (userDetails.uid || "Not Available")
+              : <Skeleton className="w-60 h-5" />
+              }
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            {userDetails.summary ||
-              <Skeleton className="w-60 h-10" />
+            {userDetails ?
+            userDetails.summary || "Not Available"
+            : <Skeleton className="w-60 h-10" />
             }
           </CardContent>
         </Card>
@@ -69,9 +74,9 @@ const Profile = () => {
           <CardContent>
             <ul className="space-y-3">
               <li>
-                {userDetails.mail ?
+                {userDetails ?
                     <>
-                      <Mail className="inline-block h-5"/>{ userDetails.mail}
+                       <Mail className="inline-block h-5"/>{ userDetails.mail || "Not Available"}
                     </>
                     :
                     <Skeleton className="w-60 h-5"/>
@@ -79,16 +84,16 @@ const Profile = () => {
                 }
               </li>
               <li>
-                {userDetails.location ?
+                {userDetails ?
                     <>
-                      <MapPin className="inline-block h-5"/> { userDetails.location}
+                      <MapPin className="inline-block h-5"/> { userDetails.location || "Not Available"}
                     </>
                     :
                     <Skeleton className="w-60 h-5"/>
                 }
               </li>
               <li>
-                {userDetails.linkedin ?
+                {userDetails ?
                     <>
                       <Linkedin className="inline-block h-5"/>
                       <a href={userDetails.linkedin}>{ extractUsername(userDetails.linkedin) || "Not Available"}</a>
@@ -120,15 +125,30 @@ const Profile = () => {
             <ul className="space-y-1">
               <li>
                 <p className="mb-1">Work</p>
-                <CardDescription>{userDetails.work || <Skeleton className="w-40 h-5"/>}</CardDescription>
+                <CardDescription>
+                  {userDetails ?
+                  userDetails.work || "Not Available"
+                  :<Skeleton className="w-40 h-5"/>
+                  }
+                </CardDescription>
               </li>
               <li>
                 <p className="mb-1">Education</p>
-                <CardDescription>{userDetails.education || <Skeleton className="w-40 h-5"/>}</CardDescription>
+                <CardDescription>
+                  {userDetails ?
+                      userDetails.education || "Not Available"
+                      :<Skeleton className="w-40 h-5"/>
+                  }
+                </CardDescription>
               </li>
               <li>
                 <p className="mb-1">Skills</p>
-                <CardDescription>{userDetails.skills || <Skeleton className="w-40 h-5"/>}</CardDescription>
+                <CardDescription>
+                  {userDetails ?
+                      userDetails.skills || "Not Available"
+                      :<Skeleton className="w-40 h-5"/>
+                  }
+                </CardDescription>
               </li>
             </ul>
           </CardContent>

@@ -2,7 +2,7 @@ import { useContext, createContext, useState } from "react";
 import {db} from "../configs/firebase"
 import { doc, updateDoc } from "firebase/firestore";
 
-const ProfileContext = createContext();
+const ProfileContext = createContext(null);
 
 export const ProfileProvider = ({ children }) => {
     const [userDetails, setUserDetails] = useState({});
