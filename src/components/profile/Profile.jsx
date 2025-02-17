@@ -1,5 +1,5 @@
 import { useProfileContext } from "../../context/ProfileContext";
-import { Linkedin, Github, MapPin, Mail } from "lucide-react";
+import {Linkedin, Github, MapPin, Mail, Copy} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
@@ -14,6 +14,8 @@ import { Button } from "../ui/button";
 import {Skeleton} from "@/components/ui/skeleton.jsx";
 import IdeaCardSkeleton from "@/components/ideas/IdeaSkeleton.jsx";
 import { useEffect, useState } from "react";
+import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card.jsx";
+import {copyToClipboard} from "@/utils/copy.js";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
@@ -75,9 +77,18 @@ const Profile = () => {
             <ul className="space-y-3">
               <li>
                 {profileLoading ?
-                    <>
-                       <Mail className="inline-block h-5"/>{ userDetails.mail || "Not Available"}
-                    </>
+                    <HoverCard>
+                      <HoverCardTrigger>
+                        <p className={"truncate"}>
+                          <Mail className={"inline-block h-5"}/>{userDetails.mail || "Not Available"}
+                        </p>
+                      </HoverCardTrigger>
+                      <HoverCardContent>
+                          <Button onClick={()=>{copyToClipboard(userDetails.mail)}}>
+                            <Copy/> {userDetails.mail}
+                          </Button>
+                      </HoverCardContent>
+                    </HoverCard>
                     :
                     <Skeleton className="w-60 h-5"/>
 
@@ -127,8 +138,8 @@ const Profile = () => {
                 <p className="mb-1">Work</p>
                 <CardDescription>
                   {profileLoading ?
-                  userDetails.work || "Not Available"
-                  :<Skeleton className="w-40 h-5"/>
+                    userDetails.work || "Not Available"
+                    :<Skeleton className="w-40 h-5"/>
                   }
                 </CardDescription>
               </li>
