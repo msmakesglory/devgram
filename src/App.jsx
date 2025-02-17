@@ -7,7 +7,6 @@ import Profile from "@/components/profile/Profile.jsx"
 import {Outlet} from "react-router-dom";
 import Navbar from "@/components/navbar/NavBar.jsx";
 import Footer from "@/components/footer/Footer.jsx";
-import {ThemeProvider} from "@/context/ThemeContext.js";
 import React, {useEffect} from "react";
 import {Separator} from "@/components/ui/separator.jsx";
 

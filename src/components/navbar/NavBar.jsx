@@ -1,7 +1,6 @@
 import { Menu } from "lucide-react";
 // import { CiLight } from "react-icons/ci";
 import logo from "@/components/images/logo.png";
-import ThemeChanger from "@/components/navbar/Theme.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import {
     Sheet,
@@ -14,6 +13,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useProfileContext } from "../../context/ProfileContext";
 import { useAuthContext } from "../../context/authContext";
+import {ModeToggle} from "@/components/ModeToggle.jsx";
+import {ThemeProvider} from "@/context/ThemeProvider.jsx";
 
 const Navbar = () => {
     const { userDetails } = useProfileContext();
@@ -63,7 +64,9 @@ const Navbar = () => {
                                 </Button>
                             </>
                         )}
-                        <ThemeChanger />
+                        <ThemeProvider>
+                            <ModeToggle />
+                        </ThemeProvider>
                     </div>
                 </nav>
 
@@ -74,11 +77,12 @@ const Navbar = () => {
                             <img src={logo} className="w-20 dark:invert" alt="logo" />
                         </Link>
                         <div className="flex items-center gap-2">
-                            {/* Additional items can be added here */}
                         </div>
                         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                            <div>
-                                <ThemeChanger />
+                            <div className="space-x-2">
+                                <ThemeProvider>
+                                    <ModeToggle />
+                                </ThemeProvider>
                                 <SheetTrigger asChild>
                                     <Button variant="outline" size="icon" onClick={() => setIsSheetOpen(true)}>
                                         <Menu className="size-4" />
