@@ -16,6 +16,8 @@ import IdeaCardSkeleton from "@/components/ideas/IdeaSkeleton.jsx";
 import { useEffect, useState } from "react";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card.jsx";
 import {copyToClipboard} from "@/utils/copy.js";
+import {Input} from "@/components/ui/input.jsx";
+import IdeasTab from "@/components/profile/IdeasTab.jsx";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
@@ -165,41 +167,8 @@ const Profile = () => {
           </CardContent>
         </Card>
       </div>
-      
 
-      {/* Ideas Section */}
-      <div className="col-span-5">
-        <div className="flex justify-between items-center px-4 mb-2">
-          <h1 className="text-2xl font-bold">Your Ideas</h1>
-          <Button className="text-sm px-2 py-1" onClick={() => navigate('/idea/new')}>Add Idea</Button>
-        </div>
-        <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
-            {ideasLoading ? (
-              <>
-                <IdeaCardSkeleton />
-                <IdeaCardSkeleton />
-                <IdeaCardSkeleton />
-              </>
-            ) : (ideas.length > 0 ? (
-              ideas.map((idea, index) => (
-                  <Idea
-                    key={index}
-                    data={{
-                        title: idea.title,
-                        description: idea.description,
-                        tags: idea.tags,
-                        createdBy: idea.creator,
-                        createdAt: idea.createdAt
-                    }}
-                  />
-              ))
-          ):(
-            <div>
-              <p className="text-gray-500 text-center">Nothing here</p>
-            </div>
-          ))}
-        </ScrollArea>
-      </div>
+      <IdeasTab ideas={ideas} isLoading={ideasLoading}/>
     </div>
   );
 };

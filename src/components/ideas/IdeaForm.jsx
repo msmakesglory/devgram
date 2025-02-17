@@ -8,10 +8,19 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus } from "lucide-react";
 import { useIdeaContext } from '../../context/IdeaContext';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { useProfileContext } from '../../context/ProfileContext';
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog.jsx";
+import {Slider} from "@/components/ui/slider.jsx";
 
-const IdeaForm = () => {
+const AddIdea = () => {
     const {userDetails} = useProfileContext();
     const navigate = useNavigate();
 
@@ -58,67 +67,100 @@ const IdeaForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Card className="w-full max-w-2xl mx-auto p-6">
-                <CardHeader>
-                    <CardTitle className="text-2xl font-bold">Idea Form</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                
-                    {/* Title */}
-                    <div className="space-y-2">
-                        <Label htmlFor="title">Title</Label>
-                        <Input id="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
-                    </div>
+        <Dialog>
+            <DialogTrigger>
+                <Button>
+                    <Plus/> Add Idea
+                </Button>
+            </DialogTrigger>
+            <DialogContent>
+                <form onSubmit={handleSubmit}>
+                    <div className="w-full max-w-2xl mx-auto p-6">
+                        <DialogHeader>
+                            <DialogTitle className="text-2xl font-bold">Idea Form</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-3">
+                            {/* Title */}
+                            <div className="space-y-2">
+                                <Label htmlFor="title">Title</Label>
+                                <Input
+                                    id="title"
+                                    value={formData.title}
+                                    onChange={(e) => setFormData({...formData, title: e.target.value})}
+                                    placeholder="Enter Title Of Idea"
+                                    required
+                                />
+                            </div>
 
-                    {/* Description */}
-                    <div className="space-y-2">
-                        <Label htmlFor="description">Description</Label>
-                        <Textarea id="description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} required />
-                    </div>
+                            {/* Description */}
+                            <div className="space-y-2">
+                                <Label htmlFor="description">Description</Label>
+                                <Textarea
+                                    id="description"
+                                    value={formData.description}
+                                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                                    placeholder="Describe Your Idea"
+                                    required
+                                />
+                            </div>
 
-                    {/* Tags */}
-                    <div className="space-y-2">
-                        <Label htmlFor="tags">Tags</Label>
-                        <div className="flex gap-2">
-                            <Input id="tags" value={newTag} onChange={(e) => setNewTag(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addTag()} />
-                            <Button type="button" onClick={addTag} disabled={!newTag.trim()}><Plus className="w-4 h-4" /> Add</Button>
+                            {/* Tags */}
+                            <div className="space-y-2">
+                                <Label htmlFor="tags">Tags</Label>
+                                <div className="flex gap-2">
+                                    <Input
+                                        id="tags"
+                                        value={newTag}
+                                        onChange={(e) => setNewTag(e.target.value)}
+                                        onKeyDown={(e) => e.key === 'Enter' && addTag()}
+                                        placeholder="Type and Hit Enter Tools you want to Use"
+                                    />
+                                    <Button type="button" onClick={addTag} disabled={!newTag.trim()}><Plus
+                                        className="w-4 h-4"/> Add</Button>
+                                </div>
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                    {formData.tags.map(tag => (
+                                        <Badge key={tag} onClick={() => removeTag(tag)}>{tag} ×</Badge>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Required People */}
+                            <div className="space-y-2">
+                                <Label htmlFor="required-people">Number of Required People {formData.requiredPeople}</Label>
+                                <Slider
+                                    max={10}
+                                    step={1}
+                                    min={2}
+                                    value={[formData.requiredPeople]}
+                                    onValueChange={(value) => setFormData({ ...formData, requiredPeople: value[0] })}
+                                />
+                            </div>
+
+                            {/* Status */}
+                            <div className="space-y-2">
+                                <Label htmlFor="status">Status</Label>
+                                <Select onValueChange={(val) => setFormData({...formData, status: val})} required>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select status"/>
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="planning">Planning</SelectItem>
+                                        <SelectItem value="in-progress">In Progress</SelectItem>
+                                        <SelectItem value="completed">Completed</SelectItem>
+                                        <SelectItem value="on-hold">On Hold</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
                         </div>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                            {formData.tags.map(tag => (
-                                <Badge key={tag} onClick={() => removeTag(tag)}>{tag} ×</Badge>
-                            ))}
-                        </div>
                     </div>
-
-                    {/* Required People */}
-                    <div className="space-y-2">
-                        <Label htmlFor="required-people">Number of Required People</Label>
-                        <Input id="required-people" type="number" value={formData.requiredPeople} onChange={(e) => setFormData({ ...formData, requiredPeople: e.target.value })} min="1" required />
-                    </div>
-
-                    {/* Status */}
-                    <div className="space-y-2">
-                        <Label htmlFor="status">Status</Label>
-                        <Select onValueChange={(val) => setFormData({ ...formData, status: val })} required>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Select status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="planning">Planning</SelectItem>
-                                <SelectItem value="in-progress">In Progress</SelectItem>
-                                <SelectItem value="completed">Completed</SelectItem>
-                                <SelectItem value="on-hold">On Hold</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </CardContent>
-                <CardFooter className="flex justify-end pt-6">
+                </form>
+                <DialogFooter>
                     <Button type="submit">Submit Idea</Button>
-                </CardFooter>
-            </Card>
-        </form>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     );
 };
 
-export default IdeaForm;
+export default AddIdea;

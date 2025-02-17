@@ -29,7 +29,6 @@ createRoot(document.getElementById('root')).render(
                                 <Route path="/signup" element={<SignUp />} />
                                 <Route path="/forgotpassword" element={<ForgotPassword />} />
                                 <Route path="/p/:uid" element={<Profile />} />
-                                <Route path="/idea/new" element={<IdeaForm />} />
                                 <Route path="/postpage" element={<DevgramSearch />} />
                                 <Route path="/404" element={<NotFound />} />
                                 <Route path="*" element={<NotFound />} />

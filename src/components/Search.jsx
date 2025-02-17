@@ -1,4 +1,5 @@
 import{ useState, useEffect } from 'react';
+import {Input} from "@/components/ui/input.jsx";
 
 const DevgramSearch = ({ data }) => {
     const [query, setQuery] = useState('');
@@ -15,12 +16,11 @@ const DevgramSearch = ({ data }) => {
   
     return (
       <div className="p-4">
-        <input
+        <Input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search Devgram posts..."
-          className="w-full p-2 border rounded mb-4 text-black-600"
         />
   
         {filteredData.length > 0 ? (
