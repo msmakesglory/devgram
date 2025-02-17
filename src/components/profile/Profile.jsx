@@ -21,7 +21,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const { ideas } = useIdeaContext();
   const [ideasLoading, setIdeasLoading] = useState(true);
-  const [profileLoading, setProfileLoading] = useState(true);
+  const [profileLoading, setProfileLoading] = useState(false);
 
   if (!userDetails.uid) {
     navigate("/login");
@@ -29,7 +29,7 @@ const Profile = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setProfileLoading(false);
+      setProfileLoading(true);
       setIdeasLoading(false);
     }, 3000);
   }, []);
@@ -47,19 +47,19 @@ const Profile = () => {
             <EditProfile />
             <CardTitle className="tracking-wide">
               {
-                userDetails
+                profileLoading
                   ? (userDetails.fullName || "Not Available")
                   : <Skeleton className="w-40 h-5" />
               }
             </CardTitle>
             <CardDescription>
-              {userDetails ? (userDetails.uid || "Not Available")
+              {profileLoading ? (userDetails.uid || "Not Available")
               : <Skeleton className="w-60 h-5" />
               }
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {userDetails ?
+            {profileLoading ?
             userDetails.summary || "Not Available"
             : <Skeleton className="w-60 h-10" />
             }
@@ -74,7 +74,7 @@ const Profile = () => {
           <CardContent>
             <ul className="space-y-3">
               <li>
-                {userDetails ?
+                {profileLoading ?
                     <>
                        <Mail className="inline-block h-5"/>{ userDetails.mail || "Not Available"}
                     </>
@@ -84,7 +84,7 @@ const Profile = () => {
                 }
               </li>
               <li>
-                {userDetails ?
+                {profileLoading ?
                     <>
                       <MapPin className="inline-block h-5"/> { userDetails.location || "Not Available"}
                     </>
@@ -93,7 +93,7 @@ const Profile = () => {
                 }
               </li>
               <li>
-                {userDetails ?
+                {profileLoading ?
                     <>
                       <Linkedin className="inline-block h-5"/>
                       <a href={userDetails.linkedin}>{ extractUsername(userDetails.linkedin) || "Not Available"}</a>
@@ -103,7 +103,7 @@ const Profile = () => {
                 }
               </li>
               <li>
-                {userDetails.github ?
+                {profileLoading ?
                     <>
                       <Github className="inline-block h-5"/>
                       <a href={userDetails.github}>{ extractUsername(userDetails.github) || "Not Available"}</a>
@@ -126,7 +126,7 @@ const Profile = () => {
               <li>
                 <p className="mb-1">Work</p>
                 <CardDescription>
-                  {userDetails ?
+                  {profileLoading ?
                   userDetails.work || "Not Available"
                   :<Skeleton className="w-40 h-5"/>
                   }
@@ -135,7 +135,7 @@ const Profile = () => {
               <li>
                 <p className="mb-1">Education</p>
                 <CardDescription>
-                  {userDetails ?
+                  {profileLoading ?
                       userDetails.education || "Not Available"
                       :<Skeleton className="w-40 h-5"/>
                   }
@@ -144,7 +144,7 @@ const Profile = () => {
               <li>
                 <p className="mb-1">Skills</p>
                 <CardDescription>
-                  {userDetails ?
+                  {profileLoading ?
                       userDetails.skills || "Not Available"
                       :<Skeleton className="w-40 h-5"/>
                   }
