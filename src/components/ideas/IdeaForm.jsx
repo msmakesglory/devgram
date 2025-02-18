@@ -32,7 +32,7 @@ const AddIdea = () => {
         title: '',
         description: '',
         tags: [],
-        requiredPeople: '',
+        requiredPeople: '2',
         status: '',
     });
     const [newTag, setNewTag] = useState('');
