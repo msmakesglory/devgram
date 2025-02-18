@@ -6,17 +6,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx"
 import EditProfile from "@/components/profile/EditProfile.jsx";
 import EditPersonalInfo from "@/components/profile/EditPersonalInfo.jsx";
 import EditPro from "@/components/profile/EditPro.jsx";
-import { ScrollArea } from "@/components/ui/scroll-area.jsx";
-import Idea from "@/components/profile/Idea.jsx";
 import extractUsername from "@/components/utils/util.js";
 import { useIdeaContext } from "../../context/IdeaContext";
 import { Button } from "../ui/button";
 import {Skeleton} from "@/components/ui/skeleton.jsx";
-import IdeaCardSkeleton from "@/components/ideas/IdeaSkeleton.jsx";
 import { useEffect, useState } from "react";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card.jsx";
 import {copyToClipboard} from "@/utils/copy.js";
-import {Input} from "@/components/ui/input.jsx";
 import IdeasTab from "@/components/profile/IdeasTab.jsx";
 
 const Profile = () => {

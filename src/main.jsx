@@ -11,10 +11,7 @@ import { ProfileProvider } from './context/ProfileContext';
 import { AuthProvider } from './context/authContext.jsx';
 import NotFound from './components/404.jsx';
 import ForgotPassword from './components/auth/ForgotPassword.jsx';
-import IdeaForm from "@/components/ideas/IdeaForm.jsx";
-// import IdeaCard from "@/components/ideas/IdeaCard.jsx";
 import { IdeaProvider } from './context/IdeaContext.jsx';
-import DevgramSearch from './components/PostPage.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -29,7 +26,6 @@ createRoot(document.getElementById('root')).render(
                                 <Route path="/signup" element={<SignUp />} />
                                 <Route path="/forgotpassword" element={<ForgotPassword />} />
                                 <Route path="/p/:uid" element={<Profile />} />
-                                <Route path="/postpage" element={<DevgramSearch />} />
                                 <Route path="/404" element={<NotFound />} />
                                 <Route path="*" element={<NotFound />} />
                             </Route>

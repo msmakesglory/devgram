@@ -3,26 +3,16 @@ import {ScrollArea} from "@/components/ui/scroll-area.jsx";
 import IdeaCardSkeleton from "@/components/ideas/IdeaSkeleton.jsx";
 import Idea from "@/components/profile/Idea.jsx";
 import {useEffect, useState} from "react";
-import {Button} from "@/components/ui/button.jsx";
-import {Plus} from "lucide-react";
-import {Link} from "react-router-dom";
 import AddIdea from "@/components/ideas/IdeaForm.jsx";
+import { useFilteredData } from "../../hooks/useFilteredData";
 
 export default function IdeasTab({ideas , isLoading}) {
     const [query, setQuery] = useState('');
-    const [filteredData, setFilteredData] = useState(ideas);
+    const filteredData = useFilteredData(ideas, query);
 
-    useEffect(() => {
-        const lowerCaseQuery = query.toLowerCase();
-        const results = ideas.filter(item =>
-            item.title.toLowerCase().includes(lowerCaseQuery) ||
-            item.description.toLowerCase().includes(lowerCaseQuery)
-        );
-        setFilteredData(results);
-    }, [query, ideas]);
    return <div className="col-span-5">
         <div className="flex px-4 mb-2">
-            <h1 className="text-xl font-semibold w-1/2">Your Ideas </h1>
+            <h1 className="text-xl font-semibold w-1/2">Your Ideas</h1>
             <div className="w-1/2 flex gap-2">
                 <Input
                     type="text"
@@ -60,3 +50,5 @@ export default function IdeasTab({ideas , isLoading}) {
         </ScrollArea>
     </div>
 }
+
+
