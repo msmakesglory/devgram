@@ -6,7 +6,7 @@ import {
     signInWithEmailAndPassword, 
     signOut 
 } from "firebase/auth";
-import { auth, googleProvider, db } from "../configs/firebase";
+import { auth, googleProvider, db, gitHubProvider } from "../configs/firebase";
 import { useProfileContext } from "./profileContext";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -77,6 +77,20 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const handleGitHubLogin = async () => {
+        try {
+            const loggedUser = await signInWithPopup(auth, gitHubProvider);
+            const user = loggedUser.user;
+            if (user) {
+                await handleUserAuthentication(user);
+
+                navigate(`/p/${user.uid}`);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     const handleEmailPassWordLogin = async (formData) => {
         try {
             const loggedUser = await signInWithEmailAndPassword(auth, formData.email, formData.password);
@@ -111,7 +125,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ handleSignout, handleGoogleLogin, handleEmailPassWordLogin, handleCreateUser }}>
+        <AuthContext.Provider value={{ handleSignout, handleGoogleLogin, handleEmailPassWordLogin, handleCreateUser, handleGitHubLogin}}>
             {children}
         </AuthContext.Provider>
     );

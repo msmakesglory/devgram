@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
 import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from 'react-icons/fa';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card.jsx";
@@ -28,7 +29,7 @@ const signUpSchema = z
     });
 
 export default function SignUp() {
-    const { handleGoogleLogin, handleCreateUser } = useAuthContext(); 
+    const { handleGoogleLogin, handleCreateUser, handleGitHubLogin } = useAuthContext(); 
     const [ showPassword, setShowPassword ] = useState(false);
 
     // useForm with Zod validation 
@@ -116,10 +117,17 @@ export default function SignUp() {
 
                 {/* Google Sign-in */}
             </form>
-            <Button variant="outline" className="w-full" onClick={handleGoogleLogin}>
-                <FcGoogle className="mr-2 size-5" />
-                Sign in with Google
-            </Button>
+            <div className="w-full mt-2">
+                    <Button variant="outline" className="w-full mt-2" onClick={handleGoogleLogin}>
+                        <FcGoogle className="mr-2 size-5" />
+                        Sign in with Google
+                    </Button>
+
+                    <Button variant="outline" className="w-full mt-2" onClick={handleGitHubLogin}>
+                        <FaGithub className="mr-2 size-5" />
+                        Sign in with GitHub
+                    </Button>
+            </div>
 
             <div className="mt-6 text-center text-sm">
                 Already have an account?

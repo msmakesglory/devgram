@@ -17,7 +17,6 @@ import IdeasTab from "@/components/profile/IdeasTab.jsx";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
-  console.log(userDetails)
   const navigate = useNavigate();
   const { ideas } = useIdeaContext();
   const [ideasLoading, setIdeasLoading] = useState(true);
@@ -154,7 +153,7 @@ const Profile = () => {
                 <p className="mb-1">Skills</p>
                 <CardDescription>
                   {profileLoading ?
-                      userDetails.skills || "Not Available"
+                      userDetails.skills || "Not Avail  able"
                       :<Skeleton className="w-40 h-5"/>
                   }
                 </CardDescription>

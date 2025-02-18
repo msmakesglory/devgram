@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
 import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from 'react-icons/fa';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,7 +21,7 @@ const loginSchema = z.object({
 
 export default function Login() {
     // const navigate = useNavigate();
-    const { handleGoogleLogin, handleEmailPassWordLogin } = useAuthContext();
+    const { handleGoogleLogin, handleEmailPassWordLogin, handleGitHubLogin} = useAuthContext();
     const [showPassword, setShowPassword] = useState(false); 
 
     const {
@@ -86,11 +87,18 @@ export default function Login() {
                 </Button>
 
             </form>
-                {/* Google Sign-In */}
-                <Button variant="outline" className="w-full mt-2" onClick={handleGoogleLogin}>
-                    <FcGoogle className="mr-2 size-5" />
-                    Sign in with Google
-                </Button>
+                {/* Google Sign-In and GitHub Sign-In */}
+                <div className="w-full mt-2">
+                    <Button variant="outline" className="w-full mt-2" onClick={handleGoogleLogin}>
+                        <FcGoogle className="mr-2 size-5" />
+                        Sign in with Google
+                    </Button>
+
+                    <Button variant="outline" className="w-full mt-2" onClick={handleGitHubLogin}>
+                        <FaGithub className="mr-2 size-5" />
+                        Sign in with GitHub
+                    </Button>
+                </div>
 
             {/* Signup Link */}
             <div className="mt-6 text-center text-sm">
