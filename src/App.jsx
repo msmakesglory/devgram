@@ -15,7 +15,7 @@ export default function App(){
     return (
         <>
             <Navbar/>
-            <div className="mt-20">
+            <div className="pt-20">
                 <Outlet />
             </div>
         </>

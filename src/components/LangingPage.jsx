@@ -18,7 +18,7 @@ export default function LandingPage() {
     }, []);
 
     return (
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
             {showIntro ?
                 <motion.div
                     key="intro"
