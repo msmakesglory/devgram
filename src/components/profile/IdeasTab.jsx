@@ -7,10 +7,12 @@ import AddIdea from "@/components/ideas/IdeaForm.jsx";
 import IdeaDeleteDialog from "@/components/ideas/IdeaDeleteDialog.jsx";
 import { useFilteredData } from "../../hooks/useFilteredData";
 import PropTypes from "prop-types";
+// import { useIdeaContext } from "../../context/IdeaContext"
 
 export default function IdeasTab({ideas , isLoading}) {
     const [query, setQuery] = useState('');
-    const filteredData = useFilteredData(ideas, query);
+    // const {sortByTitle} = useIdeaContext();
+    let filteredData = useFilteredData(ideas, query);
 
    return <div className="col-span-5">
         <div className="flex px-4 mb-2">

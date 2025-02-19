@@ -5,6 +5,7 @@ import { db } from "../configs/firebase";
 import {v4 as uuidv4} from "uuid";
 
 
+
 const IdeaContext = createContext();
 
 export const IdeaProvider = ({ children }) => {
@@ -75,9 +76,28 @@ export const IdeaProvider = ({ children }) => {
         }
     }
 
+    const sortByTitle = (ideas, isAsc) => {
+        if (isAsc){
+            const sortedByDataAsc = [...ideas].sort((a, b) => a.title.localeCompare(b.title));
+            return sortedByDataAsc;
+        } else {
+            const sortedByDataDesc = [...ideas].sort((a, b) => b.title.localeCompare(a.title));
+            return sortedByDataDesc;
+        }
+    }
+
+    const sortByDate = (ideas, islatest) => {
+        if(islatest){
+            const sortedByDateDesc = [...ideas].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            return sortedByDateDesc;
+        } else {
+            const sortedByDateAsc = [...ideas].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            return sortedByDateAsc;
+        }
+    }
 
     return (
-        <IdeaContext.Provider value={{ideas, addIdea, deleteIdea}}>
+        <IdeaContext.Provider value={{ideas, addIdea, deleteIdea, sortByTitle, sortByDate}}>
             { children }
         </IdeaContext.Provider>
     )

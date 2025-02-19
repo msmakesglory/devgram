@@ -22,7 +22,7 @@ const Profile = () => {
   const [ideasLoading, setIdeasLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(false);
 
-  if (!userDetails.uid) {
+  if(!userDetails?.uid) {
     navigate("/login");
   }
 
