@@ -7,15 +7,17 @@ import {
     signOut 
 } from "firebase/auth";
 import { auth, googleProvider, db, gitHubProvider } from "../configs/firebase";
-import { useProfileContext } from "./profileContext";
+import { useProfileContext } from "./ProfileContext";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useToast } from "../hooks/use-toast";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const { setUserDetails } = useProfileContext();
+    const { toast } = useToast();
 
     const handleUserAuthentication = async (user) => {
         if (!user) {
@@ -69,10 +71,17 @@ export const AuthProvider = ({ children }) => {
             const user = loggedUser.user;
             if (user) {
                 await handleUserAuthentication(user);
-                
+                toast({
+                    title: "Logged in successfully",
+                    description: "redirecting to home"
+                })
                 navigate(`/p/${user.uid}`);
             }
         } catch (err) {
+            toast({
+                variant: "destructive",
+                description: "Error while signin"
+            })
             console.error(err);
         }
     };
@@ -83,11 +92,18 @@ export const AuthProvider = ({ children }) => {
             const user = loggedUser.user;
             if (user) {
                 await handleUserAuthentication(user);
-
+                toast({
+                    title: "Logged in successfully",
+                    description: "redirecting to home"
+                })
                 navigate(`/p/${user.uid}`);
             }
         } catch (err) {
             console.error(err);
+            toast({
+                variant: "destructive",
+                description: "Error while signin"
+            })
         }
     }
 
@@ -97,10 +113,18 @@ export const AuthProvider = ({ children }) => {
             const user = loggedUser.user;
             if (user) {
                 await handleUserAuthentication(user);
+                toast({
+                    title: "Logged in successfully",
+                    description: "redirecting to home"
+                })
                 navigate(`/p/${user.uid}`);
             }
         } catch (err) {
             console.error(err);
+            toast({
+                variant: "destructive",
+                description: "Error while signin"
+            })
         }
     };
 
@@ -110,10 +134,18 @@ export const AuthProvider = ({ children }) => {
             const newUser = await createUserWithEmailAndPassword(auth, data.email, data.password);
             const user = newUser.user;
             await handleUserAuthentication(user);
+            toast({
+                title: "Account Created successfully",
+                description: "redirecting to home"
+            })
             navigate(`/p/${user.uid}`);
             return null;
         } catch (err) {
             console.error("Signup error:", err.message);
+            toast({
+                variant: "destructive",
+                description: "Error while signup"
+            })
             return err.message;
         }
     };
