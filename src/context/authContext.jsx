@@ -11,6 +11,7 @@ import { useProfileContext } from "./ProfileContext";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useToast } from "../hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast"
 
 const AuthContext = createContext();
 
@@ -80,7 +81,8 @@ export const AuthProvider = ({ children }) => {
         } catch (err) {
             toast({
                 variant: "destructive",
-                description: "Error while signin"
+                description: <b>Error while Login</b>,
+                action: <ToastAction altText="Try again" onClick={()=>{navigate('/login')}}>Try again</ToastAction>
             })
             console.error(err);
         }
@@ -102,7 +104,8 @@ export const AuthProvider = ({ children }) => {
             console.error(err);
             toast({
                 variant: "destructive",
-                description: "Error while signin"
+                description: <b>Error while Login</b>,
+                action: <ToastAction altText="Try again" onClick={()=>{navigate('/login')}}>Try again</ToastAction>
             })
         }
     }
@@ -123,7 +126,8 @@ export const AuthProvider = ({ children }) => {
             console.error(err);
             toast({
                 variant: "destructive",
-                description: "Error while signin"
+                description: <b>Error while Login</b>,
+                action: <ToastAction altText="Try again" onClick={()=>{navigate('/login')}}>Try again</ToastAction>
             })
         }
     };
@@ -144,7 +148,8 @@ export const AuthProvider = ({ children }) => {
             console.error("Signup error:", err.message);
             toast({
                 variant: "destructive",
-                description: "Error while signup"
+                description:<b>Error while signup</b>,
+                action: <ToastAction altText="Try again" onClick={()=>{navigate('/signup')}}>Try again</ToastAction>
             })
             return err.message;
         }

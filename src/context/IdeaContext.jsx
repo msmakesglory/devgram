@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { useProfileContext } from "./ProfileContext";
-import { collection,  doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection,  doc, getDoc, getDocs, setDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../configs/firebase";
 import {v4 as uuidv4} from "uuid";
 
@@ -63,9 +63,21 @@ export const IdeaProvider = ({ children }) => {
 
     }
 
+    const deleteIdea = async (ideaId) => {
+        if (!userDetails?.uid) return;
+
+        try {
+            const ideaRef = doc(db, "ideas", userDetails.uid, "userIdeas", ideaId);
+            await deleteDoc(ideaRef);
+            setIdeas((prev) => prev.filter((idea) => idea.id !== ideaId));
+        } catch(err){
+            console.log("error on deleting idea",err)
+        }
+    }
+
 
     return (
-        <IdeaContext.Provider value={{ideas, addIdea}}>
+        <IdeaContext.Provider value={{ideas, addIdea, deleteIdea}}>
             { children }
         </IdeaContext.Provider>
     )

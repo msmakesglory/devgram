@@ -2,9 +2,11 @@ import {Input} from "@/components/ui/input.jsx";
 import {ScrollArea} from "@/components/ui/scroll-area.jsx";
 import IdeaCardSkeleton from "@/components/ideas/IdeaSkeleton.jsx";
 import Idea from "@/components/profile/Idea.jsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import AddIdea from "@/components/ideas/IdeaForm.jsx";
+import IdeaDeleteDialog from "@/components/ideas/IdeaDeleteDialog.jsx";
 import { useFilteredData } from "../../hooks/useFilteredData";
+import PropTypes from "prop-types";
 
 export default function IdeasTab({ideas , isLoading}) {
     const [query, setQuery] = useState('');
@@ -13,13 +15,14 @@ export default function IdeasTab({ideas , isLoading}) {
    return <div className="col-span-5">
         <div className="flex px-4 mb-2">
             <h1 className="text-xl font-semibold w-1/2">Your Ideas</h1>
-            <div className="w-1/2 flex gap-2">
+            <div className="w-full flex gap-2">
                 <Input
                     type="text"
                     placeholder="Search Your Idea..."
                     onChange={(e) => setQuery(e.target.value)}
                 />
                 <AddIdea/>
+                <IdeaDeleteDialog />
             </div>
         </div>
         <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
@@ -51,4 +54,15 @@ export default function IdeasTab({ideas , isLoading}) {
     </div>
 }
 
-
+IdeasTab.propTypes = {
+    ideas: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            description: PropTypes.string.isRequired,
+            tags: PropTypes.arrayOf(PropTypes.string),
+            creator: PropTypes.string.isRequired,
+            createdAt: PropTypes.string.isRequired
+        })
+    ).isRequired,
+    isLoading: PropTypes.bool.isRequired,
+};
