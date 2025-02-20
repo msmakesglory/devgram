@@ -9,13 +9,14 @@ import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 import { useIdeaContext } from "../../context/IdeaContext";
 import { ScrollArea } from "../ui/scroll-area";
+import ConfirmDelete from "@/components/ideas/CofirmIdeaDelete.jsx";
 
  const IdeaDeleteDialog = () => {
-    const {ideas, deleteIdea} = useIdeaContext();
+     const {ideas, deleteIdea} = useIdeaContext();
     return (
         <Dialog>
             <DialogTrigger>
-                <Button> 
+                <Button variant="destructive">
                     <Trash2 /> Delete Idea
                 </Button>
             </DialogTrigger>
@@ -31,14 +32,10 @@ import { ScrollArea } from "../ui/scroll-area";
             <div>
                 <h1 className="text-lg font-semibold">{index + 1}. {idea.title}</h1>
                 <h2 className="text-gray-500">{idea.description}</h2>
+
             </div>
-            <Button 
-                variant="destructive" 
-                className="ml-4"
-                onClick={() => deleteIdea(idea.id)}
-            >
-                <Trash2 className="w-5 h-5" /> 
-            </Button>
+            <ConfirmDelete idea={idea}/>
+
         </div>
     ))
 ) : (

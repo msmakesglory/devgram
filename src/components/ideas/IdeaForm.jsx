@@ -55,6 +55,7 @@ const AddIdea = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("clicked submit")
         if (!formData.title || !formData.description || !formData.status) {
             alert("All fields are required!");
             return;
@@ -155,7 +156,9 @@ const AddIdea = () => {
                     </div>
                 </form>
                 <DialogFooter>
-                    <Button type="submit">Submit Idea</Button>
+                    <Button>
+                        <input type="submit" value="Submit" />
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

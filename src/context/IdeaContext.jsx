@@ -25,7 +25,7 @@ export const IdeaProvider = ({ children }) => {
             setIdeas(fetchedIdeas);
         };
     
-        fetchIdeas();
+        fetchIdeas().then();
     }, [userDetails]); 
     
 

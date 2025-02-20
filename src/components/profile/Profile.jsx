@@ -93,9 +93,9 @@ const Profile = () => {
               </li>
               <li>
                 {profileLoading ?
-                    <>
+                    <li>
                       <MapPin className="inline-block h-5"/> { userDetails.location || "Not Available"}
-                    </>
+                    </li>
                     :
                     <Skeleton className="w-60 h-5"/>
                 }
