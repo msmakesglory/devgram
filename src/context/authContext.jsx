@@ -1,10 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect} from "react";
 import { 
     onAuthStateChanged, 
     createUserWithEmailAndPassword, 
     signInWithPopup, 
     signInWithEmailAndPassword, 
-    signOut 
+    signOut,
 } from "firebase/auth";
 import { auth, googleProvider, db, gitHubProvider } from "../configs/firebase";
 import { useProfileContext } from "./ProfileContext";
@@ -161,6 +161,7 @@ export const AuthProvider = ({ children }) => {
         navigate("/login");
     };
 
+   
     return (
         <AuthContext.Provider value={{ handleSignout, handleGoogleLogin, handleEmailPassWordLogin, handleCreateUser, handleGitHubLogin}}>
             {children}
