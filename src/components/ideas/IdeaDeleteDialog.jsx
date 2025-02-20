@@ -5,20 +5,16 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-import { Button } from "../ui/button";
-import { Trash2 } from "lucide-react";
 import { useIdeaContext } from "../../context/IdeaContext";
 import { ScrollArea } from "../ui/scroll-area";
 import ConfirmDelete from "@/components/ideas/CofirmIdeaDelete.jsx";
 
- const IdeaDeleteDialog = () => {
+ const IdeaDeleteDialog = ({open,onClose}) => {
      const {ideas, deleteIdea} = useIdeaContext();
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={onClose}>
             <DialogTrigger>
-                <Button variant="destructive">
-                    <Trash2 /> Delete Idea
-                </Button>
+                {/*Delete Idea*/}
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

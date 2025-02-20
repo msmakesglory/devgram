@@ -7,6 +7,7 @@ import AddIdea from "@/components/ideas/IdeaForm.jsx";
 import IdeaDeleteDialog from "@/components/ideas/IdeaDeleteDialog.jsx";
 import { useFilteredData } from "../../hooks/useFilteredData";
 import PropTypes from "prop-types";
+import IdeaActions from "@/components/ideas/IdeaActions.jsx";
 // import { useIdeaContext } from "../../context/IdeaContext"
 
 export default function IdeasTab({ideas , isLoading}) {
@@ -23,8 +24,7 @@ export default function IdeasTab({ideas , isLoading}) {
                     placeholder="Search Your Idea..."
                     onChange={(e) => setQuery(e.target.value)}
                 />
-                <AddIdea/>
-                <IdeaDeleteDialog />
+                <IdeaActions/>
             </div>
         </div>
         <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">

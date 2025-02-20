@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog.jsx";
 import {Slider} from "@/components/ui/slider.jsx";
 
-const AddIdea = () => {
+const AddIdea = ({open , onClose}) => {
     const {userDetails} = useProfileContext();
     const navigate = useNavigate();
 
@@ -67,11 +67,9 @@ const AddIdea = () => {
     };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={onClose}>
             <DialogTrigger>
-                <Button>
-                    <Plus/> Add Idea
-                </Button>
+                {/*Add Idea*/}
             </DialogTrigger>
             <DialogContent>
                 <form onSubmit={handleSubmit}>
