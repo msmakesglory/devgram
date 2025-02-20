@@ -31,7 +31,7 @@ const AddIdea = () => {
         title: '',
         description: '',
         tags: [],
-        requiredPeople: '2',
+        requiredPeople: 2,
         status: '',
     });
     const [newTag, setNewTag] = useState('');
@@ -154,12 +154,12 @@ const AddIdea = () => {
                             </div>
                         </div>
                     </div>
+                    <DialogFooter>
+                        <Button type="submit">
+                            Submit
+                        </Button>
+                    </DialogFooter>
                 </form>
-                <DialogFooter>
-                    <Button>
-                        <input type="submit" value="Submit" />
-                    </Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     );
