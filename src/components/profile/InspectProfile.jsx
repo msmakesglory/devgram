@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { db } from "../../configs/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import Spin from "../Spin"
+import Spin from "../Spin";
+import {Button} from "../ui/button";
 
 export default function InspectProfile({ userId }) {
   const [otherProfileData, setOtherProfileData] = useState(null);
@@ -42,7 +43,21 @@ export default function InspectProfile({ userId }) {
   }, [userId]);
 
   if (loading) return <Spin />;
-  if (!otherProfileData) return <p>User does not exist</p>;
+  else if (!otherProfileData) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen text-center">
+        <h2 className="text-2xl font-semibold text-red-500">Developer Not Found!</h2>
+        <p className="text-gray-600 mt-2">The user you are looking for does not exist.</p>
+        <Button 
+          className="mt-4 px-4 py-2 bg-black text-white rounded-lg hover:bg-white hover:text-black transition"
+          onClick={() => window.history.back()}  
+        >
+          Go Back
+        </Button>
+      </div>
+    );
+  }
+  ;
 
   return (
     <div>
