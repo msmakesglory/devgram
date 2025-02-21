@@ -177,7 +177,7 @@ const Profile = () => {
         </Card>
       </div>
 
-      <IdeasTab ideas={ideas} isLoading={ideasLoading}/>
+      <IdeasTab ideas={ideas} isLoading={ideasLoading} isEdit={true}/>
     </div>
   );
 };

@@ -3,28 +3,28 @@ import {ScrollArea} from "@/components/ui/scroll-area.jsx";
 import IdeaCardSkeleton from "@/components/ideas/IdeaSkeleton.jsx";
 import Idea from "@/components/profile/Idea.jsx";
 import {useState} from "react";
-import AddIdea from "@/components/ideas/IdeaForm.jsx";
-import IdeaDeleteDialog from "@/components/ideas/IdeaDeleteDialog.jsx";
+// import AddIdea from "@/components/ideas/IdeaForm.jsx";
+// import IdeaDeleteDialog from "@/components/ideas/IdeaDeleteDialog.jsx";
 import { useFilteredData } from "../../hooks/useFilteredData";
 import PropTypes from "prop-types";
 import IdeaActions from "@/components/ideas/IdeaActions.jsx";
 // import { useIdeaContext } from "../../context/IdeaContext"
 
-export default function IdeasTab({ideas , isLoading}) {
+export default function IdeasTab({ideas , isLoading, isEdit}) {
     const [query, setQuery] = useState('');
     // const {sortByTitle} = useIdeaContext();
     let filteredData = useFilteredData(ideas, query);
 
    return <div className="col-span-5">
         <div className="flex px-4 mb-2">
-            <h1 className="text-xl font-semibold w-1/2">Your Ideas</h1>
+            <h1 className="text-xl font-semibold w-1/2 p-2">{isEdit ? 'Your Ideas' : "Ideas"}</h1>
             <div className="w-full flex gap-2">
                 <Input
                     type="text"
                     placeholder="Search Your Idea..."
                     onChange={(e) => setQuery(e.target.value)}
                 />
-                <IdeaActions/>
+                {isEdit ? <IdeaActions/> : "menu"}
             </div>
         </div>
         <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
@@ -67,4 +67,5 @@ IdeasTab.propTypes = {
         })
     ).isRequired,
     isLoading: PropTypes.bool.isRequired,
+    isEdit: PropTypes.bool.isRequired,
 };
