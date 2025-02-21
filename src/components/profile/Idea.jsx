@@ -9,7 +9,7 @@ export default function Idea({ data }) {
         <CardTitle>{data.title}</CardTitle>
         <CardDescription>{data.description}</CardDescription>
         <div className="space-x-2">
-          {data.tags.map((badge, index) => (
+          {data?.tags?.map((badge, index) => (
             <Badge key={index} variant="secondary">
               {badge}
             </Badge>

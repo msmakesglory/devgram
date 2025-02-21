@@ -1,6 +1,6 @@
 import { useProfileContext } from "../../context/ProfileContext";
 import {Linkedin, Github, MapPin, Mail, Copy} from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 import EditProfile from "@/components/profile/EditProfile.jsx";
@@ -14,17 +14,22 @@ import { useEffect, useState } from "react";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card.jsx";
 import {copyToClipboard} from "@/utils/copy.js";
 import IdeasTab from "@/components/profile/IdeasTab.jsx";
+import InspectProfile from "./InspectProfile";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
   const navigate = useNavigate();
+  const {uid: userID} = useParams();
   const { ideas } = useIdeaContext();
   const [ideasLoading, setIdeasLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(false);
 
-  if(!userDetails?.uid) {
-    navigate("/login");
-  }
+
+
+    if (!userDetails?.uid) {
+      navigate("/login");
+    }
+  
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,6 +37,15 @@ const Profile = () => {
       setIdeasLoading(false);
     }, 3000);
   }, []);
+
+
+ if(userDetails?.uid !== userID){
+    return (
+      <InspectProfile userId={userID}/>
+    )
+  }
+
+  
 
 
   return (
