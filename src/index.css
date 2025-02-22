@@ -6,7 +6,7 @@
   @apply lg:grid lg:grid-cols-9
 }
 .profile-div-inner{
-  @apply flex flex-col col-start-2 col-span-2 gap-2 tracking-wide
+  @apply flex flex-col col-start-1 col-span-3 ml-28 gap-2 tracking-wide
 }
 
 @layer base {
