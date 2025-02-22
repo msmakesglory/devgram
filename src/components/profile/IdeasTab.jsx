@@ -50,7 +50,7 @@ export default function IdeasTab({ideas , isLoading, isEdit, setFunction}) {
                     />
                 ))
             ):(
-                <div>
+                <div className="h-[500px] flex items-center justify-center">
                     <p className="text-gray-500 text-center">Nothing here</p>
                 </div>
             ))}
