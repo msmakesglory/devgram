@@ -18,7 +18,7 @@ export default function SortIdeasMenu({ideas, setFunction}) {
         <Menubar>
             <MenubarMenu>
                 <MenubarTrigger>
-                    <button>
+                    <button className="w-16">
                         Sort By
                     </button>
                 </MenubarTrigger>

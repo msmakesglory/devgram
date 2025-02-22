@@ -27,17 +27,18 @@ export default function IdeaActions({ideas, isEdit, setFunction}) {
                     <NavigationMenuContent>
                         <ul className="px-4 py-2 space-y-2">
                             {isEdit ? (
-                                <div>
-                                    <li>
+                                <>
+                                    <li
+
+                                    >
                                         <AddIdea open={openAddDialog} onClose={setOpenAddDialog}/>
                                     </li>
                                     <li>
                                         <IdeaDeleteDialog open={openDeleteDialog} onClose={setOpenDeleteDialog}/>
                                     </li>
-                                </div>
+                                </>
                             ) : null
                             }
-                            <Separator />
                             <li>
                                 <SortIdeasMenu ideas={ideas} setFunction={setFunction}/>
                             </li>

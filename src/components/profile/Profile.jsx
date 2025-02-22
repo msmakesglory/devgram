@@ -15,6 +15,8 @@ import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hov
 import {copyToClipboard} from "@/utils/copy.js";
 import IdeasTab from "@/components/profile/IdeasTab.jsx";
 import InspectProfile from "./InspectProfile";
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion.jsx";
+import {AccordionHeader} from "@radix-ui/react-accordion";
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
@@ -52,25 +54,31 @@ const Profile = () => {
     <div className="profile-div mx-2">
       <div className="profile-div-inner">
         <Card className="relative">
-          <CardHeader>
-            <Avatar className="size-16">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>👨‍💻</AvatarFallback>
-            </Avatar>
             <EditProfile />
-            <CardTitle className="tracking-wide">
-              {      
-                profileLoading
-                  ? (userDetails.fullName || "Not Available")
-                  : <Skeleton className="w-40 h-5" />
-              }
-            </CardTitle>
-            <CardDescription>
-              {profileLoading ? (userDetails.uid || "Not Available")
-              : <Skeleton className="w-60 h-5" />
-              }
-            </CardDescription>
-          </CardHeader>
+            <CardHeader>
+              <div className="flex gap-2">
+                <Avatar className="size-12">
+                  <AvatarImage
+                      src={userDetails.github ?`https://github.com/${extractUsername(userDetails.github)}.png` : `https://github.com/shadcn.png`}
+                  />
+                  <AvatarFallback>👨‍💻</AvatarFallback>
+                </Avatar>
+                <span className="col-span-2 space-y-2 mt-2">
+                  <CardTitle className="tracking-wide">
+                    {
+                      profileLoading
+                          ? (userDetails.fullName || "Not Available")
+                          : <Skeleton className="w-40 h-5" />
+                    }
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    {profileLoading ? (userDetails.uid || "Not Available")
+                        : <Skeleton className="w-60 h-5" />
+                    }
+                  </CardDescription>
+                </span>
+              </div>
+            </CardHeader>
           <CardContent>
             {profileLoading ?
             userDetails.summary || "Not Available"
@@ -85,7 +93,7 @@ const Profile = () => {
             <CardTitle>Personal Information</CardTitle>
           </CardHeader>
           <CardContent>
-            <ul className="space-y-3">
+            <ul className="space-y-3 text-sm tracking-wider">
               <li>
                 {profileLoading ?
                     <HoverCard>
@@ -144,35 +152,27 @@ const Profile = () => {
             <CardTitle>Professional Details</CardTitle>
           </CardHeader>
           <CardContent>
-            <ul className="space-y-1">
-              <li>
-                <p className="mb-1">Work</p>
-                <CardDescription>
-                  {profileLoading ?
-                    userDetails.work || "Not Available"
-                    :<Skeleton className="w-40 h-5"/>
-                  }
-                </CardDescription>
-              </li>
-              <li>
-                <p className="mb-1">Education</p>
-                <CardDescription>
-                  {profileLoading ?
-                      userDetails.education || "Not Available"
-                      :<Skeleton className="w-40 h-5"/>
-                  }
-                </CardDescription>
-              </li>
-              <li>
-                <p className="mb-1">Skills</p>
-                <CardDescription>
-                  {profileLoading ?
-                      userDetails.skills || "Not Available"
-                      :<Skeleton className="w-40 h-5"/>
-                  }
-                </CardDescription>
-              </li>
-            </ul>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>Work</AccordionTrigger>
+                <AccordionContent>
+                  {userDetails.work || "Not Available"}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Education</AccordionTrigger>
+                <AccordionContent>
+                  {userDetails.education || "Not Available"}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>Skills</AccordionTrigger>
+                <AccordionContent>
+                  {userDetails.skills || "Not Available"}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+
           </CardContent>
         </Card>
       </div>

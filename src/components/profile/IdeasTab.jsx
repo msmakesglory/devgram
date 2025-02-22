@@ -29,7 +29,7 @@ export default function IdeasTab({ideas , isLoading, isEdit, setFunction}) {
                 
             </div>
         </div>
-        <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">
+        <ScrollArea className="h-[500px] lg:h-[550px] relative z-0 overflow-auto">
             {isLoading ? (
                 <>
                     <IdeaCardSkeleton />
