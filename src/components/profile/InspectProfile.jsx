@@ -73,7 +73,7 @@ export default function InspectProfile({ userId }) {
   ;
 
   return (
-      <div className="profile-div">
+      <div className="profile-div pt-20">
           <div className="profile-div-inner">
               <Card>
                   <CardHeader>
