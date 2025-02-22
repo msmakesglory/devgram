@@ -75,8 +75,7 @@ export default function InspectProfile({ userId }) {
   return (
       <div className="profile-div">
           <div className="profile-div-inner">
-              <Card className="relative">
-                  <EditProfile/>
+              <Card>
                   <CardHeader>
                       <div className="flex gap-2">
                           <Avatar className="size-12">
@@ -101,9 +100,8 @@ export default function InspectProfile({ userId }) {
                   </CardContent>
               </Card>
 
-              <Card className="relative">
+              <Card>
                   <CardHeader>
-                      <EditPersonalInfo/>
                       <CardTitle>Personal Information</CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -143,8 +141,7 @@ export default function InspectProfile({ userId }) {
                   </CardContent>
               </Card>
 
-              <Card className="relative">
-                  <EditPro/>
+              <Card>
                   <CardHeader>
                       <CardTitle>Professional Details</CardTitle>
                   </CardHeader>

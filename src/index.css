@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 .profile-div{
-  @apply container flex justify-center
+  @apply container lg:flex lg:justify-center
 }
 .profile-div-inner{
-  @apply container w-[400px] space-y-1
+  @apply container lg:w-[400px] space-y-1
 }
 .break-words {
    word-wrap: break-word;
