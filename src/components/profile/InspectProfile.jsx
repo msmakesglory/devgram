@@ -106,36 +106,21 @@ export default function InspectProfile({ userId }) {
                   </CardHeader>
                   <CardContent>
                       <ul className="space-y-3 text-sm tracking-wider">
-                          <li><HoverCard>
-                                      <HoverCardTrigger>
-                                          <p className={"truncate"}>
-                                              <Mail
-                                                  className={"inline-block h-5"}/>{otherProfileData.mail || "Not Available"}
-                                          </p>
-                                      </HoverCardTrigger>
-                                      <HoverCardContent>
-                                          <Button onClick={() => {
-                                              copyToClipboard(otherProfileData.mail)
-                                          }}>
-                                              <Copy/> {otherProfileData.mail}
-                                          </Button>
-                                      </HoverCardContent>
-                                  </HoverCard>
+                          <li className="flex items-center gap-2">
+                              <Mail className="size-4 shrink-0"/>
+                              <a href={`mailto:${otherProfileData.mail}`}>{otherProfileData.mail || "Not Available"}</a>
                           </li>
-                          <li>
-                              <li>
-                                  <MapPin className="inline-block h-5"/> {otherProfileData.location || "Not Available"}
-                              </li>
+                          <li className="flex items-center gap-2">
+                              <MapPin className="size-4 shrink-0"/>
+                              <p>{otherProfileData.location || "Not Available"}</p>
                           </li>
-                          <li><>
-                                      <Linkedin className="inline-block h-5"/>
-                                      <a href={otherProfileData.linkedin}>{extractUsername(otherProfileData.linkedin) || "Not Available"}</a>
-                                  </>
+                          <li className="flex items-center gap-2">
+                              <Linkedin className="size-4 shrink-0"/>
+                              <a href={otherProfileData.linkedin}>{extractUsername(otherProfileData.linkedin) || "Not Available"}</a>
                           </li>
-                          <li><>
-                                      <Github className="inline-block h-5"/>
-                                      <a href={otherProfileData.github}>{extractUsername(otherProfileData.github) || "Not Available"}</a>
-                                  </>
+                          <li className="flex items-center gap-2">
+                               <Github className="size-4 shrink-0"/>
+                               <a href={otherProfileData.github}>{extractUsername(otherProfileData.github) || "Not Available"}</a>
                           </li>
                       </ul>
                   </CardContent>

@@ -7,7 +7,7 @@ export default function App(){
     return (
         <>
             <Navbar/>
-            <div className="pt-20">
+            <div>
                 <Outlet />
                 <Toaster />
             </div>

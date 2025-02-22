@@ -15,7 +15,7 @@ import {Button} from "@/components/ui/button.jsx";
     return (
         <Dialog open={open} onOpenChange={onClose}>
             <DialogTrigger>
-                <Button variant="secondary">
+                <Button variant="link">
                     Delete Idea
                 </Button>
             </DialogTrigger>

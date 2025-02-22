@@ -12,7 +12,7 @@ export default function LandingPage() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowIntro(false);
-        }, 3000); // Switch after 5 seconds
+        }, 2000); // Switch after 5 seconds
 
         return () => clearTimeout(timer);
     }, []);
@@ -27,7 +27,7 @@ export default function LandingPage() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <div className={"h-screen flex flex-col justify-center items-center"}>
+                    <div className={"h-screen flex flex-col justify-center items-center pt-20"}>
                         <HyperText
                             className="text-4xl lg:text-6xl font-bold text-black dark:text-white"
                             text="Hello Developers"
@@ -43,7 +43,7 @@ export default function LandingPage() {
                     transition={{ duration: 0.8 }}
                     className="text-center"
                 >
-                    <div className={"h-screen flex flex-col justify-center items-center"}>
+                    <div className={"h-screen flex flex-col justify-center items-center pt-20"}>
                         <h1 className={"text-4xl lg:text-6xl font-bold mb-6 tracking-tighter"}>
                             Bridging The Gap Between
                         </h1>

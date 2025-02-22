@@ -70,7 +70,7 @@ const AddIdea = ({open , onClose}) => {
         <Dialog open={open} onOpenChange={onClose}>
             <DialogTrigger>
                 <Button
-                    variant="secondary"
+                    variant={"link"}
                 >
                     Add Idea
                 </Button>

@@ -51,7 +51,7 @@ const Profile = () => {
 
 
   return (
-    <div className="profile-div">
+    <div className="profile-div pt-20">
       <div className="profile-div-inner">
         <Card className="relative">
             <EditProfile />
@@ -91,18 +91,10 @@ const Profile = () => {
             <ul className="space-y-3 text-sm tracking-wider">
               <li>
                 {profileLoading ?
-                    <HoverCard>
-                      <HoverCardTrigger>
-                        <p className={"truncate"}>
-                          <Mail className={"inline-block h-5"}/>{userDetails.mail || "Not Available"}
-                        </p>
-                      </HoverCardTrigger>
-                      <HoverCardContent>
-                          <Button onClick={()=>{copyToClipboard(userDetails.mail)}}>
-                            <Copy/> {userDetails.mail}
-                          </Button>
-                      </HoverCardContent>
-                    </HoverCard>
+                    <li className="flex items-center gap-2">
+                      <Mail className="size-4 shrink-0"/>
+                      <a href={`mailto:${userDetails.mail}`}>{userDetails.mail || "Not Available"}</a>
+                    </li>
                     :
                     <Skeleton className="w-60 h-5"/>
 
@@ -110,8 +102,9 @@ const Profile = () => {
               </li>
               <li>
                 {profileLoading ?
-                    <li>
-                      <MapPin className="inline-block h-5"/> { userDetails.location || "Not Available"}
+                    <li className="flex items-center gap-2">
+                      <MapPin className="size-4 shrink-0"/>
+                      <p>{userDetails.location || "Not Available"}</p>
                     </li>
                     :
                     <Skeleton className="w-60 h-5"/>
@@ -119,20 +112,20 @@ const Profile = () => {
               </li>
               <li>
                 {profileLoading ?
-                    <>
-                      <Linkedin className="inline-block h-5"/>
-                      <a href={userDetails.linkedin}>{ extractUsername(userDetails.linkedin) || "Not Available"}</a>
-                    </>
+                    <li className="flex items-center gap-2">
+                      <Linkedin className="size-4 shrink-0"/>
+                      <a href={userDetails.linkedin}>{extractUsername(userDetails.linkedin) || "Not Available"}</a>
+                    </li>
                     :
                     <Skeleton className="w-60 h-5"/>
                 }
               </li>
               <li>
                 {profileLoading ?
-                    <>
-                      <Github className="inline-block h-5"/>
-                      <a href={userDetails.github}>{ extractUsername(userDetails.github) || "Not Available"}</a>
-                    </>
+                    <li className="flex items-center gap-2">
+                      <Github className="size-4 shrink-0"/>
+                      <a href={userDetails.github}>{extractUsername(userDetails.github) || "Not Available"}</a>
+                    </li>
                     :
                     <Skeleton className="w-60 h-5"/>
                 }
