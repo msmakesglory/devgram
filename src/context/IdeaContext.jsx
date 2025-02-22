@@ -93,7 +93,7 @@ export const IdeaProvider = ({ children }) => {
     
 
     return (
-        <IdeaContext.Provider value={{ideas, addIdea, deleteIdea, sortByTitle, sortByDate}}>
+        <IdeaContext.Provider value={{ideas, setIdeas, addIdea, deleteIdea, sortByTitle, sortByDate}}>
             { children }
         </IdeaContext.Provider>
     )
