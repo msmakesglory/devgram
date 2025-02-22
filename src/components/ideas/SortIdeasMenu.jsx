@@ -19,12 +19,12 @@ export default function SortIdeasMenu() {
                 </MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
-                        By Date <MenubarShortcut>
+                        Latest <MenubarShortcut>
                         <ArrowUp10/>
                     </MenubarShortcut>
                     </MenubarItem>
                     <MenubarItem>
-                        By Date <MenubarShortcut>
+                        Oldest <MenubarShortcut>
                         <ArrowDown01/>
                     </MenubarShortcut>
                     </MenubarItem>
