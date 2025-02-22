@@ -8,7 +8,6 @@ import {useState} from "react";
 import { useFilteredData } from "@/hooks/useFilteredData.js";
 import PropTypes from "prop-types";
 import IdeaActions from "@/components/ideas/IdeaActions.jsx";
-import SortIdeasMenu from "@/components/ideas/SortIdeasMenu.jsx";
 // import { useIdeaContext } from "../../context/IdeaContext"
 
 export default function IdeasTab({ideas , isLoading, isEdit}) {
@@ -26,7 +25,8 @@ export default function IdeasTab({ideas , isLoading, isEdit}) {
                     onChange={(e) => setQuery(e.target.value)}
                     className="w-3/4"
                 />
-                {isEdit ? <IdeaActions/> : <SortIdeasMenu/>}
+                <IdeaActions isEdit={isEdit}/>
+                
             </div>
         </div>
         <ScrollArea className="h-[500px] lg:h-[600px] relative z-0 overflow-auto">

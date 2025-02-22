@@ -7,8 +7,13 @@ import {
     MenubarTrigger
 } from "@/components/ui/menubar.jsx";
 import { ArrowDown01,ArrowUp10,ArrowDownAZ,ArrowUpAZ  } from 'lucide-react';
-import {Button} from "@/components/ui/button.jsx";
+import { useIdeaContext } from "../../context/IdeaContext";
+
 export default function SortIdeasMenu() {
+
+    const {sortByTitle, sortByDate} = useIdeaContext();
+
+
     return (
         <Menubar>
             <MenubarMenu>
@@ -18,23 +23,23 @@ export default function SortIdeasMenu() {
                     </button>
                 </MenubarTrigger>
                 <MenubarContent>
-                    <MenubarItem>
+                    <MenubarItem onClick={() => sortByDate(true)}>
                         Latest <MenubarShortcut>
                         <ArrowUp10/>
                     </MenubarShortcut>
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem onClick={() => sortByDate(false)}>
                         Oldest <MenubarShortcut>
                         <ArrowDown01/>
                     </MenubarShortcut>
                     </MenubarItem>
                     <MenubarSeparator />
-                    <MenubarItem>
+                    <MenubarItem onClick={() => sortByTitle(true)}>
                         By Title <MenubarShortcut>
                         <ArrowUpAZ/>
                     </MenubarShortcut>
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem onClick={() => sortByTitle(false)}>
                         By Title <MenubarShortcut>
                         <ArrowDownAZ/>
                     </MenubarShortcut>

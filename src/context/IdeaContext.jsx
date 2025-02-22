@@ -76,25 +76,21 @@ export const IdeaProvider = ({ children }) => {
         }
     }
 
-    const sortByTitle = (ideas, isAsc) => {
-        if (isAsc){
-            const sortedByDataAsc = [...ideas].sort((a, b) => a.title.localeCompare(b.title));
-            return sortedByDataAsc;
-        } else {
-            const sortedByDataDesc = [...ideas].sort((a, b) => b.title.localeCompare(a.title));
-            return sortedByDataDesc;
-        }
-    }
-
-    const sortByDate = (ideas, islatest) => {
-        if(islatest){
-            const sortedByDateDesc = [...ideas].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            return sortedByDateDesc;
-        } else {
-            const sortedByDateAsc = [...ideas].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-            return sortedByDateAsc;
-        }
-    }
+    const sortByTitle = (isAsc) => {
+        const sortedIdeas = [...ideas].sort((a, b) => 
+            isAsc ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
+        );
+        setIdeas(sortedIdeas);
+    };
+    
+    const sortByDate = (isLatest) => {
+        const sortedIdeas = [...ideas].sort((a, b) => 
+            isLatest ? new Date(b.createdAt) - new Date(a.createdAt) 
+                     : new Date(a.createdAt) - new Date(b.createdAt)
+        );
+        setIdeas(sortedIdeas);
+    };
+    
 
     return (
         <IdeaContext.Provider value={{ideas, addIdea, deleteIdea, sortByTitle, sortByDate}}>

@@ -8,8 +8,11 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger
 } from "@/components/ui/navigation-menu.jsx";
+import SortIdeasMenu from "@/components/ideas/SortIdeasMenu.jsx";
+import { Separator } from "../ui/separator";
+import PropTypes from "prop-types";
 
-export default function IdeaActions() {
+export default function IdeaActions({isEdit}) {
     const [openAddDialog, setOpenAddDialog] = useState(false);
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     return (
@@ -23,11 +26,20 @@ export default function IdeaActions() {
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="px-4 py-2 space-y-2">
+                            {isEdit ? (
+                                <div>
+                                    <li>
+                                        <AddIdea open={openAddDialog} onClose={setOpenAddDialog}/>
+                                    </li>
+                                    <li>
+                                        <IdeaDeleteDialog open={openDeleteDialog} onClose={setOpenDeleteDialog}/>
+                                    </li>
+                                </div>
+                            ) : null
+                            }
+                            <Separator />
                             <li>
-                                <AddIdea open={openAddDialog} onClose={setOpenAddDialog}/>
-                            </li>
-                            <li>
-                                <IdeaDeleteDialog open={openDeleteDialog} onClose={setOpenDeleteDialog}/>
+                                <SortIdeasMenu />
                             </li>
                         </ul>
                     </NavigationMenuContent>
@@ -36,4 +48,9 @@ export default function IdeaActions() {
         </NavigationMenu>
 
     );
+}
+
+
+IdeaActions.PropTypes = {
+    isEdit: PropTypes.bool.isRequired,
 }
