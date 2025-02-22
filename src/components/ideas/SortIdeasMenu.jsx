@@ -9,7 +9,7 @@ import {
 import { ArrowDown01,ArrowUp10,ArrowDownAZ,ArrowUpAZ  } from 'lucide-react';
 import { useIdeaContext } from "../../context/IdeaContext";
 
-export default function SortIdeasMenu() {
+export default function SortIdeasMenu({ideas, setFunction}) {
 
     const {sortByTitle, sortByDate} = useIdeaContext();
 
@@ -23,23 +23,23 @@ export default function SortIdeasMenu() {
                     </button>
                 </MenubarTrigger>
                 <MenubarContent>
-                    <MenubarItem onClick={() => sortByDate(true)}>
+                    <MenubarItem onClick={() => sortByDate(true, ideas, setFunction)}>
                         Latest <MenubarShortcut>
                         <ArrowUp10/>
                     </MenubarShortcut>
                     </MenubarItem>
-                    <MenubarItem onClick={() => sortByDate(false)}>
+                    <MenubarItem onClick={() => sortByDate(false, ideas, setFunction)}>
                         Oldest <MenubarShortcut>
                         <ArrowDown01/>
                     </MenubarShortcut>
                     </MenubarItem>
                     <MenubarSeparator />
-                    <MenubarItem onClick={() => sortByTitle(true)}>
+                    <MenubarItem onClick={() => sortByTitle(true, ideas, setFunction)}>
                         By Title <MenubarShortcut>
                         <ArrowUpAZ/>
                     </MenubarShortcut>
                     </MenubarItem>
-                    <MenubarItem onClick={() => sortByTitle(false)}>
+                    <MenubarItem onClick={() => sortByTitle(false, ideas, setFunction)}>
                         By Title <MenubarShortcut>
                         <ArrowDownAZ/>
                     </MenubarShortcut>

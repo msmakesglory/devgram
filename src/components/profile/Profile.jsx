@@ -20,7 +20,7 @@ const Profile = () => {
   const { userDetails } = useProfileContext();
   const navigate = useNavigate();
   const {uid: userID} = useParams();
-  const { ideas } = useIdeaContext();
+  const { ideas, setIdeas } = useIdeaContext();
   const [ideasLoading, setIdeasLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(false);
 
@@ -37,7 +37,7 @@ const Profile = () => {
       setIdeasLoading(false);
     }, 3000);
   }, []);
-
+  
 
  if(userDetails?.uid !== userID){
     return (
@@ -167,7 +167,7 @@ const Profile = () => {
                 <p className="mb-1">Skills</p>
                 <CardDescription>
                   {profileLoading ?
-                      userDetails.skills || "Not Avail  able"
+                      userDetails.skills || "Not Available"
                       :<Skeleton className="w-40 h-5"/>
                   }
                 </CardDescription>
@@ -177,7 +177,7 @@ const Profile = () => {
         </Card>
       </div>
 
-      <IdeasTab ideas={ideas} isLoading={ideasLoading} isEdit={true}/>
+      <IdeasTab ideas={ideas} isLoading={ideasLoading} isEdit={true} setFunction={setIdeas} />
     </div>
   );
 };

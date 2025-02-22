@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import IdeaActions from "@/components/ideas/IdeaActions.jsx";
 // import { useIdeaContext } from "../../context/IdeaContext"
 
-export default function IdeasTab({ideas , isLoading, isEdit}) {
+export default function IdeasTab({ideas , isLoading, isEdit, setFunction}) {
     const [query, setQuery] = useState('');
     // const {sortByTitle} = useIdeaContext();
     let filteredData = useFilteredData(ideas, query);
@@ -25,7 +25,7 @@ export default function IdeasTab({ideas , isLoading, isEdit}) {
                     onChange={(e) => setQuery(e.target.value)}
                     className="w-3/4"
                 />
-                <IdeaActions isEdit={isEdit}/>
+                <IdeaActions isEdit={isEdit} ideas={ideas} setFunction={setFunction}/>
                 
             </div>
         </div>

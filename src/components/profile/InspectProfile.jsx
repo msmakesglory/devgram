@@ -168,7 +168,7 @@ export default function InspectProfile({ userId }) {
           </CardContent>
         </Card>
       </div>
-        <IdeasTab ideas={otherIdeaData} isLoading={false} isEdit={false}/>
+        <IdeasTab ideas={otherIdeaData} isLoading={false} isEdit={false} setFunction={setOtherIdeaData}/>
     </div>
   );
 };

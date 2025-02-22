@@ -76,19 +76,19 @@ export const IdeaProvider = ({ children }) => {
         }
     }
 
-    const sortByTitle = (isAsc) => {
+    const sortByTitle = (isAsc, ideas, setFunction) => {
         const sortedIdeas = [...ideas].sort((a, b) => 
             isAsc ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
         );
-        setIdeas(sortedIdeas);
+        setFunction(sortedIdeas);
     };
     
-    const sortByDate = (isLatest) => {
+    const sortByDate = (isLatest, ideas, setFunction) => {
         const sortedIdeas = [...ideas].sort((a, b) => 
             isLatest ? new Date(b.createdAt) - new Date(a.createdAt) 
                      : new Date(a.createdAt) - new Date(b.createdAt)
         );
-        setIdeas(sortedIdeas);
+        setFunction(sortedIdeas);
     };
     
 
