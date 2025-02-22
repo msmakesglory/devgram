@@ -3,11 +3,16 @@
 @tailwind utilities;
 
 .profile-div{
-  @apply lg:grid lg:grid-cols-9
+  @apply container flex justify-center
 }
 .profile-div-inner{
-  @apply flex flex-col col-start-1 col-span-3 ml-28 gap-2 tracking-wide
+  @apply container w-[400px] space-y-1
 }
+.break-words {
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+ }
+
 
 @layer base {
   :root {

@@ -73,7 +73,7 @@ export default function InspectProfile({ userId }) {
   ;
 
   return (
-      <div className="profile-div mx-2">
+      <div className="profile-div">
           <div className="profile-div-inner">
               <Card className="relative">
                   <EditProfile/>
@@ -86,12 +86,13 @@ export default function InspectProfile({ userId }) {
                               <AvatarFallback>👨‍💻</AvatarFallback>
                           </Avatar>
                           <span className="col-span-2 space-y-2 mt-2">
-                  <CardTitle className="tracking-wide">
-                    {otherProfileData.fullName || "Not Available"}
+                  <CardTitle className="tracking-wide break-words">
+                    {(otherProfileData.fullName || "Not Available")}
                   </CardTitle>
-                  <CardDescription className="text-xs">
-                    {otherProfileData.uid || "Not Available"}
+                  <CardDescription className="text-xs break-words">
+                    {(otherProfileData.uid || "Not Available")}
                   </CardDescription>
+
                 </span>
                       </div>
                   </CardHeader>
@@ -107,8 +108,7 @@ export default function InspectProfile({ userId }) {
                   </CardHeader>
                   <CardContent>
                       <ul className="space-y-3 text-sm tracking-wider">
-                          <li>
-                              {<HoverCard>
+                          <li><HoverCard>
                                       <HoverCardTrigger>
                                           <p className={"truncate"}>
                                               <Mail
@@ -123,38 +123,29 @@ export default function InspectProfile({ userId }) {
                                           </Button>
                                       </HoverCardContent>
                                   </HoverCard>
-                              }
                           </li>
                           <li>
-                              {
-                                  <li>
-                                      <MapPin className="inline-block h-5"/> {otherProfileData.location || "Not Available"}
-                                  </li>
-                              }
+                              <li>
+                                  <MapPin className="inline-block h-5"/> {otherProfileData.location || "Not Available"}
+                              </li>
                           </li>
-                          <li>
-                              {
-                                  <>
+                          <li><>
                                       <Linkedin className="inline-block h-5"/>
                                       <a href={otherProfileData.linkedin}>{extractUsername(otherProfileData.linkedin) || "Not Available"}</a>
                                   </>
-                              }
                           </li>
-                          <li>
-                              {
-                                  <>
+                          <li><>
                                       <Github className="inline-block h-5"/>
                                       <a href={otherProfileData.github}>{extractUsername(otherProfileData.github) || "Not Available"}</a>
                                   </>
-                              }
                           </li>
                       </ul>
                   </CardContent>
               </Card>
 
               <Card className="relative">
+                  <EditPro/>
                   <CardHeader>
-                      <EditPro/>
                       <CardTitle>Professional Details</CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -182,113 +173,15 @@ export default function InspectProfile({ userId }) {
                   </CardContent>
               </Card>
           </div>
-          <IdeasTab ideas={otherIdeaData} isLoading={false} isEdit={false} setFunction={setOtherIdeaData}/>
+
+        <IdeasTab ideas={otherIdeaData} isLoading={false} isEdit={false} setFunction={setOtherIdeaData}/>
       </div>
   );
 };
 
 
-InspectProfile.PropTypes = {
+InspectProfile.propTypes = {
     userId: PropTypes.string.isRequired,
 }
-// <div className="profile-div mx-2">
-//   <div className="profile-div-inner">
-//     <Card className="relative">
-//       <CardHeader>
-//         <Avatar className="size-16">
-//           <AvatarImage src="https://github.com/shadcn.png" />
-//           <AvatarFallback>👨‍💻</AvatarFallback>
-//         </Avatar>
-//         <CardTitle className="tracking-wide">
-//             {otherProfileData?.fullName || "Not Avaiable"}
-//         </CardTitle>
-//         <CardDescription>
-//             {otherProfileData?.uid || "Not Avaiable"}
-//         </CardDescription>
-//       </CardHeader>
-//       <CardContent>
-//             {otherProfileData?.summary || "Not Avaiable"}
-//       </CardContent>
-//     </Card>
+//           <IdeasTab ideas={ideas} isLoading={ideasLoading} isEdit={true} setFunction={setIdeas}/>
 //
-//     <Card className="relative">
-//       <CardHeader>
-//         <CardTitle>Personal Information</CardTitle>
-//       </CardHeader>
-//       <CardContent>
-//         <ul className="space-y-3">
-//           <li>
-//                 {<HoverCard>
-//                   <HoverCardTrigger>
-//                     <p className={"truncate"}>
-//                       <Mail className={"inline-block h-5"}/>{otherProfileData?.mail || "Not Available"}
-//                     </p>
-//                   </HoverCardTrigger>
-//                   <HoverCardContent>
-//                       <Button onClick={()=>{copyToClipboard(otherProfileData?.mail)}}>
-//                         <Copy/> {otherProfileData?.mail}
-//                       </Button>
-//                   </HoverCardContent>
-//                 </HoverCard>}
-//
-//           </li>
-//           <li>
-//             {
-//                 <li>
-//                   <MapPin className="inline-block h-5"/> { otherProfileData?.location || "Not Available"}
-//                 </li>
-//             }
-//           </li>
-//           <li>
-//                <>
-//                   <Linkedin className="inline-block h-5"/>
-//                   <a href={otherProfileData?.linkedin}>{ extractUsername(otherProfileData?.linkedin) || "Not Available"}</a>
-//                 </>
-//           </li>
-//           <li>
-//                 <>
-//                   <Github className="inline-block h-5"/>
-//                   <a href={otherProfileData?.github}>{ extractUsername(otherProfileData?.github) || "Not Available"}</a>
-//                 </>
-//           </li>
-//         </ul>
-//       </CardContent>
-//     </Card>
-//
-//     <Card className="relative">
-//       <CardHeader>
-//         <EditPro/>
-//         <CardTitle>Professional Details</CardTitle>
-//       </CardHeader>
-//       <CardContent>
-//         <ul className="space-y-1">
-//           <li>
-//             <p className="mb-1">Work</p>
-//             <CardDescription>
-//               {
-//                 otherProfileData?.work || "Not Available"
-//               }
-//             </CardDescription>
-//           </li>
-//           <li>
-//             <p className="mb-1">Education</p>
-//             <CardDescription>
-//               {
-//                   otherProfileData?.education || "Not Available"
-//               }
-//             </CardDescription>
-//           </li>
-//           <li>
-//             <p className="mb-1">Skills</p>
-//             <CardDescription>
-//               {
-//                   otherProfileData?.skills || "Not Available"
-//               }
-//             </CardDescription>
-//           </li>
-//         </ul>
-//       </CardContent>
-//     </Card>
-//   </div>
-//     <IdeasTab ideas={otherIdeaData} isLoading={false} isEdit={false} setFunction={setOtherIdeaData}/>
-// </div>

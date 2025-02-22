@@ -51,7 +51,7 @@ const Profile = () => {
 
 
   return (
-    <div className="profile-div mx-2">
+    <div className="profile-div">
       <div className="profile-div-inner">
         <Card className="relative">
             <EditProfile />
@@ -64,18 +64,13 @@ const Profile = () => {
                   <AvatarFallback>👨‍💻</AvatarFallback>
                 </Avatar>
                 <span className="col-span-2 space-y-2 mt-2">
-                  <CardTitle className="tracking-wide">
-                    {
-                      profileLoading
-                          ? (userDetails.fullName || "Not Available")
-                          : <Skeleton className="w-40 h-5" />
-                    }
+                  <CardTitle className="tracking-wide break-words">
+                    {profileLoading ? (userDetails.fullName || "Not Available") : <Skeleton className="w-40 h-5" />}
                   </CardTitle>
-                  <CardDescription className="text-xs">
-                    {profileLoading ? (userDetails.uid || "Not Available")
-                        : <Skeleton className="w-60 h-5" />
-                    }
+                  <CardDescription className="text-xs break-words">
+                    {profileLoading ? (userDetails.uid || "Not Available") : <Skeleton className="w-60 h-5" />}
                   </CardDescription>
+
                 </span>
               </div>
             </CardHeader>
@@ -147,8 +142,8 @@ const Profile = () => {
         </Card>
 
         <Card className="relative">
+          <EditPro/>
           <CardHeader>
-            <EditPro/>
             <CardTitle>Professional Details</CardTitle>
           </CardHeader>
           <CardContent>
