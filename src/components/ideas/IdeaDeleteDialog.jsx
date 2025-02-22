@@ -8,13 +8,16 @@ import {
 import { useIdeaContext } from "../../context/IdeaContext";
 import { ScrollArea } from "../ui/scroll-area";
 import ConfirmDelete from "@/components/ideas/CofirmIdeaDelete.jsx";
+import {Button} from "@/components/ui/button.jsx";
 
  const IdeaDeleteDialog = ({open,onClose}) => {
      const {ideas, deleteIdea} = useIdeaContext();
     return (
         <Dialog open={open} onOpenChange={onClose}>
             <DialogTrigger>
-                {/*Delete Idea*/}
+                <Button variant="secondary">
+                    Delete Idea
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

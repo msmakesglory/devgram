@@ -69,7 +69,9 @@ const AddIdea = ({open , onClose}) => {
     return (
         <Dialog open={open} onOpenChange={onClose}>
             <DialogTrigger>
-                {/*Add Idea*/}
+                <Button variant="secondary">
+                    Add Idea
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <form onSubmit={handleSubmit}>
