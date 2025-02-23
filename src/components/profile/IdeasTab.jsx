@@ -15,7 +15,7 @@ export default function IdeasTab({ideas , isLoading, isEdit, setFunction}) {
     // const {sortByTitle} = useIdeaContext();
     let filteredData = useFilteredData(ideas, query);
 
-   return <div id="ideas-tab" className="col-span-5 w-[700px]">
+   return <div id="ideas-tab" className="col-span-5 lg:w-[700px]">
         <div className="flex px-4 mb-2">
             <h1 className="text-xl font-semibold w-1/2 p-2">{isEdit ? 'Your Ideas' : "Ideas"}</h1>
             <div className="w-full flex gap-2 ">

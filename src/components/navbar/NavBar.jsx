@@ -1,31 +1,26 @@
-import { Menu } from "lucide-react";
-// import { CiLight } from "react-icons/ci";
+
 import logo from "@/components/images/logo.png";
 import { Button } from "@/components/ui/button.jsx";
-import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet.jsx";
-import { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useProfileContext } from "../../context/ProfileContext";
 import { useAuthContext } from "../../context/authContext";
 import {ModeToggle} from "@/components/ModeToggle.jsx";
 import {ThemeProvider} from "@/context/ThemeProvider.jsx";
+import {
+    DropdownMenu,
+    DropdownMenuContent, DropdownMenuItem,
+    DropdownMenuLabel, DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu.jsx";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
+import extractUsername from "@/components/utils/util.js";
 
 const Navbar = () => {
     const { userDetails } = useProfileContext();
     const userlogged = userDetails.uid;
     const navigate = useNavigate();
     const { handleSignout } = useAuthContext();
-    const [isSheetOpen, setIsSheetOpen] = useState(false);
-
-    const handleSheetClose = () => {
-        setIsSheetOpen(false);
-    };
 
     return (
         <section
@@ -76,59 +71,58 @@ const Navbar = () => {
                         <Link to="/">
                             <img src={logo} className="w-20 dark:invert" alt="logo" />
                         </Link>
-                        <div className="flex items-center gap-2">
-                        </div>
-                        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                            <div className="space-x-2">
+                            <div className="space-x-2 flex items-center">
                                 <ThemeProvider>
                                     <ModeToggle />
                                 </ThemeProvider>
-                                <SheetTrigger asChild>
-                                    <Button variant="outline" size="icon" onClick={() => setIsSheetOpen(true)}>
-                                        <Menu className="size-4" />
-                                    </Button>
-                                </SheetTrigger>
-                            </div>
-                            <SheetContent className="overflow-y-auto">
-                                <SheetHeader>
-                                    <SheetTitle>
-                                        <div className="flex flex-col items-center gap-2">
-                                            <img
-                                                src={logo}
-                                                className="w-20 dark:invert"
-                                                alt="logo"
-                                            />
-                                            <span className="text-lg font-semibold mt-3">DevGram.com</span>
-                                        </div>
-                                    </SheetTitle>
-                                </SheetHeader>
-                                <div className="flex flex-col gap-3">
-                                    {(userlogged === undefined || userlogged === null) ? (
-                                        <>
-                                            <Link to='/login'>
-                                                <Button variant="outline" className="w-full" onClick={handleSheetClose}>
-                                                    Sign in
-                                                </Button>
-                                            </Link>
-                                            <Link to='/signup'>
-                                                <Button className="w-full" onClick={handleSheetClose}>
-                                                    Sign Up
-                                                </Button>
-                                            </Link>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Button onClick={() => { navigate(`/p/${userlogged}`); handleSheetClose(); }}>
+                                {userlogged
+                                    ?
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <Avatar>
+                                            <AvatarImage src={userDetails.github ?`https://github.com/${extractUsername(userDetails.github)}.png` : `https://github.com/shadcn.png`}/>
+                                            <AvatarFallback>UN</AvatarFallback>
+                                        </Avatar>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuLabel>{userDetails.fullName}</DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>Groups</DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <Link to={`/p/${userDetails.uid}`}>
                                                 Profile
-                                            </Button>
-                                            <Button onClick={() => { handleSignout(); handleSheetClose(); }}>
-                                                Sign Out
-                                            </Button>
-                                        </>
-                                    )}
-                                </div>
-                            </SheetContent>
-                        </Sheet>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem
+                                            onSelect={handleSignout}
+                                        >
+                                            Sign Out
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                                    :
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger>
+                                            <Avatar>
+                                                <AvatarImage src={userDetails.github ?`https://github.com/${extractUsername(userDetails.github)}.png` : `https://github.com/shadcn.png`}/>
+                                                <AvatarFallback>UN</AvatarFallback>
+                                            </Avatar>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent>
+                                            <DropdownMenuLabel>Account</DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem>
+                                                <Link to='/login'>Sign in</Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <Link to='/signup'>Sign Up</Link>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                }
+
+                            </div>
                     </div>
                 </div>
             </div>

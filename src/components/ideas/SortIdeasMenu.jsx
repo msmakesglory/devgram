@@ -18,7 +18,9 @@ export default function SortIdeasMenu({ideas, setFunction}) {
         <Menubar>
             <MenubarMenu>
                 <MenubarTrigger>
-                    Sort By
+                    <span className="w-16">
+                        Sort By
+                    </span>
                 </MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem onClick={() => sortByDate(true, ideas, setFunction)}>

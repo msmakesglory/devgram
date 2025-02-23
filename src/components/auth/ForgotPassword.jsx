@@ -27,32 +27,34 @@ export default function ForgotPassword() {
     }
 
     return (
-        <Card className="lg:w-[400px] mx-auto p-4">
-            <CardHeader>
-                <CardTitle>Reset Password</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className="space-y-4">
-                    <Label htmlFor="email">Enter your registered email</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="your@email.com"
-                        required
-                    />
-                    <Button onClick={handleResetPassword} className="w-full">
-                        Send Reset Link
-                    </Button>
-                    {message && <p className="text-green-500">{message}</p>}
-                    {error && <p className="text-red-500">{error}</p>}
-                    <Button variant="ghost" className="w-full mt-2" onClick={() => navigate("/login")}>
-                        Back to Login
-                    </Button>
-                </div>
-            </CardContent>
-        </Card>
+        <div className="pt-20">
+            <Card className="lg:w-[400px] mx-auto p-4">
+                <CardHeader>
+                    <CardTitle>Reset Password</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="space-y-4">
+                        <Label htmlFor="email">Enter your registered email</Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="your@email.com"
+                            required
+                        />
+                        <Button onClick={handleResetPassword} className="w-full">
+                            Send Reset Link
+                        </Button>
+                        {message && <p className="text-green-500">{message}</p>}
+                        {error && <p className="text-red-500">{error}</p>}
+                        <Button variant="ghost" className="w-full mt-2" onClick={() => navigate("/login")}>
+                            Back to Login
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
     ); 
 
 }

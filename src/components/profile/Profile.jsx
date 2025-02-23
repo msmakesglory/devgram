@@ -133,7 +133,6 @@ const Profile = () => {
             </ul>
           </CardContent>
         </Card>
-
         <Card className="relative">
           <EditPro/>
           <CardHeader>
