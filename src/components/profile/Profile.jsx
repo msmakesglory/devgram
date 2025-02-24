@@ -91,10 +91,10 @@ const Profile = () => {
             <ul className="space-y-3 text-sm tracking-wider">
               <li>
                 {profileLoading ?
-                    <li className="flex items-center gap-2">
+                    <span className="flex items-center gap-2">
                       <Mail className="size-4 shrink-0"/>
                       <a href={`mailto:${userDetails.mail}`}>{userDetails.mail || "Not Available"}</a>
-                    </li>
+                    </span>
                     :
                     <Skeleton className="w-60 h-5"/>
 
@@ -102,30 +102,30 @@ const Profile = () => {
               </li>
               <li>
                 {profileLoading ?
-                    <li className="flex items-center gap-2">
+                    <span className="flex items-center gap-2">
                       <MapPin className="size-4 shrink-0"/>
                       <p>{userDetails.location || "Not Available"}</p>
-                    </li>
+                    </span>
                     :
                     <Skeleton className="w-60 h-5"/>
                 }
               </li>
               <li>
                 {profileLoading ?
-                    <li className="flex items-center gap-2">
+                    <span className="flex items-center gap-2">
                       <Linkedin className="size-4 shrink-0"/>
                       <a href={userDetails.linkedin}>{extractUsername(userDetails.linkedin) || "Not Available"}</a>
-                    </li>
+                    </span>
                     :
                     <Skeleton className="w-60 h-5"/>
                 }
               </li>
               <li>
                 {profileLoading ?
-                    <li className="flex items-center gap-2">
+                    <span className="flex items-center gap-2">
                       <Github className="size-4 shrink-0"/>
                       <a href={userDetails.github}>{extractUsername(userDetails.github) || "Not Available"}</a>
-                    </li>
+                    </span>
                     :
                     <Skeleton className="w-60 h-5"/>
                 }
