@@ -20,9 +20,9 @@ export default function IdeaActions({ideas, isEdit, setFunction}) {
             <NavigationMenuList>
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>
-                        <button>
+                        <span>
                             Actions
-                        </button>
+                        </span>
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="px-4 py-2 space-y-2">
@@ -52,6 +52,6 @@ export default function IdeaActions({ideas, isEdit, setFunction}) {
 }
 
 
-IdeaActions.PropTypes = {
+IdeaActions.propTypes = {
     isEdit: PropTypes.bool.isRequired,
 }
