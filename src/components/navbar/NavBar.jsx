@@ -10,11 +10,14 @@ import {ThemeProvider} from "@/context/ThemeProvider.jsx";
 import {
     DropdownMenu,
     DropdownMenuContent, DropdownMenuItem,
-    DropdownMenuLabel, DropdownMenuSeparator,
+    DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSub,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu.jsx";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
 import extractUsername from "@/components/utils/util.js";
+import {User} from "@icon-park/react";
+import {BellDot, LogIn, LogOut, Users, UserX} from "lucide-react";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.jsx";
 
 const Navbar = () => {
     const { userDetails } = useProfileContext();
@@ -28,103 +31,124 @@ const Navbar = () => {
         >
             <div className="container">
                 {/* Desktop Navigation */}
-                <nav className="hidden justify-between lg:flex">
+                <nav className="justify-between flex">
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-2">
                             <Link to="/">
                                 <img src={logo} className="w-28 dark:invert" alt="logo" />
                             </Link>
                         </div>
-                        <div className="flex items-center">
-                            {/* Additional items can be added here */}
+                        <div className="hidden">
+                            <ThemeProvider>
+                                <ModeToggle />
+                            </ThemeProvider>
                         </div>
                     </div>
-                    <div className="flex gap-2">
-                        {!userlogged ? (
-                            <>
-                                <Button variant="outline">
-                                    <Link to='/login'>Sign in</Link>
+                    <div className="flex items-center gap-2">
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    size="icon"
+                                    variant="ghost"
+                                >
+                                    <BellDot />
                                 </Button>
-                                <Button>
-                                    <Link to='/signup'>Sign Up</Link>
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Button onClick={() => navigate(`/p/${userlogged}`)}>
-                                    Profile
-                                </Button>
-                                <Button onClick={handleSignout}>
-                                    Sign Out
-                                </Button>
-                            </>
-                        )}
-                        <ThemeProvider>
-                            <ModeToggle />
-                        </ThemeProvider>
-                    </div>
-                </nav>
+                            </PopoverTrigger>
+                            <PopoverContent className="space-y-2">
+                                <div className="px-4 py-2 border rounded-lg">
+                                    <h1>
+                                        Message From Spoidy
+                                    </h1>
+                                    <p className="text-muted-foreground text-sm">
+                                        Hi There
+                                    </p>
+                                </div>
+                                <div className="px-4 py-2 border rounded-lg">
+                                    <h1>
+                                        Notification from Account
+                                    </h1>
+                                    <p className="text-muted-foreground text-sm">
+                                        Close This <i>Idea</i>
+                                    </p>
+                                </div>
+                                <div className="px-4 py-2 border rounded-lg">
+                                    <h1>
+                                        Verify Now
+                                    </h1>
+                                    <p className="text-muted-foreground text-sm">
+                                        Get full out of it
+                                    </p>
+                                </div>
+                            </PopoverContent>
+                        </Popover>
 
-                {/* Mobile Navigation */}
-                <div className="block lg:hidden">
-                    <div className="flex items-center justify-between">
-                        <Link to="/">
-                            <img src={logo} className="w-20 dark:invert" alt="logo" />
-                        </Link>
-                            <div className="space-x-2 flex items-center">
-                                <ThemeProvider>
-                                    <ModeToggle />
-                                </ThemeProvider>
-                                {userlogged
-                                    ?
+                        <div>
+                            {!userlogged ? (
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
                                         <Avatar>
-                                            <AvatarImage src={userDetails.github ?`https://github.com/${extractUsername(userDetails.github)}.png` : `https://github.com/shadcn.png`}/>
-                                            <AvatarFallback>UN</AvatarFallback>
+                                            <AvatarImage src={''}/>
+                                            <AvatarFallback><User/></AvatarFallback>
+                                        </Avatar>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuItem>
+                                            <LogIn/>
+                                            <Link to={`/login`}>
+                                                Sign in
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator/>
+                                        <ThemeProvider>
+                                            <ModeToggle/>
+                                        </ThemeProvider>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            ) : (
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <Avatar>
+                                            <AvatarImage
+                                                src={userDetails.github ? `https://github.com/${extractUsername(userDetails.github)}.png` : `https://github.com/shadcn.png`}/>
+                                            <AvatarFallback><User/></AvatarFallback>
                                         </Avatar>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
                                         <DropdownMenuLabel>{userDetails.fullName}</DropdownMenuLabel>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuItem>Groups</DropdownMenuItem>
+                                        <DropdownMenuSeparator/>
                                         <DropdownMenuItem>
+                                            <Users/>
+                                            <Link to={`/home`}>
+                                                Groups
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <User/>
                                             <Link to={`/p/${userDetails.uid}`}>
                                                 Profile
                                             </Link>
                                         </DropdownMenuItem>
-                                        <DropdownMenuSeparator />
+                                        <DropdownMenuSeparator/>
                                         <DropdownMenuItem
                                             onSelect={handleSignout}
                                         >
-                                            Sign Out
+                                            <LogOut/>Sign Out
                                         </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                        >
+                                            <UserX/>Delete Account
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator/>
+                                        <ThemeProvider>
+                                            <ModeToggle/>
+                                        </ThemeProvider>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
-                                    :
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger>
-                                            <Avatar>
-                                                <AvatarImage src={userDetails.github ?`https://github.com/${extractUsername(userDetails.github)}.png` : `https://github.com/shadcn.png`}/>
-                                                <AvatarFallback>UN</AvatarFallback>
-                                            </Avatar>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent>
-                                            <DropdownMenuLabel>Account</DropdownMenuLabel>
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuItem>
-                                                <Link to='/login'>Sign in</Link>
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem>
-                                                <Link to='/signup'>Sign Up</Link>
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                }
+                            )}
+                        </div>
 
-                            </div>
                     </div>
-                </div>
+                </nav>
             </div>
         </section>
     );

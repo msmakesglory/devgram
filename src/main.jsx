@@ -12,6 +12,7 @@ import { AuthProvider } from './context/authContext.jsx';
 import NotFound from './components/404.jsx';
 import ForgotPassword from './components/auth/ForgotPassword.jsx';
 import { IdeaProvider } from './context/IdeaContext.jsx';
+import {Home} from "@/components/Home/Home.jsx";
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
                         <Routes>
                             <Route path="/" element={<App />}>
                                 <Route path="" element={<LandingPage />} />
+                                <Route path="/home" element={<Home />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/signup" element={<SignUp />} />
                                 <Route path="/forgotpassword" element={<ForgotPassword />} />
