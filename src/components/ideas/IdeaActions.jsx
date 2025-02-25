@@ -27,9 +27,7 @@ export default function IdeaActions({ideas, isEdit, setFunction}) {
                         <ul className="px-4 py-2 space-y-2">
                             {isEdit ? (
                                 <>
-                                    <li
-
-                                    >
+                                    <li>
                                         <AddIdea open={openAddDialog} onClose={setOpenAddDialog}/>
                                     </li>
                                     <li>
