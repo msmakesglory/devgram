@@ -9,7 +9,6 @@ import {
     NavigationMenuTrigger
 } from "@/components/ui/navigation-menu.jsx";
 import SortIdeasMenu from "@/components/ideas/SortIdeasMenu.jsx";
-import { Separator } from "../ui/separator";
 import PropTypes from "prop-types";
 
 export default function IdeaActions({ideas, isEdit, setFunction}) {
