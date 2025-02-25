@@ -18,6 +18,7 @@ import extractUsername from "@/components/utils/util.js";
 import {User} from "@icon-park/react";
 import {BellDot, LogIn, LogOut, Users, UserX} from "lucide-react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.jsx";
+import Component from "@/components/navbar/Notifications.jsx";
 
 const Navbar = () => {
     const { userDetails } = useProfileContext();
@@ -45,43 +46,7 @@ const Navbar = () => {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    size="icon"
-                                    variant="ghost"
-                                >
-                                    <BellDot />
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="space-y-2">
-                                <div className="px-4 py-2 border rounded-lg">
-                                    <h1>
-                                        Message From Spoidy
-                                    </h1>
-                                    <p className="text-muted-foreground text-sm">
-                                        Hi There
-                                    </p>
-                                </div>
-                                <div className="px-4 py-2 border rounded-lg">
-                                    <h1>
-                                        Notification from Account
-                                    </h1>
-                                    <p className="text-muted-foreground text-sm">
-                                        Close This <i>Idea</i>
-                                    </p>
-                                </div>
-                                <div className="px-4 py-2 border rounded-lg">
-                                    <h1>
-                                        Verify Now
-                                    </h1>
-                                    <p className="text-muted-foreground text-sm">
-                                        Get full out of it
-                                    </p>
-                                </div>
-                            </PopoverContent>
-                        </Popover>
-
+                        <Component/>
                         <div>
                             {!userlogged ? (
                                 <DropdownMenu>

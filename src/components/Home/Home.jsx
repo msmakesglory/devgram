@@ -1,11 +1,4 @@
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
 import {Button} from "@/components/ui/button.jsx";
-import {Input} from "@/components/ui/input.jsx";
-import {Label} from "@/components/ui/label.jsx";
 import {
     DropdownMenu,
     DropdownMenuContent, DropdownMenuItem,
@@ -13,36 +6,35 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu.jsx";
 import {CirclePlus} from "lucide-react";
+import {useState} from "react";
 export const Home = () => {
     const data = [
-        {
-            name:"Java",
-            desc:"Fast Reliable"
-        },
-        {
-            name:"Python",
-            desc:"Simple and Clean"
-        },
-        {
-            name:"JavaScript",
-            desc:"A Cheap Copy"
-        },
+        "java","python","tailwind css","javascript","flask","django",
+        "java","python","tailwind css","javascript","flask","django"
     ]
+    const [title, setTitle] = useState("Java");
     return (
-        <div className="h-screen pt-20 px-20 relative">
-            <ul className="lg:w-1/3 border h-full space-y-2 py-2 px-4 rounded">
+        <div className="h-screen pt-20 px-20 relative flex gap-8">
+            <ul className="space-y-2  w-fit mt-8">
+                <h1 className="font-medium text-xl">Your Groups</h1>
                 {
                     data.map((item, index) => (
-                        <li
-                            className="border py-2 px-3 rounded-lg"
-                            key={index}>
-                            <h1 className="font-medium ">{item.name}</h1>
-                            <p>{item.desc}</p>
+                        <li key={index} className="border-l">
+                            <button
+                                className="px-2 py-1 rounded hover:bg-secondary transition ease-in-out duration-200 capitalize ml-2"
+                                onClick={()=>{setTitle(item)}}
+                            >
+                                {item}
+                            </button>
                         </li>
                     ))
                 }
             </ul>
-
+            <div className="border h-full flex-grow">
+                <div className="px-4 py-2">
+                    <h1 className="text-xl font-mono capitalize">{title}</h1>
+                </div>
+            </div>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button
