@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 
 export default function CreateGroup() {
-    const { createGroup, joinGroup } = useGroupContext();
+    const { createGroup, joinGroup, removeUserFromGroup } = useGroupContext();
     let [groupName, setGroupName] = useState("");
 
 
@@ -29,6 +29,16 @@ export default function CreateGroup() {
         setGroupName("");
     }
 
+    const handleremove = async (e) => {
+        e.preventDefault();
+        if(!groupName?.trim()) return;
+
+        const response = await removeUserFromGroup(groupName);
+        console.log(response);
+
+        setGroupName("");
+    }
+
     return (
        
         <div className="flex items-center justify-center min-h-screen">
@@ -46,6 +56,17 @@ export default function CreateGroup() {
             
             <form onSubmit={handleJoin}>
             <p>Join form</p>
+            <Input 
+                    value={groupName}
+                    onChange={(e) => setGroupName(e.target.value)} />
+                <Button type="submit">
+                     Submit
+                </Button>
+
+            </form>
+
+            <form onSubmit={handleremove}>
+            <p>unsubscribe form</p>
             <Input 
                     value={groupName}
                     onChange={(e) => setGroupName(e.target.value)} />
