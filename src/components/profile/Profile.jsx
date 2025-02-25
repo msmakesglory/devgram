@@ -29,7 +29,8 @@ const Profile = () => {
 
 
     if (!userDetails?.uid) {
-      navigate("/login");
+      <div><p>Profile not found</p></div>
+      return
     }
   
 

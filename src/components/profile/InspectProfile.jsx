@@ -41,7 +41,6 @@ export default function InspectProfile({ userId }) {
                     ...doc.data(),
                 }));
                 setOtherIdeaData(fetchedIdeas);
-                console.log(fetchedIdeas);
             };
             fetchIdeas();
         }

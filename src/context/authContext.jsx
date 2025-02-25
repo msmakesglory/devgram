@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
                     title: "Logged in successfully",
                     description: "redirecting to home"
                 })
-                navigate(`/p/${user.uid}`);
+                navigate(`/home`);
             }
         } catch (err) {
             toast({
@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }) => {
                     title: "Logged in successfully",
                     description: "redirecting to home"
                 })
-                navigate(`/p/${user.uid}`);
+                navigate(`/home`);
             }
         } catch (err) {
             console.error(err);
@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }) => {
                     title: "Logged in successfully",
                     description: "redirecting to home"
                 })
-                navigate(`/p/${user.uid}`);
+                navigate(`/home`);
             }
         } catch (err) {
             console.error(err);
@@ -142,7 +142,7 @@ export const AuthProvider = ({ children }) => {
                 title: "Account Created successfully",
                 description: "redirecting to home"
             })
-            navigate(`/p/${user.uid}`);
+            navigate(`/p/home`);
             return null;
         } catch (err) {
             console.error("Signup error:", err.message);
