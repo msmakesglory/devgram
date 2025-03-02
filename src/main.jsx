@@ -15,6 +15,7 @@ import { IdeaProvider } from './context/IdeaContext.jsx';
 import {Home} from "@/components/Home/Home.jsx";
 import CreateGroup from "./components/Group/CreateGroup.jsx";
 import { GroupProvider } from './context/GroupContext.jsx';
+import {MobileProfile} from "@/components/profile/mobile/profile.jsx";
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')).render(
                                     <Route path="/404" element={<NotFound />} />
                                     <Route path="*" element={<NotFound />} />
                                     <Route path="/create-group" element={<CreateGroup />} />
+                                    <Route path="/test/:uid" element={<MobileProfile />} />
                                 </Route>
                             </Routes>
                             </GroupProvider>

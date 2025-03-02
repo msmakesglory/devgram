@@ -8,7 +8,6 @@ import {useState} from "react";
 import { useFilteredData } from "@/hooks/useFilteredData.js";
 import PropTypes from "prop-types";
 import IdeaActions from "@/components/ideas/IdeaActions.jsx";
-// import { useIdeaContext } from "../../context/IdeaContext"
 
 export default function IdeasTab({ideas , isLoading, isEdit, setFunction}) {
     const [query, setQuery] = useState('');
