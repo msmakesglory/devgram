@@ -25,18 +25,18 @@ import {Github, Linkedin, Mail, MapPin} from "lucide-react";
 import EditPro from "@/components/profile/EditPro.jsx";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion.jsx";
 import {useProfileContext} from "@/context/ProfileContext.jsx";
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {useIdeaContext} from "@/context/IdeaContext.jsx";
 import {useEffect, useState} from "react";
-import InspectProfile from "@/components/profile/InspectProfile.jsx";
+import NotFound from "../../404"
 
 export function MobileProfile() {
     const { userDetails } = useProfileContext();
-    const navigate = useNavigate();
-    const {uid: userID} = useParams();
     const { ideas, setIdeas } = useIdeaContext();
     const [ideasLoading, setIdeasLoading] = useState(true);
     const [profileLoading, setProfileLoading] = useState(false);
+
+
     useEffect(() => {
         setTimeout(() => {
             setProfileLoading(true);
@@ -45,9 +45,9 @@ export function MobileProfile() {
     }, []);
 
 
-    if(userDetails?.uid !== userID){
+    if(!userDetails?.uid){
         return (
-            <InspectProfile userId={userID}/>
+            <NotFound />
         )
     }
     return (

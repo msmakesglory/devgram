@@ -13,8 +13,6 @@ import NotFound from './components/404.jsx';
 import ForgotPassword from './components/auth/ForgotPassword.jsx';
 import { IdeaProvider } from './context/IdeaContext.jsx';
 import {Home} from "@/components/Home/Home.jsx";
-import CreateGroup from "./components/Group/CreateGroup.jsx";
-import { GroupProvider } from './context/GroupContext.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -22,7 +20,6 @@ createRoot(document.getElementById('root')).render(
             <ProfileProvider> 
                 <AuthProvider>
                     <IdeaProvider>
-                        <GroupProvider>
                             <Routes>
                                 <Route path="/" element={<App />}>
                                     <Route path="" element={<LandingPage />} />
@@ -33,10 +30,8 @@ createRoot(document.getElementById('root')).render(
                                     <Route path="/p/:uid" element={<Profile />} />
                                     <Route path="/404" element={<NotFound />} />
                                     <Route path="*" element={<NotFound />} />
-                                    <Route path="/create-group" element={<CreateGroup />} />
                                 </Route>
                             </Routes>
-                            </GroupProvider>
                     </IdeaProvider>
                 </AuthProvider>
             </ProfileProvider>

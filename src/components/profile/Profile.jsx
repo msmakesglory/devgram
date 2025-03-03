@@ -1,6 +1,6 @@
 import { useProfileContext } from "../../context/ProfileContext";
-import {Linkedin, Github, MapPin, Mail, Copy} from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import {Linkedin, Github, MapPin, Mail} from "lucide-react";
+import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 import EditProfile from "@/components/profile/EditProfile.jsx";
@@ -8,29 +8,26 @@ import EditPersonalInfo from "@/components/profile/EditPersonalInfo.jsx";
 import EditPro from "@/components/profile/EditPro.jsx";
 import extractUsername from "@/components/utils/util.js";
 import { useIdeaContext } from "../../context/IdeaContext";
-import { Button } from "../ui/button";
 import {Skeleton} from "@/components/ui/skeleton.jsx";
 import { useEffect, useState } from "react";
-import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card.jsx";
-import {copyToClipboard} from "@/utils/copy.js";
 import IdeasTab from "@/components/profile/IdeasTab.jsx";
 import InspectProfile from "./InspectProfile";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion.jsx";
-import {AccordionHeader} from "@radix-ui/react-accordion";
+import { useMediaQuery } from "react-responsive";
+import { MobileProfile } from "./mobile/profile";
+
+
 
 const Profile = () => {
   const { userDetails } = useProfileContext();
-  const navigate = useNavigate();
   const {uid: userID} = useParams();
   const { ideas, setIdeas } = useIdeaContext();
   const [ideasLoading, setIdeasLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(false);
-
-
+  const isMobile = useMediaQuery({maxWidth: 1024})
 
     if (!userDetails?.uid) {
       <div><p>Profile not found</p></div>
-      return
     }
   
 
@@ -52,7 +49,9 @@ const Profile = () => {
 
 
   return (
-    <div className="profile-div pt-20">
+     isMobile ? <MobileProfile />
+      :
+      <div className="profile-div pt-20">
       <div className="profile-div-inner">
         <Card className="relative">
             <EditProfile />
