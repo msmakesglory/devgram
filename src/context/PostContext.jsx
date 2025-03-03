@@ -18,7 +18,7 @@ export const PostProvider = ({ children }) => {
 
     const addPost = async ( ideaData ) => {
         const date = new Date().toISOString().substring(0, 10);
-        const postRef = doc(db, "posts", date, "userPosts" , userDetails?.uid);
+        const postRef = doc(db, "posts", date, "userPosts" , userDetails?.uid + ideaData?.id);
 
         await setDoc(postRef, ideaData)
 
