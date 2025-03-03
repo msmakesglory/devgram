@@ -50,6 +50,7 @@ export const AuthProvider = ({ children }) => {
             setUserDetails(defaultData);
         } else {
             setUserDetails({ uid: user.uid, mail: user.email, ...docSnapshot.data() });
+            
         }
     };
     

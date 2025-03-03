@@ -13,26 +13,29 @@ import NotFound from './components/404.jsx';
 import ForgotPassword from './components/auth/ForgotPassword.jsx';
 import { IdeaProvider } from './context/IdeaContext.jsx';
 import {Home} from "@/components/Home/Home.jsx";
+import { PostProvider } from './context/PostContext.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <BrowserRouter>
             <ProfileProvider> 
                 <AuthProvider>
-                    <IdeaProvider>
-                            <Routes>
-                                <Route path="/" element={<App />}>
-                                    <Route path="" element={<LandingPage />} />
-                                    <Route path="/home" element={<Home />} />
-                                    <Route path="/login" element={<Login />} />
-                                    <Route path="/signup" element={<SignUp />} />
-                                    <Route path="/forgotpassword" element={<ForgotPassword />} />
-                                    <Route path="/p/:uid" element={<Profile />} />
-                                    <Route path="/404" element={<NotFound />} />
-                                    <Route path="*" element={<NotFound />} />
-                                </Route>
-                            </Routes>
-                    </IdeaProvider>
+                    <PostProvider>
+                        <IdeaProvider>
+                                <Routes>
+                                    <Route path="/" element={<App />}>
+                                        <Route path="" element={<LandingPage />} />
+                                        <Route path="/home" element={<Home />} />
+                                        <Route path="/login" element={<Login />} />
+                                        <Route path="/signup" element={<SignUp />} />
+                                        <Route path="/forgotpassword" element={<ForgotPassword />} />
+                                        <Route path="/p/:uid" element={<Profile />} />
+                                        <Route path="/404" element={<NotFound />} />
+                                        <Route path="*" element={<NotFound />} />
+                                    </Route>
+                                </Routes>
+                        </IdeaProvider>
+                    </PostProvider>
                 </AuthProvider>
             </ProfileProvider>
         </BrowserRouter>

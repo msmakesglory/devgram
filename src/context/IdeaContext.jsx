@@ -3,7 +3,7 @@ import { useProfileContext } from "./ProfileContext";
 import { collection,  doc, getDoc, getDocs, setDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../configs/firebase";
 import {v4 as uuidv4} from "uuid";
-
+import { usePostContext } from "./PostContext";
 
 
 const IdeaContext = createContext();
@@ -12,6 +12,7 @@ export const IdeaProvider = ({ children }) => {
 
     const [ ideas, setIdeas ] = useState([]);
     const { userDetails } = useProfileContext();
+    const { addPost } = usePostContext();
 
     useEffect(() => {
         if (!userDetails?.uid) return;
@@ -60,6 +61,7 @@ export const IdeaProvider = ({ children }) => {
         };
 
         await setDoc(ideaRef, newIdea);
+        await addPost(newIdea);
         setIdeas((prev) => [...prev, newIdea]);
 
     }
