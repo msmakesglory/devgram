@@ -110,12 +110,14 @@ export default function Test(){
                         </Card>
                         <CardFooter className="pt-4 flex gap-4 justify-between">
                     <span className="flex items-center gap-2">
-                        <User className="size-4"/> {idea.username}
+                        <img
+                            className="size-4 rounded-full"
+                            src={`https://randomuser.me/api/portraits/lego/${index}.jpg`}/> {idea.username}
                     </span>
 
                             <span className="flex items-center gap-2">
-                        <Users className="size-4"/> {idea.usersNow}/{idea.usersTotal}
-                    </span>
+                                <Users className="size-6"/> {idea.usersNow}/{idea.usersTotal}
+                            </span>
                         </CardFooter>
                     </Card>
             ))
