@@ -14,7 +14,8 @@ import ForgotPassword from './components/auth/ForgotPassword.jsx';
 import { IdeaProvider } from './context/IdeaContext.jsx';
 import {Home} from "@/components/Home/Home.jsx";
 import { PostProvider } from './context/PostContext.jsx';
-import WeeklyPosts from './components/test.jsx'
+import WeeklyPosts from './components/WeekTest.jsx'
+import Test from "@/components/Test.jsx";
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')).render(
                                         <Route path="/404" element={<NotFound />} />
                                         <Route path="*" element={<NotFound />} />
                                         <Route path='/weektest' element={<WeeklyPosts />} />
+                                        <Route path='/test' element={<Test />} />
                                     </Route>
                                 </Routes>
                         </IdeaProvider>
