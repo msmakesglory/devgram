@@ -1,55 +1,93 @@
-import { usePostContext } from "../context/PostContext";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card.jsx";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { faker } from "@faker-js/faker";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
-import { Users } from "lucide-react";
+import { Separator } from "@/components/ui/separator.jsx";
 import { Button } from "@/components/ui/button.jsx";
+import { Users } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
+
+// Function to generate fake ideas
+const generateIdea = () => ({
+    ideatitle: faker.word.words(3),
+    desc: faker.lorem.sentence(),
+    people: faker.number.int({ min: 1, max: 10 }),
+    time: faker.number.int({ min: 1, max: 10 }),
+    postDate: faker.date.past().toDateString(),
+});
 
 export default function PostsList() {
-    const { postsByDate, loadPreviousDay, loadedDays } = usePostContext();
+    const [ideas, setIdeas] = useState([]); // Stores idea posts
+    const [loading, setLoading] = useState(false);
+    const observerRef = useRef(null); // Ref for intersection observer
+
+    useEffect(() => {
+
+        loadMoreIdeas(); // Load first set of ideas
+    }, []);
+
+    const lastPostRef = useCallback(
+        (node) => {
+            if (loading) return;
+            if (observerRef.current) observerRef.current.disconnect(); // Disconnect previous observer
+
+            observerRef.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    loadMoreIdeas(); // Load more posts when last post is visible
+                }
+            });
+
+            if (node) observerRef.current.observe(node); // Observe last post
+        },
+        [loading]
+    );
+
+    const loadMoreIdeas = () => {
+        if(ideas.length > 30)
+            return
+        setLoading(true);
+        setTimeout(() => {
+            const newIdeas = Array.from({ length: 12 }, generateIdea);
+            setIdeas((prev) => [...prev, ...newIdeas]);
+            setLoading(false);
+        }, 1000);
+    };
 
     return (
-        <div className="pt-20 lg:px-20 md:px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-auto space-x-2 space-y-2">
-            {/* Loop through posts grouped by date */}
-            {Object.keys(postsByDate).map((date) => (
-                <div key={date} className="col-span-full text-center my-4">
-                    <h2 className="text-xl font-bold">{date}</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {postsByDate[date].map((post, index) => (
-                            <Card key={post.id} className="hover:bg-muted transition duration-200">
-                                <CardHeader>
-                                    <CardTitle>{post.title}</CardTitle>
-                                    <span className="space-x-2">
-                                        {post.tags?.map((tag, idx) => (
-                                            <Badge key={idx} variant="secondary">{tag}</Badge>
-                                        ))}
-                                    </span>
-                                    <CardDescription>{post.description}</CardDescription>
-                                </CardHeader>
-                                <CardFooter className="pt-4 flex gap-4 justify-between">
-                                    <span className="flex items-center gap-2">
-                                        <img className="size-4 rounded-full"
-                                            src={`https://randomuser.me/api/portraits/lego/${index}.jpg`} 
-                                            alt="user"/>
-                                        {post.creator}
-                                    </span>
-                                    <span className="flex items-center gap-2">
-                                        <Users className="size-6" /> {post.usersNow}/{post.requiredPeople}
-                                    </span>
-                                </CardFooter>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            ))}
-
-            {/* Load More Button */}
-            <div className="col-span-full text-center my-6">
-                {loadedDays < 18 && (
-                    <Button onClick={loadPreviousDay} className="bg-blue-600 text-white">
-                        Load More
-                    </Button>
-                )}
+        <div>
+            <div className="pt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {ideas.map((idea, index) => (
+                    <Card key={index} ref={index === ideas.length - 1 ? lastPostRef : null}>
+                        <CardHeader>
+                            <CardTitle>{idea.ideatitle}</CardTitle>
+                            <span className="space-x-2">
+                                <Badge>Java</Badge>
+                                <Badge>JS</Badge>
+                                <Badge>Python</Badge>
+                            </span>
+                            <CardDescription>{idea.desc}</CardDescription>
+                            <p className="text-muted-foreground text-sm">{idea.postDate}</p>
+                        </CardHeader>
+                        <Separator />
+                        <CardContent>
+                            <div className="pt-4 flex items-center justify-between">
+                                <span className="flex">
+                                    <Avatar>
+                                        <AvatarImage src={"https://www.github.com/spotify.png"} />
+                                        <AvatarFallback></AvatarFallback>
+                                    </Avatar>
+                                    <Button variant="link">@johndoe</Button>
+                                </span>
+                                <Button variant="link">
+                                    <Users /> {idea.people}/10
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
             </div>
+            {loading ? <div className="text-center p-4">Loading more ideas...</div> :
+                <div className="text-center p-4">May Be You Reached The End...</div>}
         </div>
     );
 }
