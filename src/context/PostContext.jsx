@@ -1,69 +1,96 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../configs/firebase";
 import { useProfileContext } from "./ProfileContext";
-import { doc, setDoc, collection, getDocs } from "firebase/firestore";
+import { doc, setDoc, collection, getDocs, query, orderBy, limit, startAfter } from "firebase/firestore";
 
 const PostContext = createContext();
+
+const pageSize = 2;
 
 const getFormattedDate = (daysAgo = 0) => {
     const date = new Date();
     date.setDate(date.getDate() - daysAgo);
-    return date.toISOString().substring(0, 10); // Format: YYYY-MM-DD
-};
+    return date.toISOString().substring(0, 10);
+}
 
 export const PostProvider = ({ children }) => {
-    const [postsByDate, setPostsByDate] = useState({});
-    const [loadedDays, setLoadedDays] = useState(0); // Tracks how many days are loaded
-    const { userDetails }  = useProfileContext();
 
-    const addPost = async ( ideaData ) => {
-        const date = new Date().toISOString().substring(0, 10);
-        const postRef = doc(db, "posts", date, "userPosts" , userDetails?.uid + ideaData?.id);
-
-        await setDoc(postRef, ideaData)
-
+    const { userDetails } = useProfileContext();
+    const [postsByDate, setPostByDate] = useState({});
+    const [lastDocByDate, setLastDocByDate] = useState({});
+    const [loadedDays, setLoadedDays] = useState(0); 
+    
+    // function to add post 
+    const addPost = async (ideaData) => {
+        const date = getFormattedDate(0);
+        const postRef = doc(db, "posts", date, "userPosts", userDetails?.uid + ideaData?.uid);
+        await setDoc(postRef, ideaData);
     }
 
-    // Fetch posts for a specific date
-    const fetchPostsForDate = async (date) => {
-        const postsRef = collection(db, "posts", date, "userPosts");
-        const querySnapshot = await getDocs(postsRef);
+    const fetchPostsForDate = async (date, lastDoc = null) => {
 
-        if (!querySnapshot.empty) {
-            return querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
+        let q = query(
+            collection(db, "posts", date, "userPosts"),
+            orderBy("createdAt", "desc"),
+            limit(pageSize)
+        );
+
+        if(lastDoc) {
+            q = query(q, startAfter(lastDoc));
         }
-        return [];
-    };
 
-    // Fetch today's posts on mount
+        const snapshot = await getDocs(q);
+
+        if(!snapshot.empty){
+            return {
+                posts: snapshot.docs.map(doc => ({id: doc.id, ...doc.data() })),
+                lastDoc: snapshot.docs[snapshot.docs.length - 1]
+            }
+        }
+        return { posts: [], lastDoc: null};
+    }
+
     useEffect(() => {
         const loadTodayPosts = async () => {
             const today = getFormattedDate(0);
-            const todayPosts = await fetchPostsForDate(today);
-            setPostsByDate({ [today]: todayPosts });
+            const { posts, lastDoc} = await fetchPostsForDate(today);
+            setPostByDate({[today]: posts});
+            setLastDocByDate({ [today]: lastDoc});
         };
-
         loadTodayPosts();
     }, []);
 
-    // Function to load previous day's posts
-    const loadPreviousDay = async () => {
-        const nextDay = loadedDays + 1;
-        if (nextDay > 6) return; // Stop after 7 days
 
-        const date = getFormattedDate(nextDay);
-        const olderPosts = await fetchPostsForDate(date);
+    const loadMorePostsForDay = async (date) => {
+        const lastDoc = lastDocByDate[date];
+        if(!lastDoc) return false;
 
-        setPostsByDate(prev => ({ ...prev, [date]: olderPosts }));
-        setLoadedDays(nextDay);
+        const { posts, lastDoc: newLastDoc } = await fetchPostsForDate(date, lastDoc);
+        setPostByDate(prev => ({...prev, [date]: [...prev[date], ...posts]}));
+        setLastDocByDate(prev => ({ ...prev, [date]: newLastDoc }));
+
+        return posts.length > 0;
     };
 
+    const loadPreviousDay = async () => {
+        let nextDay = loadedDays + 1;
+        if(nextDay > 30) return;
+
+        let date = getFormattedDate(nextDay);
+
+        const currentDate = getFormattedDate(loadedDays);
+        const morePostsAvailable = await loadMorePostsForDay(currentDate);
+        if (morePostsAvailable) return;
+
+        const { posts, lastDoc} = await fetchPostsForDate(date);
+        setPostByDate(prev => ({ ...prev, [date]: posts }));
+        setLastDocByDate(prev => ({ ...prev, [date]: lastDoc }));
+        setLoadedDays(nextDay);
+    }
+
     return (
-        <PostContext.Provider value={{ addPost, postsByDate, loadPreviousDay, loadedDays }}>
-            {children}
+        <PostContext.Provider value={{addPost, postsByDate, loadPreviousDay, loadedDays}}>
+            { children }
         </PostContext.Provider>
     );
 };
