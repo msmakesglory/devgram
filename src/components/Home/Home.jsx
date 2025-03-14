@@ -1,54 +1,63 @@
-import {Button} from "@/components/ui/button.jsx";
-import {
-    DropdownMenu,
-    DropdownMenuContent, DropdownMenuItem,
-    DropdownMenuLabel, DropdownMenuSeparator,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu.jsx";
-import {CirclePlus} from "lucide-react";
-import {useState} from "react";
-export const Home = () => {
-    const data = [
-        "java","python","tailwind css","javascript","flask","django",
-        "java","python","tailwind css","javascript","flask","django"
-    ]
-    const [title, setTitle] = useState("Java");
-    return (
-        <div className="h-screen pt-20 px-20 relative flex gap-8">
-            <ul className="space-y-2  w-fit mt-8">
-                <h1 className="font-medium text-xl">Your Groups</h1>
-                {
-                    data.map((item, index) => (
-                        <li key={index} className="border-l">
-                            <button
-                                className="px-2 py-1 rounded hover:bg-secondary transition ease-in-out duration-200 capitalize ml-2"
-                                onClick={()=>{setTitle(item)}}
-                            >
-                                {item}
-                            </button>
-                        </li>
-                    ))
+import { useEffect, useRef, useState } from "react";
+import { usePostContext } from "../../context/PostContext";
+import PostCard from "./Post";
+
+const Home = () => {
+    const { postsByDate, loadPreviousDay } = usePostContext();
+    const scrollRef = useRef(null);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            async (entries) => {
+                if (entries[0].isIntersecting && !loading) {
+                    setLoading(true);
+
+                    await loadPreviousDay();
+
+                    // Delay loading state reset to prevent flickering
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 300); // Adjust timing if needed
                 }
-            </ul>
-            <div className="border h-full flex-grow">
-                <div className="px-4 py-2">
-                    <h1 className="text-xl font-mono capitalize">{title}</h1>
-                </div>
+            },
+            { threshold: 1.0 }
+        );
+
+        if (scrollRef.current) {
+            observer.observe(scrollRef.current);
+        }
+
+        return () => {
+            if (scrollRef.current) {
+                observer.unobserve(scrollRef.current);
+            }
+        };
+    }, [loadPreviousDay, loading]);
+
+    const filteredPosts = Object.values(postsByDate)
+        .flat()
+        .filter((post) => post);
+
+    return (
+        <div className="pt-20 px-4">
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-auto">
+                {filteredPosts.map((post) => (
+                    <PostCard key={post.id} idea={post} />
+                ))}
+
+                {/* Loading Indicator (Smooth Animation) */}
+                {loading && (
+                    <div className="flex justify-center items-center col-span-full mt-10 transition-opacity duration-500 ease-in-out">
+                        <div className="w-8 h-8 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+                    </div>
+                )}
             </div>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button
-                        className="absolute bottom-4 right-4 rounded-full"
-                        variant="ghost"
-                    ><CirclePlus className="size-12"/></Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuLabel>Groups</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Join</DropdownMenuItem>
-                    <DropdownMenuItem>Delete</DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+
+            {/* Scroll Trigger */}
+            <div ref={scrollRef} className="h-10"></div>
         </div>
     );
-}
+};
+
+export default Home;

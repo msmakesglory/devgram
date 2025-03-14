@@ -9,14 +9,14 @@ export default function PostCard({ idea, refProp }) {
     return (
         <Card ref={refProp}>
             <CardHeader>
-                <CardTitle>{idea.ideatitle}</CardTitle>
+                <CardTitle>{idea.title}</CardTitle>
                 <span className="space-x-2">
-                    <Badge>Java</Badge>
-                    <Badge>JS</Badge>
-                    <Badge>Python</Badge>
+                    {idea.tags.map((tag, index) => (
+                        <Badge key={index}>{tag}</Badge>
+                    ))}
                 </span>
-                <CardDescription className="line-clamp-1">{idea.desc}</CardDescription>
-                <p className="text-muted-foreground text-sm">{idea.postDate}</p>
+                <CardDescription className="line-clamp-1">{idea.description}</CardDescription>
+                <p className="text-muted-foreground text-sm">{idea.createdAt.substring(0, 10)}</p>
             </CardHeader>
             <Separator />
             <CardContent>
@@ -26,10 +26,10 @@ export default function PostCard({ idea, refProp }) {
                             <AvatarImage src={"https://www.github.com/spotify.png"} />
                             <AvatarFallback></AvatarFallback>
                         </Avatar>
-                        <Button variant="link">@johndoe</Button>
+                        <Button variant="link">{idea.creator}</Button>
                     </span>
                     <Button variant="link">
-                        <Users /> {idea.people}/10
+                        <Users /> {idea.requiredPeople}/10
                     </Button>
                 </div>
             </CardContent>

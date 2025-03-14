@@ -12,10 +12,8 @@ import { AuthProvider } from './context/authContext.jsx';
 import NotFound from './components/404.jsx';
 import ForgotPassword from './components/auth/ForgotPassword.jsx';
 import { IdeaProvider } from './context/IdeaContext.jsx';
-import {Home} from "@/components/Home/Home.jsx";
+import Home from "./components/Home/Home.jsx";
 import { PostProvider } from './context/PostContext.jsx';
-import PostList from './components/WeekTest.jsx'
-import Test from "@/components/Test.jsx";
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -34,8 +32,6 @@ createRoot(document.getElementById('root')).render(
                                         <Route path="/p/:uid" element={<Profile />} />
                                         <Route path="/404" element={<NotFound />} />
                                         <Route path="*" element={<NotFound />} />
-                                        <Route path='/weektest' element={<PostList />} />
-                                        <Route path='/test' element={<Test />} />
                                     </Route>
                                 </Routes>
                         </IdeaProvider>

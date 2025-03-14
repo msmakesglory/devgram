@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HyperText } from "@/components/ui/hyper-text";
 import { AuroraText } from "@/components/ui/aurora-text"; // Assuming this component exists
 import { ArrowRight } from "lucide-react"; // Import your arrow icon
+import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
     const [showIntro, setShowIntro] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -57,7 +59,7 @@ export default function LandingPage() {
                             together
                         </p>
 
-                        <button
+                        <button onClick={() => navigate('/home')}
                             className="mt-4 border px-4 py-2 rounded-full hover:scale-105 transition duration-150 ease-linear font-semibold">
                             ✨ Get Started <ArrowRight className={"inline-block"}/>
                         </button>
