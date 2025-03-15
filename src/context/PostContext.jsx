@@ -5,7 +5,8 @@ import { doc, setDoc, collection, getDocs, query, orderBy, limit, startAfter } f
 
 const PostContext = createContext();
 
-const pageSize = 2;
+const pageSize = 10;
+const postFetchLimit = 15;
 
 const getFormattedDate = (daysAgo = 0) => {
     const date = new Date();
@@ -23,7 +24,7 @@ export const PostProvider = ({ children }) => {
     // function to add post 
     const addPost = async (ideaData) => {
         const date = getFormattedDate(0);
-        const postRef = doc(db, "posts", date, "userPosts", userDetails?.uid + ideaData?.uid);
+        const postRef = doc(db, "posts", date, "userPosts", userDetails?.uid + ideaData?.id);
         await setDoc(postRef, ideaData);
     }
 
@@ -74,7 +75,7 @@ export const PostProvider = ({ children }) => {
 
     const loadPreviousDay = async () => {
         let nextDay = loadedDays + 1;
-        if(nextDay > 30) return;
+        if(nextDay > postFetchLimit) return;
 
         let date = getFormattedDate(nextDay);
 

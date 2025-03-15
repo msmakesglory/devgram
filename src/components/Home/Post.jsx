@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button.jsx";
 import { Users } from "lucide-react";
 import extractUsername from "@/components/utils/util.js";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
+import { getTimeAgo } from "../../utils/getTimeAgo";
 
 export default function PostCard({ idea, refProp }) {
 
@@ -18,7 +19,7 @@ export default function PostCard({ idea, refProp }) {
                     ))}
                 </span>
                 <CardDescription className="line-clamp-1">{idea.description}</CardDescription>
-                <p className="text-muted-foreground text-sm">{idea.createdAt.substring(0, 10)}</p>
+                <p className="text-muted-foreground text-sm">{getTimeAgo(new Date(idea.createdAt))}</p>
             </CardHeader>
             <Separator />
             <CardContent>
