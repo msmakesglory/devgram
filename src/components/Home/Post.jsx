@@ -3,9 +3,11 @@ import { Badge } from "@/components/ui/badge.jsx";
 import { Separator } from "@/components/ui/separator.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Users } from "lucide-react";
+import extractUsername from "@/components/utils/util.js";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 
 export default function PostCard({ idea, refProp }) {
+
     return (
         <Card ref={refProp}>
             <CardHeader>
@@ -23,8 +25,10 @@ export default function PostCard({ idea, refProp }) {
                 <div className="pt-4 flex items-center justify-between">
                     <span className="flex">
                         <Avatar>
-                            <AvatarImage src={"https://www.github.com/spotify.png"} />
-                            <AvatarFallback></AvatarFallback>
+                        <AvatarImage
+                            src={idea.github ?`https://github.com/${extractUsername(idea.github)}.png` : `https://github.com/shadcn.png`}
+                        />
+                  <AvatarFallback>👨‍💻</AvatarFallback>
                         </Avatar>
                         <Button variant="link">{idea.creator}</Button>
                     </span>

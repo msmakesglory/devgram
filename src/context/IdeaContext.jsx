@@ -57,6 +57,7 @@ export const IdeaProvider = ({ children }) => {
             tags: ideaData.tags || [],
             requiredPeople: ideaData.requiredPeople,
             status: ideaData.status,
+            github: userDetails?.github,
             createdAt: new Date().toISOString()
         };
 
