@@ -55,6 +55,8 @@ export const IdeaProvider = ({ children }) => {
             title: ideaData.title,
             description: ideaData.description,
             tags: ideaData.tags || [],
+            acceptedPeople: 0, // note: have to write the function to not going than requiredPeople
+            acceptedPeopleIDs: [],
             requiredPeople: ideaData.requiredPeople,
             status: ideaData.status,
             github: userDetails?.github,

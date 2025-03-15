@@ -23,7 +23,7 @@ export const ProfileProvider = ({ children }) => {
 
     return (
         <ProfileContext.Provider value={{userDetails, setUserDetails, updateSingleField}}>
-            { children }
+            { children }    
         </ProfileContext.Provider>
     )
 }
