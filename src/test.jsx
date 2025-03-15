@@ -1,11 +1,19 @@
 import { useNotificationContext } from "./context/notificationContext";
+import { useEffect } from "react";
+import { useProfileContext } from "./context/ProfileContext";
+
 
 const TestComponent = () => {
-    const { sendNotification } = useNotificationContext();
+    const { sendNotification, fetchNotifications, notifications } = useNotificationContext();
+    const {userDetails} = useProfileContext();
+
+    useEffect(() => {
+        fetchNotifications(userDetails?.uid);
+    }, [userDetails?.uid]);
 
     const handleClick = async () => {
         try {
-            await sendNotification("weruwgflb3wlufbul3b", "message is message");
+            await sendNotification(userDetails?.uid, "testing msg");
             alert("Notification sent successfully!");
         } catch (error) {
             console.error("Failed to send notification:", error);
@@ -18,6 +26,18 @@ const TestComponent = () => {
             <button onClick={handleClick} style={styles.button}>
                 Click
             </button>
+            <div>
+                <h2>Notifications</h2>
+                {notifications.length === 0 ? (
+                    <p>No notifications</p>
+                ) : (
+                    <ul>
+                        {notifications.map((notif) => (
+                            <li key={notif.id}>{notif.message}</li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
     );
 };
